@@ -70,32 +70,21 @@ ADD Default_Conf/ssh_config /etc/ssh/ssh_config
 
 EXPOSE 22
 
-# Podemos crear nuestra propia rsa key o agregar alguna que tengamos preparda
+# GENERATE rsa_key
+RUN sudo su hdmaster && \
+	mkdir ~/.ssh/ &&  \
+	cd ~/.ssh/ \ &&  \
+	ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
+	cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
+	chmod 644 ~/.ssh/authorized_keys
 
-# OPCION 1: GENERARLA DE FORMA AUTOMATICA RSA_KEY
-# OPCION 1: Automatic rsa_key
- RUN sudo su hdmaster && \
- 	mkdir ~/.ssh/ &&  \
- 	cd ~/.ssh/ \ &&  \
- 	ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
- 	cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
- 	chmod 644 ~/.ssh/authorized_keys 
-
-RUN chown -R hdmaster:hadoop /root/.ssh
-RUN cp -R ~/ /opt/bd/.ssh && chown -R hdmaster:hadoop /opt/bd/.ssh
-
-
-# OPCION 2: TENER NUESTRA PROPIA RSA_KEY
-# nos proporciona la ventaja de poder usar nuestro equipo como parte del cluster
-# ya que podemos añadir las claves
-# OPCION 2: Manual rsa_key
-# RUN mkdir ~/.ssh/
-# ADD .ssh/* /root/.ssh/
-# RUN chmod 644 ~/.ssh/autorized_keys
+RUN cp -R ~/.ssh /opt/bd/.ssh && chown -R hdmaster:hadoop /opt/bd/.ssh
+RUN chown -R hdmaster:hadoop /opt/bd/.ssh
+RUN chown -R root:root /root/.ssh/ root
 
 
 # ESTO NO VALE DE NADA PORQUE NO SE HA CONSTRUIDO LA MAQUINA REAL
-# This not run because it's not a real machine
+# This it not run because it's not a real machine
 # RUN service ssh start
 # RUN sudo su hdmaster && cd ~/ && ssh localhost
 
@@ -153,7 +142,7 @@ RUN chown -R hdmaster:hadoop /var/log/hadoop
 RUN mkdir -p /hadoop/dfs/data
 VOLUME /hadoop/dfs/data
 
-CMD ["/etc/bootstrap.sh", "-d"]
+CMD ["/etc/bootstrap.sh", "-bash"]
 
 # Based on:
 # https://github.com/sequenceiq/hadoop-docker 
