@@ -1,7 +1,7 @@
-172.28.0.1	namenode
-172.28.0.2	resourcemanager
-172.28.0.3	jobhistoryserver
-172.28.0.3	nodemanager
-172.28.0.5	datanode1
-172.28.0.6	datanode2
-172.28.0.7	datanode3
+172.28.0.2	namenode
+172.28.0.3	resourcemanager
+172.28.0.4	jobhistoryserver
+172.28.0.5	nodemanager
+172.28.0.6	datanode1
+172.28.0.7	datanode2
+172.28.0.8	datanode3

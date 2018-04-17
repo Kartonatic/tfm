@@ -1,0 +1,6 @@
+#!/bin/bash
+#sudo su hdmaster && hdfs datanode -format
+chown -R hdmaster:hadoop /var/data/hadoop
+chmod a+rw -R /var/data/hadoop
+ls -la /var/data/hadoop/hdfs
+sudo -u hdmaster -g hadoop $HADOOP_HOME/bin/hdfs datanode

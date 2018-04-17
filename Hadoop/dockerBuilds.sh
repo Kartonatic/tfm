@@ -11,3 +11,10 @@ cd ../hadoop_historyserver
 docker build -t karton91/hadoop_historyserver .
 cd ../hadoop_nodemanager
 docker build -t karton91/hadoop_nodemanager .
+
+# docker push karton91/hadoop_base
+# docker push karton91/hadoop_namenode
+# docker push karton91/hadoop_datanode
+# docker push karton91/hadoop_resourcemanager
+# docker push karton91/hadoop_historyserver
+# docker push karton91/hadoop_nodemanager 

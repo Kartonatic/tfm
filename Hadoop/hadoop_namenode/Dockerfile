@@ -6,7 +6,11 @@ USER root
 HEALTHCHECK CMD curl -f http://localhost:50070/ || exit 1
 EXPOSE 50070
 
-RUN sudo su hdmaster && hdfs namenode -format
-# hdfs --daemon start namenode
+# RUN sudo su hdmaster && hdfs namenode -format
 
-CMD ["/etc/bootstrap.sh", "-bash"]
+ADD run.sh /run.sh
+RUN chmod a+x /run.sh
+
+EXPOSE 50070
+
+CMD ["/run.sh"]

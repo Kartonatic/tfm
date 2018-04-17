@@ -88,6 +88,14 @@ RUN chown -R root:root /root/.ssh/ root
 # RUN service ssh start
 # RUN sudo su hdmaster && cd ~/ && ssh localhost
 
+# IMPORTANT: if you don't use my yaml file, you have to change entrypoint.sh or /etc/hosts
+# Add routes yml for hosts
+ADD  Default_Conf/AddHosts /
+
+ADD entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 ####################################################################################
 
 # Add bootstrap
@@ -143,16 +151,14 @@ ENV BOOTSTRAP /etc/bootstrap.sh
 RUN mkdir -p /var/data/hadoop/hdfs/nn
 RUN mkdir -p /var/data/hadoop/hdfs/cpn
 RUN mkdir -p /var/data/hadoop/hdfs/dn 
-RUN chown -R hdmaster:hadoop /var/data/hadoop/hdfs
+RUN chown -R hdmaster:hadoop /var/data/hadoop/
 RUN mkdir -p /var/log/hadoop/yarn
 RUN mkdir -p /var/log/hadoop/hdfs
 RUN mkdir -p /var/log/hadoop/mapred
 RUN chown -R hdmaster:hadoop /var/log/hadoop
 
+# Add volume for hdfs persistant
 VOLUME /var/data/hadoop/hdfs
-
-# Add routes yml for hosts
-ADD  Default_Conf/AddHosts /
 
 CMD ["/etc/bootstrap.sh", "-bash"]
 

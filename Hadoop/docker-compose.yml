@@ -2,7 +2,7 @@ version: "3"
 services:
   namenode:
     image: karton91/hadoop_namenode
-    container_name: hadoop_namenode
+    container_name: namenode
     volumes:
       - ./hadoop_resources/datanode:/var/data/hadoop/hdfs/
     environment:
@@ -11,8 +11,7 @@ services:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.3
-    command: /etc/bootstrap.sh -bash
+        ipv4_address: 172.28.0.2
   
   resourcemanager:
     image: karton91/hadoop_resourcemanager
@@ -25,7 +24,7 @@ services:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.2
+        ipv4_address: 172.28.0.3
 
   historyserver:
     image: karton91/hadoop_historyserver
@@ -35,12 +34,12 @@ services:
       - datanode1
       - datanode2
     volumes:
-      - ./hadoop_resources/historyserver:/hadoop/yarn/timeline
+      - ./hadoop_resources/historyserver:/var/history/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.3
+        ipv4_address: 172.28.0.4
 
   nodemanager:
     image: karton91/hadoop_nodemanager
@@ -53,7 +52,7 @@ services:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.4
+        ipv4_address: 172.28.0.5
   
   datanode1:
     image: karton91/hadoop_datanode
@@ -66,7 +65,7 @@ services:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.5
+        ipv4_address: 172.28.0.6
   
   datanode2:
     image: karton91/hadoop_datanode
@@ -74,12 +73,12 @@ services:
     depends_on:
       - namenode
     volumes:
-      - ./hadoop_resources/datanode1:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode2:/var/data/hadoop/hdfs/
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.6
+        ipv4_address: 172.28.0.7
   
   datanode3:
     image: karton91/hadoop_datanode
@@ -87,12 +86,12 @@ services:
     depends_on:
       - namenode
     volumes:
-      - ./hadoop_resources/datanode1:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode3:/var/data/hadoop/hdfs/
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.7
+        ipv4_address: 172.28.0.8
 
 networks:
   hadoopnet:
@@ -102,13 +101,6 @@ networks:
       config:
       -
         subnet: 172.28.0.0/28
-
-
-# networks:
-#   hadoopnet:
-#     driver: default
-#     config:
-#       - subnet: 172.28.0.0/28
 
 volumes:
   hadoop_namenode:
