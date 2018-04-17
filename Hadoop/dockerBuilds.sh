@@ -1,0 +1,13 @@
+#!/bin/bash
+cd ./hadoop_base
+docker build -t karton91/hadoop_base .
+cd ../hadoop_namenode
+docker build -t karton91/hadoop_namenode .
+cd ../hadoop_datanode
+docker build -t karton91/hadoop_datanode .
+cd ../hadoop_resourcemanager
+docker build -t karton91/hadoop_resourcemanager .
+cd ../hadoop_historyserver
+docker build -t karton91/hadoop_historyserver .
+cd ../hadoop_nodemanager
+docker build -t karton91/hadoop_nodemanager .

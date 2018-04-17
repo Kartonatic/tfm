@@ -1,0 +1,1 @@
+Este es el cluster hadoop. Ejecutar dockerBuilds.sh y luego hacer docker-compose up.

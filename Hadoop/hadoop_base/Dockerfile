@@ -112,15 +112,25 @@ ENV HADOOP_VERSION 3.1.0
 
 # Hadoop
 
-ENV HADOOP_PREFIX /opt/bd/hadoop
+ENV HADOOP_HOME /opt/bd/hadoop
 ENV HADOOP_COMMON_HOME /opt/bd/hadoop
 ENV HADOOP_HDFS_HOME /opt/bd/hadoop
 ENV HADOOP_MAPRED_HOME /opt/bd/hadoop
 ENV HADOOP_YARN_HOME /opt/bd/hadoop
 ENV HADOOP_CONF_DIR /opt/bd/hadoop/etc/hadoop
-ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
-ENV PATH=$PATH:$HADOOP_PREFIX/bin
+ENV YARN_CONF_DIR $HADOOP_HOME/etc/hadoop
+ENV PATH=$PATH:$HADOOP_HOME/bin
 
+RUN cp /etc/skel/.bash_logout /opt/bd/
+RUN cp /etc/skel/.profile /opt/bd/
+RUN cp /etc/skel/.bashrc /opt/bd/
+RUN echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> /opt/bd/.bashrc
+RUN echo export HADOOP_HOME=/opt/bd/hadoop  >> /opt/bd/.bashrc
+RUN echo export PATH=$PATH:$HADOOP_HOME/bin >> /opt/bd/.bashrc
+
+RUN chown -R hdmaster:hadoop /opt/bd/.bash_logout
+RUN chown -R hdmaster:hadoop /opt/bd/.profile
+RUN chown -R hdmaster:hadoop /opt/bd/.bashrc
 
 #bootstrap
 ENV BOOTSTRAP /etc/bootstrap.sh
@@ -139,8 +149,10 @@ RUN mkdir -p /var/log/hadoop/hdfs
 RUN mkdir -p /var/log/hadoop/mapred
 RUN chown -R hdmaster:hadoop /var/log/hadoop
 
-RUN mkdir -p /hadoop/dfs/data
-VOLUME /hadoop/dfs/data
+VOLUME /var/data/hadoop/hdfs
+
+# Add routes yml for hosts
+ADD  Default_Conf/AddHosts /
 
 CMD ["/etc/bootstrap.sh", "-bash"]
 

@@ -1,1 +1,3 @@
-Este es el Trabajo de fin de grado que estoy haciendo
+Este es el Trabajo de fin de grado que estoy haciendo...
+Estoy ahora intentando montar hadoop con docker:
+hay 3 datanodes y los diferentes servicios
