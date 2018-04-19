@@ -17,16 +17,14 @@ fi
 # fi
 
 chown -R hdmaster:hadoop /var/data/hadoop
+chown -R hdmaster:hadoop /var/log/hadoop/
+chmod a+rw -R /var/log/hadoop/
 
-ls -lsa /var/data/hadoop/
-ls -lsa /var/data/hadoop/hdfs
 if grep -q "False" /var/data/hadoop/hdfs/isActive
 then 
 	sudo -u hdmaster -g hadoop $HADOOP_HOME/bin/hdfs namenode -format $CLUSTER_NAME -force
 	echo "True" > /var/data/hadoop/hdfs/isActive
 fi
-
-
 
 sudo -u hdmaster -g hadoop $HADOOP_HOME/bin/hdfs namenode
 

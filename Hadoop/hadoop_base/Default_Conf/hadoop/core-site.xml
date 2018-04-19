@@ -21,18 +21,15 @@
     <!-- nombre del Namenode -->
     <name>fs.defaultFS</name>
     <value>hdfs://namenode:9000/</value>
-    <final>true</final>
   </property>
   <property>
     <!-- Almacenamiento temporal (debe tener suficiente espacio) -->
     <name>hadoop.tmp.dir</name>
     <value>/var/tmp</value>
-    <final>true</final>
   </property>
   <property>
     <!-- Usuario por defecto para el interfaz web -->
     <name>hadoop.http.staticuser.user</name>
     <value>hdfs</value>
-    <final>true</final>
   </property>
 </configuration>

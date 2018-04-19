@@ -15,62 +15,77 @@
 <configuration>
 
 <!-- Site specific YARN configuration properties -->
-<property>
+  <property>
     <!-- El ResourceManager -->
     <name>yarn.resourcemanager.hostname</name>
     <value>resourcemanager</value>
-    <final>true</final>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>resourcemanager:8032</value>
+  </property>
+  <property>
+    <name>yarn.log.server.url</name>
+    <value>http://historyserver:8188/applicationhistory/logs/</value>
+  </property>
+  <property>
+    <name>yarn.log.server.url</name>
+    <value>http://historyserver:8188/applicationhistory/logs/</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.store.class</name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.FileSystemRMStateStore</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.system-metrics-publisher.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>resourcemanager:8031</value>
   </property>
   <property>
     <!-- Indica a los NodeManagers que tienen que implementar el servicio de barajado mapreduce -->
     <name>yarn.nodemanager.aux-services</name>
     <value>mapreduce_shuffle</value>
-    <final>true</final>
   </property>
   <property>
     <!-- Clase que implementa el servicio de barajado mapreduce -->
     <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
-    <final>true</final>
   </property>
   <property>
-    <!-- Numero de cores del NodeManager (por defecto: 8) -->
+    <!-- Numero de cores del NodeManager (por defecto: 8) y con -1 los autodetecta-->
     <name>yarn.nodemanager.resource.cpu-vcores</name>
-    <value>3</value>
-    <final>true</final>
+    <value>-1</value>
   </property>
   <property>
-    <!-- Memoria física (MB) que puede ser reservada por los contenedores (por defecto: 8192) -->
+    <!-- Memoria física (MB) que puede ser reservada por los contenedores (por defecto: 4096) -->
     <!-- debe ser menor que la RAM física, para que funcionen otros servicios -->
     <name>yarn.nodemanager.resource.memory-mb</name>
     <value>4096</value>
-    <final>true</final>
   </property>
   <property>
     <!-- Ratio memoria virtual/memoria fisica (por defecto: 2.1) -->
     <name>yarn.nodemanager.vmem-pmem-ratio</name>
     <value>2.1</value>
-    <final>true</final>
   </property>
   <property>
-    <!-- Numero maximo de cores por container (por defecto: 32) -->
+    <!-- Numero maximo de cores por container (por defecto: 4) -->
     <name>yarn.scheduler.maximum-allocation-vcores</name>
-    <value>2</value>
-    <final>true</final>
+    <value>4</value>
   </property>
   <property>
     <!-- Mínima reserva permitida por contenedor al Resource Managet (MBs) -->
     <!-- Solicitudes menores lanzan una InvalidResourceRequestException.(por defecto: 1024) -->
     <name>yarn.scheduler.minimum-allocation-mb</name>
-    <value>1024</value>
-    <final>true</final>
+    <value>512</value>
   </property>
   <property>
     <!-- Máxima reserva permitida por contenedor al Resource Managet (MBs) -->
     <!-- Solicitudes mayores lanzan una InvalidResourceRequestException.(por defecto: 8192) -->
     <name>yarn.scheduler.maximum-allocation-mb</name>
-    <value>4096</value>
-    <final>true</final>
+    <value>6144</value>
   </property>
   <property>
     <!-- Permite agregacion de logs en el historyserver -->

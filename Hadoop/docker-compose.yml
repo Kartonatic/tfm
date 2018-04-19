@@ -3,9 +3,10 @@ services:
   namenode:
     image: karton91/hadoop_namenode
     container_name: namenode
-    hostname: 172.28.0.2
+    hostname: namenode
     volumes:
-      - ./hadoop_resources/namenode:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/namenode/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/namenode/log:/var/log/hadoop/
     environment:
       - CLUSTER_NAME=hadoop
     env_file:
@@ -17,10 +18,13 @@ services:
   resourcemanager:
     image: karton91/hadoop_resourcemanager
     container_name: resourcemanager
+    hostname: resourcemanager
     depends_on:
       - namenode
       - datanode1
       - datanode2
+    volumes:
+      - ./hadoop_resources/resourcemanager/log:/var/log/hadoop/
     env_file:
       - ./hadoop.env
     networks:
@@ -30,72 +34,94 @@ services:
   historyserver:
     image: karton91/hadoop_historyserver
     container_name: historyserver
+    hostname: historyserver
     depends_on:
       - namenode
       - datanode1
       - datanode2
     volumes:
-      - ./hadoop_resources/historyserver:/var/history/hadoop/yarn/timeline
+      - ./hadoop_resources/historyserver/log:/var/log/hadoop/
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
         ipv4_address: 172.28.0.4
 
-  nodemanager:
-    image: karton91/hadoop_nodemanager
-    container_name: nodemanager
+  checkpointnode:
+    image: karton91/hadoop_checkpointnode
+    container_name: checkpointnode
+    hostname: checkpointnode
     depends_on:
       - namenode
-      - datanode1
-      - datanode2
+    volumes:
+      - ./hadoop_resources/checkpointnode/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/checkpointnode/log:/var/log/hadoop/
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
         ipv4_address: 172.28.0.5
-  
-  datanode1:
-    image: karton91/hadoop_datanode
-    container_name: datanode1
-    hostname: 172.28.0.6
+
+  nodemanager:
+    image: karton91/hadoop_nodemanager
+    container_name: nodemanager
+    hostname: nodemanager
     depends_on:
       - namenode
+      - datanode1
+      - datanode2
     volumes:
-      - ./hadoop_resources/datanode1:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/nodemanager/log:/var/log/hadoop/
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
         ipv4_address: 172.28.0.6
   
-  datanode2:
+  datanode1:
     image: karton91/hadoop_datanode
-    container_name: datanode2
-    hostname: 172.28.0.7
+    container_name: datanode1
+    hostname: datanode1
     depends_on:
       - namenode
     volumes:
-      - ./hadoop_resources/datanode2:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode1/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode1/log:/var/log/hadoop/
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
         ipv4_address: 172.28.0.7
   
-  datanode3:
+  datanode2:
     image: karton91/hadoop_datanode
-    container_name: datanode3
-    hostname: 172.28.0.8
+    container_name: datanode2
+    hostname: datanode2
     depends_on:
       - namenode
     volumes:
-      - ./hadoop_resources/datanode3:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode2/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode2/log:/var/log/hadoop/
     env_file:
       - ./hadoop.env
     networks:
       hadoopnet:
         ipv4_address: 172.28.0.8
+  
+  datanode3:
+    image: karton91/hadoop_datanode
+    container_name: datanode3
+    hostname: datanode3
+    depends_on:
+      - namenode
+    volumes:
+      - ./hadoop_resources/datanode3/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode3/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      hadoopnet:
+        ipv4_address: 172.28.0.9
 
 networks:
   hadoopnet:
@@ -105,10 +131,3 @@ networks:
       config:
       -
         subnet: 172.28.0.0/28
-
-volumes:
-  hadoop_namenode:
-  hadoop_datanode1:
-  hadoop_datanode2:
-  hadoop_datanode3:
-  hadoop_historyserver:

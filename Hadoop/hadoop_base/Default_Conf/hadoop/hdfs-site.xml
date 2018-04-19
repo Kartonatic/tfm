@@ -17,16 +17,14 @@
 <!-- Put site-specific property overrides in this file. -->
 <configuration>
     <property>
-        <!-- Factor de replicacion de los bloques -->
+        <!-- Factor de replicacion de los bloques (por defecto 3)-->
         <name>dfs.replication</name>
         <value>2</value>
-        <final>true</final>
     </property>
     <property>
         <!-- Tamano del bloque (por defecto 128m) -->
         <name>dfs.blocksize</name>
         <value>64m</value>
-        <final>true</final>
     </property>
     <property>
         <!-- Lista (separada por comas) de directorios donde el namenode guarda los metadatos.
@@ -34,7 +32,6 @@
          uno en el disco local del namenode y otro remoto montado por NFS -->
         <name>dfs.namenode.name.dir</name>
         <value>file:///var/data/hadoop/hdfs/nn</value>
-        <final>true</final>
     </property>
     <property>
       <!-- Lista (separada por comas) de directorios donde el checkpoint node guarda los checkpoints.
@@ -42,14 +39,12 @@
         Ha cambiado el nombre de la propiedad de fs.checkpoint.dir al que hay ahora -->
       <name>dfs.namenode.checkpoint.dir</name>
       <value>file:///var/data/hadoop/hdfs/cpn</value>
-      <final>true</final>
     </property>
     <property>
       <!-- Lista (separada por comas) de directorios donde el checkpoint node guarda los edits temporales
         ha cambiado tambien el nombre de esta propideda de fs.checkpoint.edits.dir a la que hay ahora -->
       <name>dfs.namenode.checkpoint.edits.dir</name>
       <value>file:///var/data/hadoop/hdfs/cpn</value>
-      <final>true</final>
     </property>
     <property>
       <!-- Lista (separada por comas) de directorios donde los datanodes guardan los datos:
@@ -57,18 +52,21 @@
          especificar un directorio en cada uno de los discos locales -->
         <name>dfs.datanode.data.dir</name>
         <value>file:///var/data/hadoop/hdfs/dn</value>
-        <final>true</final>
     </property>
     <property>
         <!-- Dirección y puerto del interfaz web del namenode -->
         <name>dfs.namenode.http-address</name>
         <value>namenode:50070</value>
-        <final>true</final>
     </property>
     <property>
         <!-- Dirección y puerto del interfaz web del checkpoint node (aka secondary namenode) -->
         <name>dfs.namenode.secondary.http-address</name>
         <value>checkpointnode:50090</value>
-        <final>true</final>
+    </property>
+    <property>
+      <!-- Si es verdadero activa los permisos de usuario
+            y grupo en el hdfs -->
+      <name>dfs.permissions.enabled</name>
+      <value>true</value>
     </property>
 </configuration>

@@ -21,31 +21,26 @@
     <!-- Framework que realiza el MapReduce -->
     <name>mapreduce.framework.name</name>
     <value>yarn</value>
-    <final>true</final>
   </property>
   <property>
-    <!-- Memoria maxima (MB) por map (por defecto: 1536) -->
+    <!-- Memoria maxima (MB) por map (por defecto (-1): 1024) -->
     <name>mapreduce.map.memory.mb</name>
-    <value>1536</value>
-    <final>true</final>
+    <value>-1</value>
   </property>
   <property>
-    <!-- Memoria maxima (MB) por reduce (por defecto: 3072)-->
+    <!-- Memoria maxima (MB) por reduce (por defecto (-1): 1024)-->
     <name>mapreduce.reduce.memory.mb</name>
-    <value>3072</value>
-    <final>true</final>
+    <value>-1</value>
   </property>
   <property>
     <!-- El JobHistory Server -->
     <name>mapreduce.jobhistory.address</name>
-    <value>jobhistoryserver:10020</value>
-    <final>true</final>
+    <value>historyserver:10020</value>
   </property>
   <property>
      <!-- Interfaz web del JobHistory Server -->
     <name>mapreduce.jobhistory.webapp.address</name>
-    <value>jobhistoryserver:19888</value>
-    <final>true</final>
+    <value>historyserver:19888</value>
   </property>
   <property>
     <name>yarn.app.mapreduce.am.env</name>

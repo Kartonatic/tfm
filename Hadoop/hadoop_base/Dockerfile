@@ -160,6 +160,7 @@ RUN chown -R hdmaster:hadoop /var/log/hadoop
 
 # Add volume for hdfs persistant
 VOLUME /var/data/hadoop/hdfs
+VOLUME /var/log/hadoop/
 
 #Create user hdfs
 RUN mkdir /home/hdfs
