@@ -17,7 +17,7 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-<property>
+  <property>
     <!-- Framework que realiza el MapReduce -->
     <name>mapreduce.framework.name</name>
     <value>yarn</value>
@@ -35,6 +35,7 @@
     <value>3072</value>
     <final>true</final>
   </property>
+  <property>
     <!-- El JobHistory Server -->
     <name>mapreduce.jobhistory.address</name>
     <value>jobhistoryserver:10020</value>
@@ -47,8 +48,8 @@
     <final>true</final>
   </property>
   <property>
-  <name>yarn.app.mapreduce.am.env</name>
-  <value>HADOOP_MAPRED_HOME=/opt/bd/hadoop</value>
+    <name>yarn.app.mapreduce.am.env</name>
+    <value>HADOOP_MAPRED_HOME=/opt/bd/hadoop</value>
   </property>
   <property>
     <name>mapreduce.map.env</name>

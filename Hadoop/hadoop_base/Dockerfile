@@ -54,10 +54,11 @@ RUN cd /opt/bd && \
 	rm -R hadoop-3.1.0.tar.gz && \
 	ln -s hadoop-3.1.0 hadoop
 
-ADD Default_Conf/hadoop/* /opt/bd/hadoop/etc/hadoop/
 RUN echo 'Please wait to change permisions...'
 RUN chown -R hdmaster:hadoop /opt/bd
 
+ADD Default_Conf/hadoop/* /opt/bd/hadoop/etc/hadoop/
+RUN chown -R hdmaster:hadoop /opt/bd/hadoop/etc/hadoop/
 
 ####################################################################################
 
@@ -159,6 +160,11 @@ RUN chown -R hdmaster:hadoop /var/log/hadoop
 
 # Add volume for hdfs persistant
 VOLUME /var/data/hadoop/hdfs
+
+#Create user hdfs
+RUN mkdir /home/hdfs
+RUN useradd -r -d /home/hdfs -s /bin/bash hdfs
+RUN chown -R hdfs /home/hdfs
 
 CMD ["/etc/bootstrap.sh", "-bash"]
 

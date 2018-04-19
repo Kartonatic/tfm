@@ -3,8 +3,9 @@ services:
   namenode:
     image: karton91/hadoop_namenode
     container_name: namenode
+    hostname: 172.28.0.2
     volumes:
-      - ./hadoop_resources/datanode:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/namenode:/var/data/hadoop/hdfs/
     environment:
       - CLUSTER_NAME=hadoop
     env_file:
@@ -57,6 +58,7 @@ services:
   datanode1:
     image: karton91/hadoop_datanode
     container_name: datanode1
+    hostname: 172.28.0.6
     depends_on:
       - namenode
     volumes:
@@ -70,6 +72,7 @@ services:
   datanode2:
     image: karton91/hadoop_datanode
     container_name: datanode2
+    hostname: 172.28.0.7
     depends_on:
       - namenode
     volumes:
@@ -83,6 +86,7 @@ services:
   datanode3:
     image: karton91/hadoop_datanode
     container_name: datanode3
+    hostname: 172.28.0.8
     depends_on:
       - namenode
     volumes:

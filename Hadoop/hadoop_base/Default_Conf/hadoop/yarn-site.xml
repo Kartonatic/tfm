@@ -36,7 +36,7 @@
   <property>
     <!-- Numero de cores del NodeManager (por defecto: 8) -->
     <name>yarn.nodemanager.resource.cpu-vcores</name>
-    <value>2</value>
+    <value>3</value>
     <final>true</final>
   </property>
   <property>
@@ -49,13 +49,13 @@
   <property>
     <!-- Ratio memoria virtual/memoria fisica (por defecto: 2.1) -->
     <name>yarn.nodemanager.vmem-pmem-ratio</name>
-    <value>2</value>
+    <value>2.1</value>
     <final>true</final>
   </property>
   <property>
     <!-- Numero maximo de cores por container (por defecto: 32) -->
     <name>yarn.scheduler.maximum-allocation-vcores</name>
-    <value>1</value>
+    <value>2</value>
     <final>true</final>
   </property>
   <property>
