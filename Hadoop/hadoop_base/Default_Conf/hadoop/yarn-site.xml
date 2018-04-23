@@ -13,7 +13,6 @@
   limitations under the License. See accompanying LICENSE file.
 -->
 <configuration>
-
 <!-- Site specific YARN configuration properties -->
   <property>
     <!-- El ResourceManager -->
@@ -55,6 +54,16 @@
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
   </property>
   <property>
+    <!-- Permite agregacion de logs en el historyserver -->
+    <name>yarn.log-aggregation-enable</name>
+    <value>true</value>
+  </property>
+  <property>
+    <!--Directorio donde guardara los ficheros de logs -->
+    <name>yarn.nodemanager.log-dirs</name>
+    <value>/var/log/hadoop/yarn</value>
+  </property>
+  <property>
     <!-- Numero de cores del NodeManager (por defecto: 8) y con -1 los autodetecta-->
     <name>yarn.nodemanager.resource.cpu-vcores</name>
     <value>-1</value>
@@ -63,12 +72,12 @@
     <!-- Memoria física (MB) que puede ser reservada por los contenedores (por defecto: 4096) -->
     <!-- debe ser menor que la RAM física, para que funcionen otros servicios -->
     <name>yarn.nodemanager.resource.memory-mb</name>
-    <value>4096</value>
+    <value>-1</value>
   </property>
   <property>
     <!-- Ratio memoria virtual/memoria fisica (por defecto: 2.1) -->
     <name>yarn.nodemanager.vmem-pmem-ratio</name>
-    <value>2.1</value>
+    <value>4</value>
   </property>
   <property>
     <!-- Numero maximo de cores por container (por defecto: 4) -->
@@ -79,22 +88,16 @@
     <!-- Mínima reserva permitida por contenedor al Resource Managet (MBs) -->
     <!-- Solicitudes menores lanzan una InvalidResourceRequestException.(por defecto: 1024) -->
     <name>yarn.scheduler.minimum-allocation-mb</name>
-    <value>512</value>
+    <value>1024</value>
   </property>
   <property>
     <!-- Máxima reserva permitida por contenedor al Resource Managet (MBs) -->
     <!-- Solicitudes mayores lanzan una InvalidResourceRequestException.(por defecto: 8192) -->
     <name>yarn.scheduler.maximum-allocation-mb</name>
-    <value>6144</value>
+    <value>8192</value>
   </property>
   <property>
-    <!-- Permite agregacion de logs en el historyserver -->
-    <name>yarn.log-aggregation-enable</name>
-    <value>true</value>
-  </property>
-  <property>
-    <!--Directorio donde guardara los ficheros de logs -->
-    <name>yarn.nodemanager.log-dirs</name>
-    <value>/var/log/hadoop/yarn</value>
+    <name>yarn.web-proxy.address</name>
+    <value>proxyserver:50070</value>
   </property>
 </configuration>

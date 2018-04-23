@@ -312,6 +312,8 @@ export HADOOP_LOG_DIR=/var/log/hadoop/hdfs
 # This is the default:
 # export HDFS_SECONDARYNAMENODE_OPTS="-Dhadoop.security.logger=INFO,RFAS"
 
+export HDFS_NAMENODE_OPTS="-XX:+UseParallelGC -Xmx4g"
+
 ###
 # DataNode specific parameters
 ###

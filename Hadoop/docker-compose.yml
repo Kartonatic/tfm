@@ -21,8 +21,6 @@ services:
     hostname: resourcemanager
     depends_on:
       - namenode
-      - datanode1
-      - datanode2
     volumes:
       - ./hadoop_resources/resourcemanager/log:/var/log/hadoop/
     env_file:
@@ -37,8 +35,6 @@ services:
     hostname: historyserver
     depends_on:
       - namenode
-      - datanode1
-      - datanode2
     volumes:
       - ./hadoop_resources/historyserver/log:/var/log/hadoop/
     env_file:
@@ -53,6 +49,10 @@ services:
     hostname: checkpointnode
     depends_on:
       - namenode
+      - datanode1
+      - datanode2
+      - datanode3
+      - nodemanager
     volumes:
       - ./hadoop_resources/checkpointnode/hdfs:/var/data/hadoop/hdfs/
       - ./hadoop_resources/checkpointnode/log:/var/log/hadoop/
@@ -70,6 +70,7 @@ services:
       - namenode
       - datanode1
       - datanode2
+      - datanode3
     volumes:
       - ./hadoop_resources/nodemanager/log:/var/log/hadoop/
     env_file:
@@ -77,6 +78,23 @@ services:
     networks:
       hadoopnet:
         ipv4_address: 172.28.0.6
+
+  proxyserver:
+    image: karton91/hadoop_proxyserver
+    container_name: proxyserver
+    hostname: proxyserver
+    depends_on:
+      - namenode
+      - datanode1
+      - datanode2
+      - datanode3
+    volumes:
+      - ./hadoop_resources/proxyserver/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      hadoopnet:
+        ipv4_address: 172.28.0.7
   
   datanode1:
     image: karton91/hadoop_datanode
@@ -91,7 +109,7 @@ services:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.7
+        ipv4_address: 172.28.0.8
   
   datanode2:
     image: karton91/hadoop_datanode
@@ -106,7 +124,7 @@ services:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.8
+        ipv4_address: 172.28.0.9
   
   datanode3:
     image: karton91/hadoop_datanode
@@ -121,7 +139,7 @@ services:
       - ./hadoop.env
     networks:
       hadoopnet:
-        ipv4_address: 172.28.0.9
+        ipv4_address: 172.28.0.10
 
 networks:
   hadoopnet:

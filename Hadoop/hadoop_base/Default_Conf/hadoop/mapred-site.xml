@@ -23,16 +23,6 @@
     <value>yarn</value>
   </property>
   <property>
-    <!-- Memoria maxima (MB) por map (por defecto (-1): 1024) -->
-    <name>mapreduce.map.memory.mb</name>
-    <value>-1</value>
-  </property>
-  <property>
-    <!-- Memoria maxima (MB) por reduce (por defecto (-1): 1024)-->
-    <name>mapreduce.reduce.memory.mb</name>
-    <value>-1</value>
-  </property>
-  <property>
     <!-- El JobHistory Server -->
     <name>mapreduce.jobhistory.address</name>
     <value>historyserver:10020</value>
@@ -53,5 +43,15 @@
   <property>
     <name>mapreduce.reduce.env</name>
     <value>HADOOP_MAPRED_HOME=/opt/bd/hadoop</value>
+  </property>
+    <property>
+    <!-- Memoria maxima (MB) por map (por defecto (-1): 1024) -->
+    <name>mapreduce.map.memory.mb</name>
+    <value>-1</value>
+  </property>
+  <property>
+    <!-- Memoria maxima (MB) por reduce (por defecto (-1): 1024)-->
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>-1</value>
   </property>
 </configuration>

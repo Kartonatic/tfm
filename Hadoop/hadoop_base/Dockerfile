@@ -17,9 +17,10 @@ RUN apt-get -y install \
 	rsync \
 	nano \
 	ssh \
+	pdsh \
 	rsync \
 	net-tools \
-	python3
+	python3 
 
 RUN apt-get update
 RUN apt-get -y upgrade

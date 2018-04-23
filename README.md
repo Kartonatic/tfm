@@ -1,7 +1,7 @@
-Este es el Trabajo de fin de grado que estoy haciendo...
+Este es el Trabajo de Fin de Master que estoy haciendo...
 
-Estoy ahora intentando montar hadoop con docker para empezar una arquitectura lambda
+Estoy ahora intentando montar una arquitectura lambda
 
 This is my Master's Thesis...
 
-Now, I'm make a hadoop cluster with docker to do a lambda arquitecture.
+Now, I'm make a cluster with docker to do a lambda arquitecture.

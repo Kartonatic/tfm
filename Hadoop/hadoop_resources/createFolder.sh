@@ -6,6 +6,7 @@ rm -r historyserver
 rm -r resourcemanager
 rm -r nodemanager
 rm -r checkpointnode
+rm -r proxyserver
 
 mkdir -p namenode
 mkdir -p namenode/hdfs
@@ -44,6 +45,9 @@ mkdir -p nodemanager
 mkdir -p nodemanager/log
 mkdir -p nodemanager/log/yarn nodemanager/log/hdfs nodemanager/log/mapred
 
+mkdir -p proxyserver
+mkdir -p proxyserver/log
+mkdir -p proxyserver/log/yarn proxyserver/log/hdfs proxyserver/log/mapred
 
 mkdir -p checkpointnode
 mkdir -p checkpointnode/hdfs
