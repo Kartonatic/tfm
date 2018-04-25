@@ -86,6 +86,7 @@ RUN chown -R root:root /root/.ssh/ root
 
 
 # ESTO NO VALE DE NADA PORQUE NO SE HA CONSTRUIDO LA MAQUINA REAL
+# docker crea una seudo-maquina virtual para crearla 
 # This it not run because it's not a real machine
 # RUN service ssh start
 # RUN sudo su hdmaster && cd ~/ && ssh localhost
@@ -136,7 +137,13 @@ RUN cp /etc/skel/.profile /opt/bd/
 RUN cp /etc/skel/.bashrc /opt/bd/
 RUN echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> /opt/bd/.bashrc
 RUN echo export HADOOP_HOME=/opt/bd/hadoop  >> /opt/bd/.bashrc
-RUN echo export PATH=$PATH:$HADOOP_HOME/bin >> /opt/bd/.bashrc
+RUN echo export HADOOP_COMMON_HOME=/opt/bd/hadoop >> /opt/bd/.bashrc
+RUN echo export HADOOP_HDFS_HOME=/opt/bd/hadoop >> /opt/bd/.bashrc
+RUN echo export HADOOP_MAPRED_HOME=/opt/bd/hadoop >> /opt/bd/.bashrc
+RUN echo export HADOOP_YARN_HOME=/opt/bd/hadoop >> /opt/bd/.bashrc
+RUN echo export HADOOP_CONF_DIR=/opt/bd/hadoop/etc/hadoop >> /opt/bd/.bashrc
+RUN echo export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop >> /opt/bd/.bashrc
+RUN echo export PATH='$PATH':$HADOOP_HOME/bin >> /opt/bd/.bashrc
 
 RUN chown -R hdmaster:hadoop /opt/bd/.bash_logout
 RUN chown -R hdmaster:hadoop /opt/bd/.profile
