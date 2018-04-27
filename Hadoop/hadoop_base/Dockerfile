@@ -20,10 +20,23 @@ RUN apt-get -y install \
 	pdsh \
 	rsync \
 	net-tools \
-	python3 
+	python3 \
+	wget
 
 RUN apt-get update
 RUN apt-get -y upgrade
+
+
+RUN mkdir -p /installedRegister/scala && \
+	cd /installedRegister/scala && \
+	wget https://www.scala-lang.org/files/archive/scala-2.12.5.deb && \
+	dpkg -i scala-2.12.5.deb && \
+	apt-get update && \
+	apt-get -y install scala
+
+RUN apt-get update
+RUN apt-get -y upgrade
+
 
 ####################################################################################
 # Add users for hadoop and directories for hadoop

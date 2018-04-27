@@ -20,7 +20,7 @@ RUN echo "spark.yarn.am.memory               512m" >> /opt/spark/conf/spark-defa
 RUN echo "spark.executor.memory              512m" >> /opt/spark/conf/spark-defaults.conf
 
 RUN chown -R hdmaster:hadoop /opt/spark-2.3.0-bin-hadoop2.7
-RUN chown -R hdmaster:hadoop /opt/spark
+RUN chown -R hdmaster:hadoop /opt/spark/
 
 ADD  Default_Conf/AddHosts2 /
 RUN cat /AddHosts2 >> AddHosts

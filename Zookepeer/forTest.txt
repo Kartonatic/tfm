@@ -1,0 +1,17 @@
+In your terminal you can use:
+echo dump | nc 172.28.0.11 2181
+echo stat | nc 172.28.0.11 2181
+echo mntr | nc 172.28.0.11 2181
+echo envi | nc 172.28.0.11 2181
+echo ruok | nc 172.28.0.11 2181
+
+echo stat | nc 172.28.0.12 2181
+echo mntr | nc 172.28.0.12 2181
+echo envi | nc 172.28.0.12 2181
+echo ruok | nc 172.28.0.12 2181
+
+
+echo stat | nc 172.28.0.13 2181
+echo mntr | nc 172.28.0.13 2181
+echo envi | nc 172.28.0.13 2181
+echo ruok | nc 172.28.0.13 2181
