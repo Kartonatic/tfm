@@ -6,22 +6,24 @@ USER root
 # Update de system
 
 RUN apt-get update
-RUN apt-get install -y  apt-utils
+RUN apt-get install -y apt-utils
 RUN apt-get -y upgrade
-RUN apt-get -y install build-essential 
-RUN apt-get -y install \
-	openjdk-8-jre \
-	libssl-dev \
-	curl \
-	sudo \
-	rsync \
-	nano \
-	ssh \
-	pdsh \
-	rsync \
-	net-tools \
-	python3 \
-	wget
+RUN apt-get -y install build-essential
+RUN apt-get update
+RUN apt-get -y upgrade
+RUN apt-get -y install libavahi-common-data
+RUN apt-get -y install libssl-dev
+RUN apt-get -y install curl
+RUN apt-get -y install sudo
+RUN apt-get -y install rsync
+RUN apt-get -y install nano
+RUN apt-get -y install ssh
+RUN apt-get -y install pdsh
+RUN apt-get -y install rsync
+RUN apt-get -y install net-tools
+RUN apt-get -y install python3
+RUN apt-get -y install wget
+RUN apt-get -y install openjdk-8-jre
 
 RUN apt-get update
 RUN apt-get -y upgrade

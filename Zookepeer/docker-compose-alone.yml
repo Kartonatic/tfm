@@ -1,0 +1,47 @@
+version: "3"
+services:
+  zoo1:
+    image: karton91/zoo1
+    container_name: zoo1
+    hostname: zoo1
+    volumes:
+      - ./zookeeper_resources/zoo1/log:/var/log/zookeeper/
+      - ./zookeeper_resources/zoo1/data:/var/data/zookeeper/
+    env_file:
+      - ./hadoop.env
+    networks:
+      zookeeperNet:
+        ipv4_address: 172.28.0.11
+  zoo2:
+    image: karton91/zoo2
+    container_name: zoo2
+    hostname: zoo2
+    volumes:
+      - ./zookeeper_resources/zoo2/log:/var/log/zookeeper/
+      - ./zookeeper_resources/zoo2/data:/var/data/zookeeper/
+    env_file:
+      - ./hadoop.env
+    networks:
+      zookeeperNet:
+        ipv4_address: 172.28.0.12
+  zoo3:
+    image: karton91/zoo3
+    container_name: zoo3
+    hostname: zoo3
+    volumes:
+      - ./zookeeper_resources/zoo3/log:/var/log/zookeeper/
+      - ./zookeeper_resources/zoo3/data:/var/data/zookeeper/
+    env_file:
+      - ./hadoop.env
+    networks:
+      zookeeperNet:
+        ipv4_address: 172.28.0.13
+
+networks:
+  zookeeperNet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.28.0.0/24

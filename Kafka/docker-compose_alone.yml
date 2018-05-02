@@ -1,0 +1,87 @@
+version: "3"
+services:
+  zoo1:
+    image: karton91/zoo1
+    container_name: zoo1
+    hostname: zoo1
+    volumes:
+      - ./zookeeper_resources/zoo1/log:/var/log/zookeeper/
+      - ./zookeeper_resources/zoo1/data:/var/data/zookeeper/
+    networks:
+      kafkaNet:
+        ipv4_address: 172.28.0.11
+  zoo2:
+    image: karton91/zoo2
+    container_name: zoo2
+    hostname: zoo2
+    volumes:
+      - ./zookeeper_resources/zoo2/log:/var/log/zookeeper/
+      - ./zookeeper_resources/zoo2/data:/var/data/zookeeper/
+    depends_on:
+      - zoo1
+    networks:
+      kafkaNet:
+        ipv4_address: 172.28.0.12
+  zoo3:
+    image: karton91/zoo3
+    container_name: zoo3
+    hostname: zoo3
+    volumes:
+      - ./zookeeper_resources/zoo3/log:/var/log/zookeeper/
+      - ./zookeeper_resources/zoo3/data:/var/data/zookeeper/
+    depends_on:
+      - zoo1
+      - zoo2
+    networks:
+      kafkaNet:
+        ipv4_address: 172.28.0.13
+  kafka1:
+    image: karton91/kafka1
+    container_name: kafka1
+    hostname: kafka1
+    volumes:
+      - ./kafka_resources/kafka1/log:/var/log/kafka/
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    networks:
+      kafkaNet:
+        ipv4_address: 172.28.0.14
+  kafka2:
+    image: karton91/kafka2
+    container_name: kafka2
+    hostname: kafka2
+    volumes:
+      - ./kafka_resources/kafka2/log:/var/log/kafka/
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+      - kafka1
+    networks:
+      kafkaNet:
+        ipv4_address: 172.28.0.15
+  kafka3:
+    image: karton91/kafka3
+    container_name: kafka3
+    hostname: kafka3
+    volumes:
+      - ./kafka_resources/kafka3/log:/var/log/kafka/
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+      - kafka1
+      - kafka2
+    networks:
+      kafkaNet:
+        ipv4_address: 172.28.0.16
+networks:
+  kafkaNet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.28.0.0/24

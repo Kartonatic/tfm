@@ -5,25 +5,29 @@ USER root
 
 ADD spark-2.3.0-bin-hadoop2.7.tgz /opt/spark-2.3.0-bin-hadoop2.7.tgz
 
-RUN cd /opt && ls 
+RUN mkdir -p /opt/bd/streaming/
 
-RUN cd /opt && \
+RUN cd /opt/bd/streaming/ && \
 	cp -R spark-2.3.0-bin-hadoop2.7.tgz/spark-2.3.0-bin-hadoop2.7 spark-2.3.0-bin-hadoop2.7 && \
 	rm -R spark-2.3.0-bin-hadoop2.7.tgz && \
-	ln -s /opt/spark-2.3.0-bin-hadoop2.7 /opt/spark
-
-RUN mv /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
-RUN echo "" >> /opt/spark/conf/spark-defaults.conf
-RUN echo "spark.master                       yarn" >> /opt/spark/conf/spark-defaults.conf
-RUN echo "spark.driver.memory                512m" >> /opt/spark/conf/spark-defaults.conf
-RUN echo "spark.yarn.am.memory               512m" >> /opt/spark/conf/spark-defaults.conf
-RUN echo "spark.executor.memory              512m" >> /opt/spark/conf/spark-defaults.conf
+	ln -s spark-2.3.0-bin-hadoop2.7 spark
 
 RUN chown -R hdmaster:hadoop /opt/spark-2.3.0-bin-hadoop2.7
 RUN chown -R hdmaster:hadoop /opt/spark/
 
+RUN mv /opt/bd/streaming/spark/conf/spark-defaults.conf.template /opt/bd/streaming/spark/conf/spark-defaults.conf
+RUN echo "" >> /opt/spark/conf/spark-defaults.conf
+RUN echo "spark.master                       yarn" >> /opt/bd/streaming/spark/conf/spark-defaults.conf
+RUN echo "spark.driver.memory                512m" >> /opt/bd/streaming/spark/conf/spark-defaults.conf
+RUN echo "spark.yarn.am.memory               512m" >> /opt/bd/streaming/spark/conf/spark-defaults.conf
+RUN echo "spark.executor.memory              512m" >> /opt/bd/streaming/spark/conf/spark-defaults.conf
+
+RUN chown -R hdmaster:hadoop /opt/bd/streaming/spark/conf/
+
 ADD  Default_Conf/AddHosts2 /
 RUN cat /AddHosts2 >> AddHosts
+
+	
 ENV SPARK_HOME /opt/spark
 ENV LD_LIBRARY_PATH /opt/bd/hadoop/lib/native
 ENV PATH=$PATH:$SPARK_HOME/bin
