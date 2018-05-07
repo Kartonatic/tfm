@@ -1,1 +1,10 @@
-172.28.0.11	spark
+172.28.0.11     zoo1
+172.28.0.12     zoo2
+172.28.0.13     zoo3
+172.28.0.14     kafka1
+172.28.0.15     kafka2
+172.28.0.16     kafka3
+172.28.0.17     sparkmaster
+172.28.0.18     sparkworker1
+172.28.0.19     sparkworker2
+172.28.0.20     sparkworker3

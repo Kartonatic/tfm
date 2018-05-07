@@ -1,7 +1,7 @@
 version: "3"
 services:
   namenode:
-    image: karton91/hadoop_namenode
+    image: karton91/hadoop_namenode310
     container_name: namenode
     hostname: namenode
     volumes:
@@ -16,7 +16,7 @@ services:
         ipv4_address: 172.28.0.2
   
   resourcemanager:
-    image: karton91/hadoop_resourcemanager
+    image: karton91/hadoop_resourcemanager310
     container_name: resourcemanager
     hostname: resourcemanager
     depends_on:
@@ -30,7 +30,7 @@ services:
         ipv4_address: 172.28.0.3
 
   historyserver:
-    image: karton91/hadoop_historyserver
+    image: karton91/hadoop_historyserver310
     container_name: historyserver
     hostname: historyserver
     depends_on:
@@ -44,7 +44,7 @@ services:
         ipv4_address: 172.28.0.4
 
   checkpointnode:
-    image: karton91/hadoop_checkpointnode
+    image: karton91/hadoop_checkpointnode310
     container_name: checkpointnode
     hostname: checkpointnode
     depends_on:
@@ -63,7 +63,7 @@ services:
         ipv4_address: 172.28.0.5
 
   nodemanager:
-    image: karton91/hadoop_nodemanager
+    image: karton91/hadoop_nodemanager310
     container_name: nodemanager
     hostname: nodemanager
     depends_on:
@@ -80,7 +80,7 @@ services:
         ipv4_address: 172.28.0.6
 
   proxyserver:
-    image: karton91/hadoop_proxyserver
+    image: karton91/hadoop_proxyserver310
     container_name: proxyserver
     hostname: proxyserver
     depends_on:
@@ -97,7 +97,7 @@ services:
         ipv4_address: 172.28.0.7
   
   datanode1:
-    image: karton91/hadoop_datanode
+    image: karton91/hadoop_datanode310
     container_name: datanode1
     hostname: datanode1
     depends_on:
@@ -112,7 +112,7 @@ services:
         ipv4_address: 172.28.0.8
   
   datanode2:
-    image: karton91/hadoop_datanode
+    image: karton91/hadoop_datanode310
     container_name: datanode2
     hostname: datanode2
     depends_on:
@@ -127,7 +127,7 @@ services:
         ipv4_address: 172.28.0.9
   
   datanode3:
-    image: karton91/hadoop_datanode
+    image: karton91/hadoop_datanode310
     container_name: datanode3
     hostname: datanode3
     depends_on:

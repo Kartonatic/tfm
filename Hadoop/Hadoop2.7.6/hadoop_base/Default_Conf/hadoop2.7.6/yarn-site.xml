@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+<configuration>
+<!-- Site specific YARN configuration properties -->
+  <property>
+    <name>yarn.acl.enable</name>
+    <value>0</value>
+  </property>
+  <property>
+    <!-- El ResourceManager -->
+    <name>yarn.resourcemanager.hostname</name>
+    <value>resourcemanager</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>resourcemanager:8032</value>
+  </property>
+  <property>
+    <name>yarn.log.server.url</name>
+    <value>http://historyserver:8188/applicationhistory/logs/</value>
+  </property>
+  <property>
+    <name>yarn.log.server.url</name>
+    <value>http://historyserver:8188/applicationhistory/logs/</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.store.class</name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.FileSystemRMStateStore</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.system-metrics-publisher.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>resourcemanager:8031</value>
+  </property>
+  <property>
+    <!-- Indica a los NodeManagers que tienen que implementar el servicio de barajado mapreduce -->
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+    <!-- Clase que implementa el servicio de barajado mapreduce -->
+    <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+  <property>
+    <!-- Permite agregacion de logs en el historyserver -->
+    <name>yarn.log-aggregation-enable</name>
+    <value>true</value>
+  </property>
+  <property>
+    <!--Directorio donde guardara los ficheros de logs -->
+    <name>yarn.nodemanager.log-dirs</name>
+    <value>/var/log/hadoop/yarn</value>
+  </property>
+  <property>
+    <!-- Numero de cores del NodeManager (por defecto: 8)-->
+    <name>yarn.nodemanager.resource.cpu-vcores</name>
+    <value>8</value>
+  </property>
+  <property>
+    <!-- Memoria física (MB) que puede ser reservada por los contenedores (por defecto: 4096) -->
+    <!-- debe ser menor que la RAM física, para que funcionen otros servicios -->
+    <name>yarn.nodemanager.resource.memory-mb</name>
+    <value>4096</value>
+  </property>
+  <property>
+    <!-- Ratio memoria virtual/memoria fisica (por defecto: 2.1) -->
+    <name>yarn.nodemanager.vmem-pmem-ratio</name>
+    <value>4</value>
+  </property>
+  <property>
+    <!-- Numero maximo de cores por container (por defecto: 4) -->
+    <name>yarn.scheduler.maximum-allocation-vcores</name>
+    <value>4</value>
+  </property>
+  <property>
+    <!-- Mínima reserva permitida por contenedor al Resource Managet (MBs) -->
+    <!-- Solicitudes menores lanzan una InvalidResourceRequestException.(por defecto: 1024) -->
+    <name>yarn.scheduler.minimum-allocation-mb</name>
+    <value>1024</value>
+  </property>
+  <property>
+    <!-- Máxima reserva permitida por contenedor al Resource Managet (MBs) -->
+    <!-- Solicitudes mayores lanzan una InvalidResourceRequestException.(por defecto: 8192) -->
+    <name>yarn.scheduler.maximum-allocation-mb</name>
+    <value>8192</value>
+  </property>
+  <property>
+    <name>yarn.web-proxy.address</name>
+    <value>proxyserver:50070</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.pmem-check-enabled</name>
+    <value>false</value>
+  </property>
+  <property>
+      <name>yarn.nodemanager.vmem-check-enabled</name>
+      <value>false</value>
+  </property>
+</configuration>

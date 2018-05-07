@@ -1,6 +1,8 @@
 #!/bin/bash
 cd ./spark_base
-docker build -t karton91/spark .
+docker build -t karton91/spark_base .
+cd ../spark_master
+docker build -t karton91/spark_master .
+cd ../spark_worker
+docker build -t karton91/spark_worker .
 
-
-#docker push karton91/spark

@@ -1,0 +1,41 @@
+FROM karton91/hadoop_base310
+MAINTAINER Ruben Garrido <ruben.garrido1@um.es>
+
+USER root
+
+ADD spark-2.3.0-bin-hadoop2.7.tgz /opt/spark-2.3.0-bin-hadoop2.7.tgz
+
+RUN cd /opt && ls 
+
+RUN cd /opt && \
+	cp -R spark-2.3.0-bin-hadoop2.7.tgz/spark-2.3.0-bin-hadoop2.7 spark-2.3.0-bin-hadoop2.7 && \
+	rm -R spark-2.3.0-bin-hadoop2.7.tgz && \
+	ln -s /opt/spark-2.3.0-bin-hadoop2.7 /opt/spark
+
+RUN mv /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
+RUN echo "" >> /opt/spark/conf/spark-defaults.conf
+RUN echo "spark.master                       yarn" >> /opt/spark/conf/spark-defaults.conf
+RUN echo "spark.driver.memory                512m" >> /opt/spark/conf/spark-defaults.conf
+RUN echo "spark.yarn.am.memory               512m" >> /opt/spark/conf/spark-defaults.conf
+RUN echo "spark.executor.memory              512m" >> /opt/spark/conf/spark-defaults.conf
+
+RUN chown -R hdmaster:hadoop /opt/spark-2.3.0-bin-hadoop2.7
+RUN chown -R hdmaster:hadoop /opt/spark
+
+ADD  Default_Conf/AddHostsSpark /
+RUN cat /AddHostsSpark >> AddHosts
+ENV SPARK_HOME /opt/spark
+ENV LD_LIBRARY_PATH /opt/bd/hadoop/lib/native
+ENV PATH=$PATH:$SPARK_HOME/bin
+RUN echo export SPARK_HOME=/opt/spark  >> /opt/bd/.bashrc
+RUN echo export LD_LIBRARY_PATH=/opt/bd/hadoop/lib/native >> /opt/bd/.bashrc
+RUN echo export PATH='$PATH':$SPARK_HOME/bin >> /opt/bd/.bashrc
+
+
+ADD run.sh /run.sh
+RUN chmod a+x /run.sh
+
+
+CMD ["/run.sh"]
+
+# Based on https://linode.com/docs/databases/hadoop/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/

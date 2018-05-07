@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+<configuration>
+  <property>
+      <!-- Factor de replicacion de los bloques (por defecto 3)-->
+      <name>dfs.replication</name>
+      <value>2</value>
+  </property>
+  <property>
+      <!-- Lista (separada por comas) de directorios donde el namenode guarda los metadatos.
+       En un sistema real debería incluir por lo menos dos directorios:
+       uno en el disco local del namenode y otro remoto montado por NFS -->
+      <name>dfs.namenode.name.dir</name>
+      <value>file:///var/data/hadoop/hdfs/nn</value>
+  </property>
+  <property>
+    <!-- Lista (separada por comas) de directorios donde el checkpoint node guarda los checkpoints.
+      Igual que el el dfs.namenode.name.dir, deberían indicarse un directorio local y uno remoto.
+      Ha cambiado el nombre de la propiedad de fs.checkpoint.dir al que hay ahora -->
+    <name>dfs.namenode.checkpoint.dir</name>
+    <value>file:///var/data/hadoop/hdfs/cpn</value>
+  </property>
+  <property>
+    <!-- Lista (separada por comas) de directorios donde el checkpoint node guarda los edits temporales
+      ha cambiado tambien el nombre de esta propideda de fs.checkpoint.edits.dir a la que hay ahora -->
+    <name>dfs.namenode.checkpoint.edits.dir</name>
+    <value>file:///var/data/hadoop/hdfs/cpn</value>
+  </property>
+  <property>
+    <!-- Lista (separada por comas) de directorios donde los datanodes guardan los datos:
+       por rendimiento, si los nodos tiene varios discos es conveniente
+       especificar un directorio en cada uno de los discos locales -->
+      <name>dfs.datanode.data.dir</name>
+      <value>file:///var/data/hadoop/hdfs/dn</value>
+  </property>
+  <property>
+      <!-- Dirección y puerto del interfaz web del namenode -->
+      <name>dfs.namenode.http-address</name>
+      <value>namenode:50070</value>
+  </property>
+  <property>
+      <!-- Dirección y puerto del interfaz web del checkpoint node (aka secondary namenode) -->
+      <name>dfs.namenode.secondary.http-address</name>
+      <value>checkpointnode:50090</value>
+  </property>
+  <property>
+    <!-- Si es verdadero activa los permisos de usuario
+          y grupo en el hdfs -->
+    <name>dfs.permissions.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+      <!-- Tamano del bloque (por defecto 128m) -->
+      <name>dfs.blocksize</name>
+      <value>64m</value>
+  </property>
+</configuration>

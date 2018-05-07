@@ -1,0 +1,9 @@
+172.28.0.2	namenode
+172.28.0.3	resourcemanager
+172.28.0.4	historyserver
+172.28.0.5	checkpointnode
+172.28.0.6	nodemanager
+172.28.0.7	proxyserver
+172.28.0.8	datanode1
+172.28.0.9	datanode2
+172.28.0.10	datanode3

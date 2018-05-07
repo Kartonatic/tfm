@@ -6,27 +6,24 @@ USER root
 ####################################################################################
 # Add user for kafka and directories for kafka
 
-mkdir -p /opt/queuesmanager
-
-RUN groupadd -r queues  && \
-	useradd -r -g queues -d /opt/queuesmanager -s /bin/bash queuesmaster
-
-RUN chown -R queuesmaster:queues /opt/queuesmanager/
+RUN mkdir -p /opt/queuesmanager && \
+	groupadd -r queues  && \
+	useradd -r -g queues -d /opt/queuesmanager -s /bin/bash queuesmaster && \
+	chown -R queuesmaster:queues /opt/queuesmanager/ 
 ####################################################################################
 # SSH
 
-RUN cp -R ~/.ssh /opt/queuesmanager/.ssh && chown -R queuesmaster:queues /opt/queuesmanager/.ssh
-RUN chown -R queuesmaster:queues /opt/queuesmanager/.ssh
+RUN cp -R ~/.ssh /opt/queuesmanager/.ssh && chown -R queuesmaster:queues /opt/queuesmanager/.ssh && \
+    chown -R queuesmaster:queues /opt/queuesmanager/.ssh
 
 # BASH
 
-RUN cp /etc/skel/.bash_logout /opt/queuesmanager/
-RUN cp /etc/skel/.profile /opt/queuesmanager/
-RUN cp /etc/skel/.bashrc /opt/queuesmanager/
-
-RUN chown -R queuesmaster:queues /opt/queuesmanager/.bash_logout
-RUN chown -R queuesmaster:queues /opt/queuesmanager/.profile
-RUN chown -R queuesmaster:queues /opt/queuesmanager/.bashrc
+RUN cp /etc/skel/.bash_logout /opt/queuesmanager/ && \ 
+	cp /etc/skel/.profile /opt/queuesmanager/ && \
+	cp /etc/skel/.bashrc /opt/queuesmanager/  && \
+	chown -R queuesmaster:queues /opt/queuesmanager/.bash_logout && \
+	chown -R queuesmaster:queues /opt/queuesmanager/.profile && \
+	chown -R queuesmaster:queues /opt/queuesmanager/.bashrc
 
 ####################################################################################
 # Download and install kafka
@@ -36,20 +33,17 @@ ADD kafka_2.12-1.1.0.tgz /opt/queuesmanager/kafka_2.12-1.1.0.tgz
 RUN cd /opt/queuesmanager && \
 	cp -R kafka_2.12-1.1.0.tgz/kafka_2.12-1.1.0 kafka_2.12-1.1.0 && \
 	rm -R kafka_2.12-1.1.0.tgz && \
-	ln -s kafka_2.12-1.1.0 kafka
-
-
-RUN chown -R queuesmaster:queues /opt/queuesmanager/kafka
-RUN chown -R queuesmaster:queues /opt/queuesmanager/kafka/
+	ln -s kafka_2.12-1.1.0 kafka && \
+	chown -R queuesmaster:queues /opt/queuesmanager/kafka && \
+	chown -R queuesmaster:queues /opt/queuesmanager/kafka/ 
 
 ####################################################################################
 #Add configurations and enviroment variables
 
 ADD Default_Conf/server.properties /opt/queuesmanager/kafka/config/server.properties
-RUN chown -R queuesmaster:queues /opt/queuesmanager/kafka/config/server.properties
-
-RUN mkdir -p /var/log/kafka
-RUN chown -R queuesmaster:queues /var/log/kafka
+RUN chown -R queuesmaster:queues /opt/queuesmanager/kafka/config/server.properties && \
+	mkdir -p /var/log/kafka && \
+	chown -R queuesmaster:queues /var/log/kafka 
 
 VOLUME /var/log/kafka
 
