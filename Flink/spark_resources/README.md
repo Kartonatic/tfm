@@ -1,0 +1,1 @@
+Aqui se encuentran los datos persistentes de spark (los logs, mas que nada)

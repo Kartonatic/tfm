@@ -1,0 +1,1 @@
+Here we need the directories for zookeeper logs.

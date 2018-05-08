@@ -11,3 +11,5 @@ cd ../Kafka
 ./dockerBuilds.sh
 cd ../Spark
 ./dockerBuilds.sh
+cd ../Flink
+./dockerBuilds.sh

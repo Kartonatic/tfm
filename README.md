@@ -3,9 +3,14 @@ Este es el Trabajo de Fin de Master que estoy haciendo...
 Estoy ahora intentando montar una arquitectura lambda. 
 
 EVOLUCION DEL PROYECTO:
-	-HADOOP
-	-ZOOKEEPER
-	-KAFKA (En proceso...)
+
+	- HADOOP
+
+	- ZOOKEEPER
+
+	- KAFKA
+
+	- SPARK
 
 ¿Por qué es bueno tener este tipo de arquitecturas, además con docker?
 	- Son muy flexibles. Podemos cambiar cualquiera de los componentes cuando queramos. Imaginamos que en vez de spark podemos cambiar... solo tenenmos que rehacer el codigo de spark. 

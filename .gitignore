@@ -3,3 +3,4 @@ Hadoop/Hadoop2.7.6/hadoop_base/hadoop-2.7.6.tar.gz
 Zookeeper/Zookeeper_base/zookeeper-3.4.10.tar.gz
 Kafka/kafka_base/kafka_2.12-1.1.0.tgz
 Spark/spark_base/spark-2.3.0-bin-hadoop2.7.tgz
+Flink/flink_base/flink-1.4.2-bin-hadoop28-scala_2.11.tgz
