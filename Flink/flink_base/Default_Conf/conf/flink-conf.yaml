@@ -30,7 +30,7 @@
 # automatically configure the host name based on the hostname of the node where the
 # JobManager runs.
 
-jobmanager.rpc.address: flink
+jobmanager.rpc.address: flinkmaster
 
 # The RPC port where the JobManager is reachable.
 
@@ -49,7 +49,7 @@ taskmanager.heap.mb: 1024
 
 # The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
 
-taskmanager.numberOfTaskSlots: 1
+taskmanager.numberOfTaskSlots: 2
 
 # Specify whether TaskManager memory should be allocated when starting up (true) or when
 # memory is required in the memory manager (false)
@@ -62,6 +62,30 @@ taskmanager.memory.preallocate: false
 
 parallelism.default: 1
 
+# The default file system scheme and authority.
+# 
+# By default file paths without scheme are interpreted relative to the local
+# root file system 'file:///'. Use this to override the default and interpret
+# relative paths relative to a different file system,
+# for example 'hdfs://mynamenode:12345'
+#
+fs.default-scheme: hdfs://namenode:9000/user/hdmaster/flink
+
+
+# File writers running with a parallelism larger than one create a directory for
+# the output file path and put the different result files (one per parallel writer task) 
+# into that directory. If this option is set to true, writers with a parallelism of 1
+# will also create a directory and place a single result file into it. If the option is
+# set to false, the writer will directly create the file directly at the output path, 
+# without creating a containing directory. (DEFAULT: false)
+#
+fs.output.always-create-directory: true
+
+# Configuration values prefixed with containerized.master.env. will be passed as 
+# environment variables to the ApplicationMaster/JobManager process. For example 
+# for passing LD_LIBRARY_PATH as an env variable to the ApplicationMaster, set:
+
+containerized.master.env.LD_LIBRARY_PATH: "/opt/bd/hadoop/lib/native"
 
 #==============================================================================
 # Web Frontend
@@ -69,7 +93,7 @@ parallelism.default: 1
 
 # The address under which the web-based runtime monitor listens.
 #
-jobmanager.web.address: flink
+jobmanager.web.address: flinkmaster
 
 # The port under which the web-based runtime monitor listens.
 # A value of -1 deactivates the web server.
@@ -89,16 +113,16 @@ jobmanager.web.submit.enable: true
 
 # Directory to upload completed jobs to. Add this directory to the list of
 # monitored directories of the HistoryServer as well (see below).
-jobmanager.archive.fs.dir: hdfs://namenode:9000/user/hdmaster/completed-jobs/
+jobmanager.archive.fs.dir: hdfs://namenode:9000/user/hdmaster/flink/history/
 
 # The address under which the web-based HistoryServer listens.
-historyserver.web.address: flink
+historyserver.web.address: flinkmaster
 
 # The port under which the web-based HistoryServer listens.
 historyserver.web.port: 8082
 
 # Comma separated list of directories to monitor for completed jobs.
-historyserver.archive.fs.dir: hdfs://namenode:9000/user/hdmaster/completed-jobs/
+historyserver.archive.fs.dir: hdfs://namenode:9000/user/hdmaster/flink/completed-jobs/
 
 # Interval in milliseconds for refreshing the monitored directories.
 historyserver.archive.fs.refresh-interval: 10000
@@ -120,7 +144,7 @@ historyserver.archive.fs.refresh-interval: 10000
 # Use "hdfs://" for HDFS setups, "file://" for UNIX/POSIX-compliant file systems,
 # (or any local file system under Windows), or "s3://" with lower case 's' for S3 file system.
 #
-state.backend.fs.checkpointdir: hdfs://namenode:9000/user/hdmaster/flink-checkpoints
+state.backend.fs.checkpointdir: hdfs://namenode:9000/user/hdmaster/flink/checkpoints
 
 
 #==============================================================================
@@ -176,7 +200,7 @@ high-availability: zookeeper
 # Must be a durable file system that is accessible from all nodes
 # (like HDFS, S3, Ceph, nfs, ...) 
 #
-high-availability.storageDir: hdfs://namenode:9000/user/hdmaster/
+high-availability.storageDir: hdfs://namenode:9000/user/hdmaster/flink/recovery
 
 # The list of ZooKeeper quorum peers that coordinate the high-availability
 # setup. This must be a list of the form:

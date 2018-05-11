@@ -1,0 +1,47 @@
+version: "3"
+services:
+  elasticsearch:
+    image: karton91/elk_base
+    container_name: elasticsearch
+    hostname: elasticsearch
+    volumes:
+      - ./ELK_resources/elasticsearch/data:/var/data/elastic/elasticsearch/
+      - ./ELK_resources/elasticsearch/data:/var/log/elastic/elasticsearch/
+    environment:
+      - CLUSTER_NAME=my-elasticsearch
+    networks:
+      elknet:
+        ipv4_address: 172.28.0.25
+  kibana:
+    image: karton91/elk_base
+    container_name: kibana
+    hostname: kibana
+    volumes:
+      - ./ELK_resources/kibana/data:/var/data/elastic/kibana/
+      - ./ELK_resources/kibana/data:/var/log/elastic/kibana/
+    environment:
+      - CLUSTER_NAME=my-elasticsearch
+    networks:
+      elknet:
+        ipv4_address: 172.28.0.26
+  logstash:
+    image: karton91/elk_base
+    container_name: logstash
+    hostname: logstash
+    volumes:
+      - ./ELK_resources/logstash/data:/var/data/elastic/logstash/
+      - ./ELK_resources/logstash/data:/var/log/elastic/logstash/
+    environment:
+      - CLUSTER_NAME=my-elasticsearch
+    networks:
+      elknet:
+        ipv4_address: 172.28.0.27
+
+networks:
+  elknet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.28.0.0/24

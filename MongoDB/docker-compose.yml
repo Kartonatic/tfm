@@ -1,0 +1,21 @@
+version: "3"
+services:
+  mongomaster:
+    image: karton91/mongodb_base
+    container_name: mongomaster
+    hostname: mongomaster
+    volumes:
+      - ./mongodb_resources/mongomaster/data:/var/data/mongodb/
+      - ./mongodb_resources/mongomaster/log:/var/log/mongodb/
+    networks:
+      mongonet:
+        ipv4_address: 172.28.0.28
+
+networks:
+  mongonet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.28.0.0/24

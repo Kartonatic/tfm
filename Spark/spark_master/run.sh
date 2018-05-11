@@ -12,6 +12,8 @@ sleep 2
 echo "wait spark"
 sleep 2
 echo "wait spark"
+sleep 2
+echo "wait spark"
 
 if grep -q "False" /var/data/spark/isActive
 then 

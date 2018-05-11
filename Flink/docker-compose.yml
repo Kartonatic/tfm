@@ -272,10 +272,10 @@ services:
     networks:
       flinknet:
         ipv4_address: 172.28.0.20
-  flink:
-    image: karton91/flink_base
-    container_name: flink
-    hostname: flink
+  flinkmaster:
+    image: karton91/flink_master
+    container_name: flinkmaster
+    hostname: flinkmaster
     depends_on:
       - checkpointnode
       - kafka3
@@ -284,6 +284,42 @@ services:
     networks:
       flinknet:
         ipv4_address: 172.28.0.21
+  flinkworker1:
+    image: karton91/flink_worker
+    container_name: flinkworker1
+    hostname: flinkworker1
+    depends_on:
+      - checkpointnode
+      - kafka3
+    env_file:
+      - ./hadoop.env
+    networks:
+      flinknet:
+        ipv4_address: 172.28.0.22
+  flinkworker2:
+    image: karton91/flink_worker
+    container_name: flinkworker2
+    hostname: flinkworker2
+    depends_on:
+      - checkpointnode
+      - kafka3
+    env_file:
+      - ./hadoop.env
+    networks:
+      flinknet:
+        ipv4_address: 172.28.0.23
+  flinkworker3:
+    image: karton91/flink_worker
+    container_name: flinkworker3
+    hostname: flinkworker3
+    depends_on:
+      - checkpointnode
+      - kafka3
+    env_file:
+      - ./hadoop.env
+    networks:
+      flinknet:
+        ipv4_address: 172.28.0.24
 networks:
   flinknet:
     driver: bridge

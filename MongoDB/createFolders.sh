@@ -1,0 +1,1 @@
+cd ../mongodb_resources && ./createFolder.sh

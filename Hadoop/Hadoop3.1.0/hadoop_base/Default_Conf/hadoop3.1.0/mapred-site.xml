@@ -47,11 +47,11 @@
     <property>
     <!-- Memoria maxima (MB) por map (por defecto (-1): 1024) -->
     <name>mapreduce.map.memory.mb</name>
-    <value>-1</value>
+    <value>1024</value>
   </property>
   <property>
     <!-- Memoria maxima (MB) por reduce (por defecto (-1): 1024)-->
     <name>mapreduce.reduce.memory.mb</name>
-    <value>-1</value>
+    <value>1024</value>
   </property>
 </configuration>

@@ -8,4 +8,7 @@
 172.28.0.18     sparkworker1
 172.28.0.19     sparkworker2
 172.28.0.20     sparkworker3
-172.28.0.21     flink
+172.28.0.21     flinkmaster
+172.28.0.22     flinkworker1
+172.28.0.23     flinkworker2
+172.28.0.24     flinkworker3

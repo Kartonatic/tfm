@@ -1,0 +1,1 @@
+Aqui se encuentran los datos persistentes de elasticsearch (ELK) y sus logs

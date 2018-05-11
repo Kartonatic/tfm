@@ -1,4 +1,4 @@
-FROM karton91/hadoop_base276
+FROM karton91/hadoop_base310
 MAINTAINER Ruben Garrido <ruben.garrido1@um.es>
 
 USER root

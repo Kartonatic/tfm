@@ -1,0 +1,3 @@
+172.28.0.25     elasticsearch
+172.28.0.26     kibana
+172.28.0.27     logstash

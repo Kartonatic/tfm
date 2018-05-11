@@ -70,13 +70,13 @@
   <property>
     <!-- Numero de cores del NodeManager (por defecto: 8) y con -1 los autodetecta-->
     <name>yarn.nodemanager.resource.cpu-vcores</name>
-    <value>-1</value>
+    <value>4</value>
   </property>
   <property>
     <!-- Memoria física (MB) que puede ser reservada por los contenedores (por defecto: 4096) -->
     <!-- debe ser menor que la RAM física, para que funcionen otros servicios -->
     <name>yarn.nodemanager.resource.memory-mb</name>
-    <value>-1</value>
+    <value>4096</value>
   </property>
   <property>
     <!-- Ratio memoria virtual/memoria fisica (por defecto: 2.1) -->
