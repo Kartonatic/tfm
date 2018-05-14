@@ -1,6 +1,5 @@
-<p align="center">
-![alt text](https://github.com/Kartonatic/tfm/blob/master/UpdatedUbuntu/logo.jpg "Logo de ubuntu")
-</p>
+![alt text TL;DR](https://github.com/Kartonatic/tfm/blob/master/UpdatedUbuntu/logo.jpg "Logo de ubuntu")
+
 
 Imagen de Ubuntu 16.04 con el sistema actualizado con java 8, scala 2.12.6 y python 3.
 
