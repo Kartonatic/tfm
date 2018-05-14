@@ -126,55 +126,54 @@ Ubuntu_base:
 [![](https://images.microbadger.com/badges/version/karton91/ubuntu_base.svg)](https://microbadger.com/images/karton91/ubuntu_base.svg "Ubuntu 16.04 updated")
 
 
-
 Hadoop_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310.svg "HADOOP 3.1.0")
+[![](https://images.microbadger.com/badges/image/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310 "HADOOP 3.1.0")
 
-[![](https://images.microbadger.com/badges/version/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310.svg "HADOOP 3.1.0")
+[![](https://images.microbadger.com/badges/version/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310 "HADOOP 3.1.0")
 
 
 Zookeeper_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base.svg "ZOOKEEPER 3.4.1")
+[![](https://images.microbadger.com/badges/image/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base "ZOOKEEPER 3.4.1")
 
-[![](https://images.microbadger.com/badges/version/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base.svg "ZOOKEEPER 3.4.1")
+[![](https://images.microbadger.com/badges/version/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base "ZOOKEEPER 3.4.1")
 
 
 Kafka_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base.svg "KAFKA 1.1.0")
+[![](https://images.microbadger.com/badges/image/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base "KAFKA 1.1.0")
 
-[![](https://images.microbadger.com/badges/version/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base.svg "KAFKA 1.1.0")
+[![](https://images.microbadger.com/badges/version/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base "KAFKA 1.1.0")
 
 
 Spark_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base.svg "SPARK 2.3.0")
+[![](https://images.microbadger.com/badges/image/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base "SPARK 2.3.0")
 
-[![](https://images.microbadger.com/badges/version/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base.svg "SPARK 2.3.0")
+[![](https://images.microbadger.com/badges/version/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base "SPARK 2.3.0")
 
 
 Flink_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base.svg "FLINK 1.4.2")
+[![](https://images.microbadger.com/badges/image/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base "FLINK 1.4.2")
 
-[![](https://images.microbadger.com/badges/version/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base.svg "FLINK 1.4.2")
+[![](https://images.microbadger.com/badges/version/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base "FLINK 1.4.2")
 
 
 
 ELK_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base.svg "ELK 6.2.4")
+[![](https://images.microbadger.com/badges/image/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base "ELK 6.2.4")
 
-[![](https://images.microbadger.com/badges/version/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base.svg "ELK 6.2.4")
+[![](https://images.microbadger.com/badges/version/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base "ELK 6.2.4")
 
 
 MongoDB_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base.svg "MONGODB")
+[![](https://images.microbadger.com/badges/image/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base "MONGODB")
 
-[![](https://images.microbadger.com/badges/version/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base.svg "MONGODB")
+[![](https://images.microbadger.com/badges/version/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base "MONGODB")
 
 This is my Master's Thesis...
 
