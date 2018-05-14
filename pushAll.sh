@@ -11,3 +11,9 @@ cd ../Kafka
 ./dockerPulls.sh
 cd ../Spark
 ./dockerPulls.sh
+cd ../Flink
+./dockerPulls.sh
+cd ../ELK
+./dockerPulls.sh
+cd ../MongoDB
+./dockerPulls.sh

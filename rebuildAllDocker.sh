@@ -13,3 +13,7 @@ cd ../Spark
 ./dockerBuilds.sh
 cd ../Flink
 ./dockerBuilds.sh
+cd ../ELK
+./dockerBuilds.sh
+cd ../MongoDB
+./dockerBuilds.sh

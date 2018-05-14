@@ -24,7 +24,7 @@ EVOLUCION DEL PROYECTO:
 
 	- Son muy flexibles. Podemos cambiar cualquiera de los componentes cuando queramos. Imaginamos que en vez de spark podemos cambiar... solo tenenmos que rehacer el codigo de spark. 
 
-Si queremos cambiar una base de datos, solo tenemos que cambiar el codigo de la base de datos mientras que los demás componentes permanecen inmutables. 
+	- Si queremos cambiar una base de datos, solo tenemos que cambiar el codigo de la base de datos mientras que los demás componentes permanecen inmutables. 
 
 	- Son realmente rapidos.
 
@@ -37,7 +37,7 @@ Si queremos cambiar una base de datos, solo tenemos que cambiar el codigo de la 
 ¿Como se conecta entre si los containers y como contectarse desde localhost?
 
 	- Se ha instalado ssh a traves de certificado. Para generar el certificado hay que renovar la capa de ubuntu que genera un nuevo certificado. Si obtenemos ese certificado
-y lo guardamos en local podemos acceder a las maquinas. 
+		y lo guardamos en local podemos acceder a las maquinas. 
 
 	- Una parte buena de este cluster es que podemos acceder a cualquier maquina si sabemos su IP ya que todas las maquinas contienen dicho certificado.
 
@@ -45,20 +45,20 @@ y lo guardamos en local podemos acceder a las maquinas.
 ¿Como se mantiene la información?
 
 	- Para mantener la información he creado diferentes volumenes que con el docker-compose se mapearan a su correspondiente carpeta con el nombre de la teconologia y '_resources'. 
-Gracias a esto, la información se mantendrá cada vez que hagamos docker-compose up
+		Gracias a esto, la información se mantendrá cada vez que hagamos docker-compose up
 
 ¿Como se configura cada tecnologia?
 
 	- He creado un sistema que nos permite configurar una base y despues configurar los diferentes roles de cada container.
 
 	- En cada carpeta '_base' se encuentra una carpeta Default_Conf donde se encuentra la configuracion basica que podemos modificar para cada 
-tecnologia. Por ejemplo, en hadoop tendriamos los ficheros de <path_hadoop>/etc/hadoop
+		tecnologia. Por ejemplo, en hadoop tendriamos los ficheros de <path_hadoop>/etc/hadoop
 
 ¿Existe alguna forma automatica de generar los container y sus directorios de persistencia?
 	
 	- Se han creado una jerarquia de scripts que nos permite esto. El script dockerBuilds.sh de cada directorio generará el container, el script dockerPulls.sh subirá los 
-container a docker hub y el script createFolders.sh llamará al script createFolder.sh de cada carpeta '_resources' de cada tecnologia (dicho script genera las carpetas necesarias
-para la persistencia).
+		container a docker hub y el script createFolders.sh llamará al script createFolder.sh de cada carpeta '_resources' de cada tecnologia (dicho script genera las carpetas necesarias
+		para la persistencia).
 
 HOSTS:
 
