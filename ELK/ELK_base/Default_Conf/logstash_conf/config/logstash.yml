@@ -25,7 +25,7 @@ node.name: logstash-1
 # Which directory should be used by logstash and its plugins
 # for any persistent needs. Defaults to LOGSTASH_HOME/data
 #
-path.data: /var/data/elasticsearch/logstash
+path.data: /var/data/elastic/logstash
 #
 # ------------ Pipeline Settings --------------
 #
@@ -205,7 +205,7 @@ pipeline.workers: 2
 #   * trace
 #
 # log.level: info
-# path.logs:
+path.logs: /var/data/elastic/logstash/
 #
 # ------------ Other Settings --------------
 #

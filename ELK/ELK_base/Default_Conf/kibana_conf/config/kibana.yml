@@ -15,7 +15,7 @@ server.host: "kibana"
 #server.maxPayloadBytes: 1048576
 
 # The Kibana server's name.  This is used for display purposes.
-#server.name: "your-hostname"
+server.name: "kibana"
 
 # The URL of the Elasticsearch instance to use for all your queries.
 elasticsearch.url: "http://elasticsearch:9200"
@@ -82,8 +82,8 @@ elasticsearch.url: "http://elasticsearch:9200"
 # Specifies the path where Kibana creates the process ID file.
 #pid.file: /var/run/kibana.pid
 
-# Enables you specify a file where Kibana stores log output.
-#logging.dest: stdout
+# Enables you specify a file where Kibana stores log output. DEFAULT : stdout
+logging.dest: /var/log/elastic/kibana/kibana.log
 
 # Set the value of this setting to true to suppress all logging output.
 #logging.silent: false

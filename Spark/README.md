@@ -1,1 +1,3 @@
+SPARK
+
 Nodo master que contiene la web principal y el history server. Hay configurados 3 worker y, además, el master tambien esta configurado como worker.

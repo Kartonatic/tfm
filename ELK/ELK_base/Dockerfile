@@ -92,13 +92,13 @@ RUN echo export ES_HOME=/opt/bd/elastic/elasticsearch/ >> /opt/bd/elastic/.bashr
     echo export KIBANA_HOME=/opt/bd/elastic/kibana/ >> /opt/bd/elastic/.bashrc && \
     echo export LOGSTASH_HOME=/opt/bd/elastic/logstash/ >> /opt/bd/elastic/.bashrc && \
     echo export ES_PATH_CONF=/opt/bd/elastic/elasticsearch/config  >> /opt/bd/elastic/.bashrc && \
-    echo export PATH=/opt/bd/elastic/elasticsearch/bin:/opt/bd/elastic/kibana/bin:/opt/bd/elastic/logstash/bin:'$PATH'  >> /opt/bd/elastic/.bashrc
+    echo export PATH=/opt/bd/elastic/elasticsearch/bin:/opt/bd/elastic/kibana/bin:/opt/bd/elastic/logstash/bin:'$PATH'  >> /opt/bd/elastic/.bashrc 
 
 ADD Default_Conf/AddHostsELK /
-RUN cat /AddHostsELK >> /AddHosts
-RUN rm /AddHostsELK
+RUN cat /AddHostsELK >> /AddHosts && \ 
+    rm /AddHostsELK
 
-EXPOSE 9200 5601
+EXPOSE 9200 9300 5601
 
 ADD run.sh /run.sh
 RUN chmod a+x /run.sh

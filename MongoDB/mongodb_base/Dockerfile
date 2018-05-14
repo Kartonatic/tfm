@@ -47,7 +47,7 @@ ADD Default_Conf/AddHostsMongo /
 RUN cat /AddHostsMongo >> /AddHosts
 RUN rm /AddHostsMongo
 
-EXPOSE 27017
+EXPOSE 27017 27018
 
 ADD run.sh /run.sh
 RUN chmod a+x /run.sh

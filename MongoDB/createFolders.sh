@@ -1,1 +1,1 @@
-cd ../mongodb_resources && ./createFolder.sh
+cd ./mongodb_resources && ./createFolder.sh

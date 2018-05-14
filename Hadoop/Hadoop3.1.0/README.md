@@ -1,3 +1,5 @@
+HADOOP 3.1.0
+
 Este es el cluster hadoop: 
 
 	- Hay 3 datanodes y los diferentes servicios (namenode, checkpointnode (secondarynamenode), nodemanager, historyserver, resourcemanager, proxyserver).
