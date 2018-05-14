@@ -117,7 +117,7 @@ HOSTS:
 172.28.0.28     mongomaster
 
 
-Docker:
+Docker (AVISO: COMO TOPE HAY 150 LAYERS):
 
 Ubuntu_base:
 
