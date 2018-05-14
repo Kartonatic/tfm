@@ -4,7 +4,7 @@ Estoy ahora intentando montar una arquitectura lambda.
 
 EVOLUCION DEL PROYECTO:
 
-	- UBUNTU (actualizado, con java 8 y scala 2.12. Ademas ssh a traves de certificado)
+	- UBUNTU 16.04 (actualizado, con java 8 y scala 2.12. Ademas ssh a traves de certificado)
 
 	- HADOOP 3.1.0 aunque si esta tambien la 2.7.6
 
@@ -119,11 +119,62 @@ HOSTS:
 
 Docker:
 
+Ubuntu_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/ubuntu_base.svg)](https://microbadger.com/images/karton91/ubuntu_base.svg "Ubuntu 16.04 updated")
+
+[![](https://images.microbadger.com/badges/version/karton91/ubuntu_base.svg)](https://microbadger.com/images/karton91/ubuntu_base.svg "Ubuntu 16.04 updated")
+
+
+
 Hadoop_base:
 
-[![](https://images.microbadger.com/badges/image/karton91/hadoop_base.svg)](https://microbadger.com/images/karton91/hadoop_base "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310.svg "HADOOP 3.1.0")
 
-[![](https://images.microbadger.com/badges/version/karton91/hadoop_base.svg)](https://microbadger.com/images/karton91/hadoop_base "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310.svg "HADOOP 3.1.0")
+
+
+Zookeeper_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base.svg "ZOOKEEPER 3.4.1")
+
+[![](https://images.microbadger.com/badges/version/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base.svg "ZOOKEEPER 3.4.1")
+
+
+Kafka_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base.svg "KAFKA 1.1.0")
+
+[![](https://images.microbadger.com/badges/version/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base.svg "KAFKA 1.1.0")
+
+
+Spark_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base.svg "SPARK 2.3.0")
+
+[![](https://images.microbadger.com/badges/version/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base.svg "SPARK 2.3.0")
+
+
+Flink_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base.svg "FLINK 1.4.2")
+
+[![](https://images.microbadger.com/badges/version/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base.svg "FLINK 1.4.2")
+
+
+
+ELK_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base.svg "ELK 6.2.4")
+
+[![](https://images.microbadger.com/badges/version/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base.svg "ELK 6.2.4")
+
+
+MongoDB_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base.svg "MONGODB")
+
+[![](https://images.microbadger.com/badges/version/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base.svg "MONGODB")
 
 This is my Master's Thesis...
 
@@ -132,7 +183,7 @@ Now, I'm make a cluster with docker to do a lambda arquitecture.
 EVOLUTION OF THE PROYECT:
 
 
-	- UBUNTU (S.O updated with java 8, scala 2.12 and ssh with certificate)
+	- UBUNTU 16.04 (S.O updated with java 8, scala 2.12 and ssh with certificate)
 
 	- HADOOP 3.1.0 and, if you need, I put 2.7.6 version
 
