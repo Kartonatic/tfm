@@ -1,8 +1,11 @@
-![alt text](https://github.com/Kartonatic/tfm/blob/master/UpdatedUbuntu/logo.jpg)
+<p align="center">
+![alt text](https://github.com/Kartonatic/tfm/blob/master/UpdatedUbuntu/logo.jpg "Logo de ubuntu")
+</p>
 
 Imagen de Ubuntu 16.04 con el sistema actualizado con java 8, scala 2.12.6 y python 3.
 
 SSH:
+
 	- Configurado ssh con certificado.
 		Gracias a esto podemos podremos conectarnos a cualquier maquina
 		descendiente de esta.
