@@ -3,6 +3,8 @@ HADOOP 3.1.0
 Este es el cluster hadoop:
 
 	- La imagen base hereda de ubuntu_base
+	
+	- Usuario que lanza hadoop: hdmaster
 
 	- Hay 3 datanodes y los diferentes servicios (namenode, checkpointnode (secondarynamenode), nodemanager, historyserver, resourcemanager, proxyserver).
 		Cada uno de ellos se ha configurado para ser arrancado de forma automatica y comunicarse entre ellos. 
