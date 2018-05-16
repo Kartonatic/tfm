@@ -60,6 +60,16 @@ ADD Default_Conf/influxdb.conf /opt/bd/influxdb/influxdb/etc/influxdb/influxdb.c
 ADD Default_Conf/telegraf.conf /opt/bd/influxdb/telegraf/etc/telegraf/telegraf.conf
 ADD Default_Conf/kapacitor.conf /opt/bd/influxdb/kapacitor/etc/kapacitor/kapacitor.conf
 
+ENV INFLUXDB_HOME /opt/bd/influxdb/influxdb/
+ENV KAPACITOR_HOME /opt/bd/influxdb/kapacitor/
+ENV CHRONOGRAF_HOME /opt/bd/influxdb/chronograf/
+ENV TELEGRAF_HOME /opt/bd/influxdb/telegraf/
+
+RUN 	echo export INFLUXDB_HOME=/opt/bd/hadoop  >> /opt/bd/.bashrc &&\
+	echo export KAPACITOR_HOME=/opt/bd/hadoop >> /opt/bd/.bashrc &&\
+	echo export CHRONOGRAF_HOME=/opt/bd/hadoop >> /opt/bd/.bashrc &&\
+	echo export TELEGRAF_HOME=/opt/bd/hadoop >> /opt/bd/.bashrc &&\
+	echo export PATH='$PATH':$INFLUXDB_HOME/usr/bin/:$KAPACITOR_HOME/usr/bin/:$CHRONOGRAF_HOME/usr/bin/:$TELEGRAF_HOME/usr/bin/ >> /opt/bd/influxdb/.bashrc
 
 RUN chown -R influxdb:influxdb /opt/bd/influxdb/influxdb/etc/influxdb/influxdb.conf /opt/bd/influxdb/telegraf/etc/telegraf/telegraf.conf /opt/bd/influxdb/kapacitor/etc/kapacitor/kapacitor.conf && \
     mkdir -p /var/data/influxdb && \
@@ -68,13 +78,9 @@ RUN chown -R influxdb:influxdb /opt/bd/influxdb/influxdb/etc/influxdb/influxdb.c
     chown -R influxdb:influxdb /var/log/influxdb
 
 
-VOLUME /var/data/influxdb /var/log/influxdb /var/lib/influxdb
-
 ADD Default_Conf/AddHostsInflux /
 RUN cat /AddHostsInflux >> /AddHosts
 RUN rm /AddHostsInflux
-
-EXPOSE 8086 8082 8089 8086 9092
 
 ADD run.sh /run.sh
 RUN chmod a+x /run.sh

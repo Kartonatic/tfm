@@ -1,0 +1,1 @@
+Nodo principal de influxdb

@@ -1,1 +1,4 @@
 172.28.0.29     influxdb
+172.28.0.30     telegraf
+172.28.0.31     chronograf
+172.28.0.32     kapacitor

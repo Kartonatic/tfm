@@ -1,7 +1,7 @@
 version: "3"
 services:
   influxdb:
-    image: karton91/influxdb_base
+    image: karton91/influxdb
     container_name: influxdb
     hostname: influxdb
     volumes:
@@ -9,11 +9,44 @@ services:
       - ./influxdb_resources/influxdb/log:/var/log/influxdb/
       - ./influxdb_resources/influxdb/lib:/var/lib/influxdb/
     networks:
-      mongonet:
+      influxnet:
         ipv4_address: 172.28.0.29
+  telegraf:
+    image: karton91/telegraf
+    container_name: telegraf
+    hostname: telegraf
+    volumes:
+      - ./influxdb_resources/telegraf/data:/var/data/influxdb/
+      - ./influxdb_resources/telegraf/log:/var/log/influxdb/
+      - ./influxdb_resources/telegraf/lib:/var/lib/influxdb/
+    networks:
+      influxnet:
+        ipv4_address: 172.28.0.30
+  chronograf:
+    image: karton91/chronograf
+    container_name: chronograf
+    hostname: chronograf
+    volumes:
+      - ./influxdb_resources/chronograf/data:/var/data/influxdb/
+      - ./influxdb_resources/chronograf/log:/var/log/influxdb/
+      - ./influxdb_resources/chronograf/lib:/var/lib/influxdb/
+    networks:
+      influxnet:
+        ipv4_address: 172.28.0.31
+  kapacitor:
+    image: karton91/kapacitor
+    container_name: kapacitor
+    hostname: kapacitor
+    volumes:
+      - ./influxdb_resources/kapacitor/data:/var/data/influxdb/
+      - ./influxdb_resources/kapacitor/log:/var/log/influxdb/
+      - ./influxdb_resources/kapacitor/lib:/var/lib/influxdb/
+    networks:
+      influxnet:
+        ipv4_address: 172.28.0.32
 
 networks:
-  mongonet:
+  influxnet:
     driver: bridge
     ipam:
       driver: default

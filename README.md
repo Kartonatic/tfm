@@ -122,64 +122,68 @@ HOSTS:
 
 172.28.0.28     mongomaster
 
+172.28.0.29     influxdb
+
+172.28.0.30     telegraf
+
+172.28.0.31     chronograf
+
+172.28.0.32     kapacitor
+
 
 Docker (AVISO: COMO TOPE HAY 150 LAYERS):
 
 Ubuntu_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/ubuntu_base.svg)](https://microbadger.com/images/karton91/ubuntu_base.svg "Ubuntu 16.04 updated")
-
 [![](https://images.microbadger.com/badges/version/karton91/ubuntu_base.svg)](https://microbadger.com/images/karton91/ubuntu_base.svg "Ubuntu 16.04 updated")
 
 
 Hadoop_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310 "HADOOP 3.1.0")
-
 [![](https://images.microbadger.com/badges/version/karton91/hadoop_base310.svg)](https://microbadger.com/images/karton91/hadoop_base310 "HADOOP 3.1.0")
 
 
 Zookeeper_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base "ZOOKEEPER 3.4.1")
-
 [![](https://images.microbadger.com/badges/version/karton91/zookeeper_base.svg)](https://microbadger.com/images/karton91/zookeeper_base "ZOOKEEPER 3.4.1")
 
 
 Kafka_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base "KAFKA 1.1.0")
-
 [![](https://images.microbadger.com/badges/version/karton91/kafka_base.svg)](https://microbadger.com/images/karton91/kafka_base "KAFKA 1.1.0")
 
 
 Spark_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base "SPARK 2.3.0")
-
 [![](https://images.microbadger.com/badges/version/karton91/spark_base.svg)](https://microbadger.com/images/karton91/spark_base "SPARK 2.3.0")
 
 
 Flink_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base "FLINK 1.4.2")
-
 [![](https://images.microbadger.com/badges/version/karton91/flink_base.svg)](https://microbadger.com/images/karton91/flink_base "FLINK 1.4.2")
-
 
 
 ELK_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base "ELK 6.2.4")
-
 [![](https://images.microbadger.com/badges/version/karton91/elk_base.svg)](https://microbadger.com/images/karton91/elk_base "ELK 6.2.4")
 
 
 MongoDB_base:
 
 [![](https://images.microbadger.com/badges/image/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base "MONGODB")
-
 [![](https://images.microbadger.com/badges/version/karton91/mongodb_base.svg)](https://microbadger.com/images/karton91/mongodb_base "MONGODB")
+
+InfluxDB_base:
+
+[![](https://images.microbadger.com/badges/image/karton91/influxdb_base.svg)](https://microbadger.com/images/karton91/influxdb_base "INFLUXDB")
+[![](https://images.microbadger.com/badges/version/karton91/influxdb_base.svg)](https://microbadger.com/images/karton91/influxdb_base "INFLUXDB")
 
 This is my Master's Thesis...
 
