@@ -1,7 +1,7 @@
 version: "3"
 services:
   elasticsearch:
-    image: karton91/elk_base
+    image: karton91/elasticserach
     container_name: elasticsearch
     hostname: elasticsearch
     volumes:
@@ -13,7 +13,7 @@ services:
       elknet:
         ipv4_address: 172.28.0.25
   kibana:
-    image: karton91/elk_base
+    image: karton91/kibana
     container_name: kibana
     hostname: kibana
     volumes:
@@ -25,7 +25,7 @@ services:
       elknet:
         ipv4_address: 172.28.0.26
   logstash:
-    image: karton91/elk_base
+    image: karton91/logstash
     container_name: logstash
     hostname: logstash
     volumes:

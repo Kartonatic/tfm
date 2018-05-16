@@ -1,4 +1,4 @@
-FROM karton91/mongodb_base
+FROM karton91/elk_base
 MAINTAINER Ruben Garrido <ruben.garrido1@um.es>
 
 USER root

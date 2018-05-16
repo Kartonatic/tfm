@@ -4,6 +4,8 @@ echo wait flink
 sleep 10
 echo wait flink
 sleep 4
+echo wait flink
+sleep 4
 
 chown -R hdmaster:hadoop /var/data/flink/
 
