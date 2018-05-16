@@ -1,0 +1,22 @@
+version: "3"
+services:
+  influxdb:
+    image: karton91/influxdb_base
+    container_name: influxdb
+    hostname: influxdb
+    volumes:
+      - ./influxdb_resources/influxdb/data:/var/data/influxdb/
+      - ./influxdb_resources/influxdb/log:/var/log/influxdb/
+      - ./influxdb_resources/influxdb/lib:/var/lib/influxdb/
+    networks:
+      mongonet:
+        ipv4_address: 172.28.0.29
+
+networks:
+  mongonet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.28.0.0/24

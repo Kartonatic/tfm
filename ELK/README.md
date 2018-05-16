@@ -1,5 +1,6 @@
 ![alt text](https://github.com/Kartonatic/tfm/blob/master/ELK/logo.png "Logos de elastic")
 
+(EN PROCESO... FALTA PONER CADA UNO EN FUNCIONAMIENTO CADA SERVICIO CON SU PROPIO DOCKERFILE)
 
 ELK es una estructura de elastic que contiene: elasticsearch, kibana y logstash.
 
