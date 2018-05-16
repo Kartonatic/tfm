@@ -2,6 +2,9 @@ Este es el Trabajo de Fin de Master que estoy haciendo...
 
 Estoy ahora intentando montar una arquitectura lambda. 
 
+![alt text](https://github.com/Kartonatic/tfm/blob/master/lambdaSchema.png "¿Como es una arquitectura lambda?")
+
+
 EVOLUCION DEL PROYECTO:
 
 	- UBUNTU 16.04 (actualizado, con java 8 y scala 2.12. Ademas ssh a traves de certificado)
