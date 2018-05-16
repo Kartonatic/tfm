@@ -3,6 +3,7 @@ Este es el Trabajo de Fin de Master que estoy haciendo...
 Estoy ahora intentando montar una arquitectura lambda. 
 
 ![alt text](https://github.com/Kartonatic/tfm/blob/master/lambdaSchema.png "¿Como es una arquitectura lambda?")
+![alt text](https://github.com/Kartonatic/tfm/blob/master/lambdaSchema2.png "¿Como es una arquitectura lambda?")
 
 
 EVOLUCION DEL PROYECTO:
@@ -22,6 +23,8 @@ EVOLUCION DEL PROYECTO:
 	- ELK 6.2.4 (Elasticsearh, Kibana  and Logstash)
 	
 	- MONGODB (instalado con apt-get install mongodb)
+
+	- INFLUXDB 1.5.2 (con chronograf-1.4.4.2, kapacitor-1.4.1 and telegraf-1.6.2)
 
 ¿Por qué es bueno tener este tipo de arquitecturas, además con docker?
 
@@ -200,3 +203,5 @@ EVOLUTION OF THE PROYECT:
 	- ELK 6.2.4 (Elasticsearh, Kibana  and Logstash)
 	
 	- MONGODB (installed with apt-get install mongodb)
+	
+	- INFLUXDB 1.5.2 (with chronograf-1.4.4.2, kapacitor-1.4.1 and telegraf-1.6.2)
