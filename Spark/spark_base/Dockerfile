@@ -26,6 +26,7 @@ ADD run.sh /run.sh
 RUN cat /AddHostsSpark >> AddHosts && \
     echo export SPARK_HOME=/opt/bd/streaming/spark/  >> /opt/bd/.bashrc && \
     echo export LD_LIBRARY_PATH='$LD_LIBRARY_PATH':/opt/bd/hadoop/lib/native >> /opt/bd/.bashrc && \
+    echo export PYSPARK_PYTHON=python3 >> /opt/bd/.bashrc  && \
     echo export PATH='$PATH':/opt/bd/streaming/spark/bin >> /opt/bd/.bashrc  && \
     chmod a+x /run.sh && \
     mkdir -p /var/data/spark && \
@@ -34,6 +35,6 @@ RUN cat /AddHostsSpark >> AddHosts && \
 VOLUME /var/data/spark
 
 
-EXPOSE 8080 7077 6066 18080 44247
+EXPOSE 8080 7077 6066 18080 44247 9999
 
 # Based on https://linode.com/docs/databases/hadoop/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/

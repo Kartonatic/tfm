@@ -1,0 +1,3 @@
+spark-submit \
+--packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0 \
+ examples/src/main/python/streaming/kafka_wordcount.py zoo1,zoo2,zoo3 streamKafka

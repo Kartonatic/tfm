@@ -221,6 +221,8 @@ services:
     image: karton91/spark_master
     container_name: sparkmaster
     hostname: sparkmaster
+    ports:
+      - "9999:9999"
     depends_on:
       - checkpointnode
     env_file:

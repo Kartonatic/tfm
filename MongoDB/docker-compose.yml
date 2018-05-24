@@ -1,7 +1,7 @@
 version: "3"
 services:
   mongomaster:
-    image: karton91/mongodb_base
+    image: karton91/mongodb_master
     container_name: mongomaster
     hostname: mongomaster
     volumes:
