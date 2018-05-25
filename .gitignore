@@ -18,3 +18,9 @@ Spark/kafka_resources
 Spark/spark_resources
 Spark/zookeeper_resources
 InfluxDB/influxdb_resources
+00_Final/ELK_resources
+00_Final/hadoop_resources
+00_Final/kafka_resources
+00_Final/mongodb_resources
+00_Final/spark_resources
+00_Final/zookeeper_resources

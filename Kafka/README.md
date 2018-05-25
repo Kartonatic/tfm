@@ -4,6 +4,8 @@ Con Kafka tenemos un servicio productor/consumidor en donde varios productores y
 
 Hemos implementado un servicio kafka de 3 nodos. Si falla un nodo, otro tendrá la copia de la cola por lo que se pueden redirigir los datos.
 
+Se ha añadido auto.leader.rebalance.enable = true
+
 Servicio kafka con 3 brokers (ids = 0,1 y 2).
 
 Kafka service with 3 brokers (ids = 0,1 and 2).

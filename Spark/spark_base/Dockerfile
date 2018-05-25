@@ -14,6 +14,10 @@ RUN cd /opt/bd/streaming/ && \
 	chown -R hdmaster:hadoop /opt/bd/streaming/spark && \ 
         chown -R hdmaster:hadoop /opt/bd/streaming/spark/
 
+RUN cd /opt/bd/streaming/spark/jars && \
+	wget central.maven.org/maven2/org/elasticsearch/elasticsearch-hadoop/6.2.4/elasticsearch-hadoop-6.2.4.jar &&\
+	chown -R hdmaster:hadoop /opt/bd/streaming/spark/jars/elasticsearch-hadoop-6.2.4.jar
+
 ADD Default_Conf/conf/ /opt/bd/streaming/spark/conf/
 RUN chown -R hdmaster:hadoop /opt/bd/streaming/spark/conf/
 
@@ -21,7 +25,6 @@ RUN chown -R hdmaster:hadoop /opt/bd/streaming/spark/conf/
 ADD  Default_Conf/AddHostsSpark /
 
 ADD run.sh /run.sh
-
 
 RUN cat /AddHostsSpark >> AddHosts && \
     echo export SPARK_HOME=/opt/bd/streaming/spark/  >> /opt/bd/.bashrc && \
