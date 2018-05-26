@@ -94,9 +94,9 @@ RUN echo export ES_HOME=/opt/bd/elastic/elasticsearch/ >> /opt/bd/elastic/.bashr
     echo export ES_PATH_CONF=/opt/bd/elastic/elasticsearch/config  >> /opt/bd/elastic/.bashrc && \
     echo export PATH=/opt/bd/elastic/elasticsearch/bin:/opt/bd/elastic/kibana/bin:/opt/bd/elastic/logstash/bin:'$PATH'  >> /opt/bd/elastic/.bashrc 
 
-ADD Default_Conf/AddHostsELK /
-RUN cat /AddHostsELK >> /AddHosts && \ 
-    rm /AddHostsELK
+# ADD Default_Conf/AddHostsELK /
+# RUN cat /AddHostsELK >> /AddHosts && \ 
+#     rm /AddHostsELK
 
 EXPOSE 9200 9300 5601
 

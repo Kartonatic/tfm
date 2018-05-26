@@ -52,8 +52,8 @@ ENV KAFKA_HOME /opt/queuesmanager/kafka/
 RUN echo export KAFKA_HOME=/opt/queuesmanager/kafka >> /opt/queuesmanager/.bashrc
 
 ADD Default_Conf/AddkafkaHost /
-RUN cat /AddkafkaHost >> /AddHosts
-RUN rm /AddkafkaHost
+# RUN cat /AddkafkaHost >> /AddHosts
+# RUN rm /AddkafkaHost
 
 HEALTHCHECK CMD curl -f http://localhost:9092/ || exit 1
 

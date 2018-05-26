@@ -71,6 +71,8 @@ services:
       - datanode1
       - datanode2
       - datanode3
+      - resourcemanager
+      - historyserver
     volumes:
       - ./hadoop_resources/nodemanager/log:/var/log/hadoop/
     env_file:

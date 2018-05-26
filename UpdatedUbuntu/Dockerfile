@@ -24,7 +24,7 @@ RUN apt-get -y install	libavahi-common-data \
 			python3 \
 			wget \
 			openjdk-8-jre \
-			zip
+			zip 
 
 
 RUN mkdir -p /installedRegister/scala && \
@@ -32,7 +32,7 @@ RUN mkdir -p /installedRegister/scala && \
 	wget https://www.scala-lang.org/files/archive/scala-2.12.6.deb && \
 	dpkg -i scala-2.12.6.deb && \
 	apt-get update && \
-	apt-get -y install scala
+	apt-get -y install scala python3-pip
 
 RUN apt-get update && \
     apt-get -y upgrade
@@ -71,15 +71,25 @@ ENV JAVA_VERSION 8
 
 #Java
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64 
+ENV PDSH_RCMD_TYPE ssh
 
 RUN cp /etc/skel/.bash_logout /opt/bd/ &&\
    	cp /etc/skel/.profile /opt/bd/ &&\
 	cp /etc/skel/.bashrc /opt/bd/ &&\
 	echo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> /opt/bd/.bashrc &&\
+	echo export PDSH_RCMD_TYPE=ssh >> /opt/bd/.bashrc &&\
 	echo export PATH=$JAVA_HOME/bin:'$PATH' >> /opt/bd/.bashrc &&\
 	chown -R hdmaster:hadoop /opt/bd/.bash_logout &&\
 	chown -R hdmaster:hadoop /opt/bd/.profile &&\
-	chown -R hdmaster:hadoop /opt/bd/.bashrc
+	chown -R hdmaster:hadoop /opt/bd/.bashrc  &&\
+	echo "ssh" > /etc/pdsh/rcmd_default
 
+ADD  Default_Conf/AddHosts /
 
+# IMPORTANT: if you don't use my yaml file, you have to change entrypoint.sh or /etc/hosts
+# Add routes yml for hosts
+# ADD  Default_Conf/AddHosts /
 
+ADD Default_Conf/entrypoint.sh /
+RUN chmod a+x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

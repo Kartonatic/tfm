@@ -24,7 +24,7 @@ RUN chown -R hdmaster:hadoop /opt/bd/hadoop/etc/hadoop/
 
 # IMPORTANT: if you don't use my yaml file, you have to change entrypoint.sh or /etc/hosts
 # Add routes yml for hosts
-ADD  Default_Conf/AddHosts /
+# ADD  Default_Conf/AddHosts /
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh

@@ -62,7 +62,7 @@ RUN cp /etc/skel/.bash_logout /opt/orchestrator/ && \
 	chown -R zkmaster:zk /opt/orchestrator/.bashrc 
 
 ADD Default_Conf/AddZooKeeperHost /
-RUN cat /AddZooKeeperHost >> /AddHosts  && rm /AddZooKeeperHost
+# RUN cat /AddZooKeeperHost >> /AddHosts  && rm /AddZooKeeperHost
 
 # Expose client port (2188/tcp), peer connection port (2888/tcp), leader election port (3888/tcp)
 EXPOSE 2181 2888 3888

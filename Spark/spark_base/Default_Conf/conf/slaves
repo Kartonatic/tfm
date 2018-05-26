@@ -16,6 +16,7 @@
 #
 
 # A Spark Worker will be started on each of the machines listed below.
+sparkmaster
 sparkworker1
 sparkworker2
 sparkworker3

@@ -43,9 +43,9 @@ RUN chown -R mongodb:mongodb /etc/mongodb.conf && \
 
 VOLUME /var/data/mongodb /var/log/mongodb
 
-ADD Default_Conf/AddHostsMongo /
-RUN cat /AddHostsMongo >> /AddHosts
-RUN rm /AddHostsMongo
+# ADD Default_Conf/AddHostsMongo /
+# RUN cat /AddHostsMongo >> /AddHosts
+# RUN rm /AddHostsMongo
 
 EXPOSE 27017 27018
 

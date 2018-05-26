@@ -19,10 +19,10 @@ RUN cd /opt/bd/streaming/ && \
 ADD Default_Conf/conf/ /opt/bd/streaming/flink/conf/
 RUN chown -R hdmaster:hadoop /opt/bd/streaming/flink/conf/
 
-ADD  Default_Conf/AddHostsFlink /
+# ADD  Default_Conf/AddHostsFlink /
+# cat /AddHostsFlink >> AddHosts && 
 
-RUN cat /AddHostsFlink >> AddHosts && \
-    echo export FLINK_HOME=/opt/bd/streaming/flink/  >> /opt/bd/.bashrc && \
+RUN echo export FLINK_HOME=/opt/bd/streaming/flink/  >> /opt/bd/.bashrc && \
     echo export LD_LIBRARY_PATH='$LD_LIBRARY_PATH':/opt/bd/hadoop/lib/native >> /opt/bd/.bashrc && \
     echo export PATH='$PATH':/opt/bd/streaming/flink/bin >> /opt/bd/.bashrc  && \
     mkdir -p /var/data/flink && \

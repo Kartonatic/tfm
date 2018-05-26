@@ -22,12 +22,11 @@ ADD Default_Conf/conf/ /opt/bd/streaming/spark/conf/
 RUN chown -R hdmaster:hadoop /opt/bd/streaming/spark/conf/
 
 
-ADD  Default_Conf/AddHostsSpark /
-
+# ADD  Default_Conf/AddHostsSpark /
+# RUN cat /AddHostsSpark >> AddHosts 
 ADD run.sh /run.sh
 
-RUN cat /AddHostsSpark >> AddHosts && \
-    echo export SPARK_HOME=/opt/bd/streaming/spark/  >> /opt/bd/.bashrc && \
+RUN echo export SPARK_HOME=/opt/bd/streaming/spark/  >> /opt/bd/.bashrc && \
     echo export LD_LIBRARY_PATH='$LD_LIBRARY_PATH':/opt/bd/hadoop/lib/native >> /opt/bd/.bashrc && \
     echo export PYSPARK_PYTHON=python3 >> /opt/bd/.bashrc  && \
     echo export PATH='$PATH':/opt/bd/streaming/spark/bin >> /opt/bd/.bashrc  && \

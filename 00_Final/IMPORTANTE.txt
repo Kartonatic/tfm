@@ -1,3 +1,7 @@
 DEBES EJECUTAR:
 	sudo sysctl -w vm.max_map_count=262144
-si no, elasticsearch no podra ejecutarse
+si no, elasticsearch no podra ejecutarse.
+
+Si ya se te ha pasado y has visto que se te ha cerrado elasticsearch, lo que puedes hacer es:
+	- Ejecutas el comando anterior
+	- Usas docker-compose restart elasticsearch
