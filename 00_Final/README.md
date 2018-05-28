@@ -1,3 +1,7 @@
+Si es la primera vez que lanzas este proyecto, debes lanzar el script:
+
+	- createFoldersFromGit.sh 
+
 Para usar este proyecto debemos de lanzar lo siguiente:
 
 	- sudo sysctl -w vm.max_map_count=262144
@@ -7,7 +11,7 @@ Para usar este proyecto debemos de lanzar lo siguiente:
 
 Revisar que ninguna maquina esté caida, en caso de que se haya caido alguna probar a apagarlas y usar docker-compose rm y luego docker-compose up (esto podria pasar si es la primera vez que las lanzas).
 
-Si es la primera vez que lo ejecutas (y solo si es la primera vez) lanza el script 'CreateIndexForElastic.py' con python3 para crear el indice en elasticsearch
+Si es la primera vez que lo ejecutas (y solo si es la primera vez) lanza el script 'CreateIndexForElastic.py' con python3 para crear el indice en elasticsearch cuando las maquinas estén creadas.
 
 Una vez tenemos las maquinas en vuelo nos meteremos en spark y loghstash para lanzar los scripts correspondientes:
 	
