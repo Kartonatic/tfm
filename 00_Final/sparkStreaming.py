@@ -6,6 +6,8 @@ import json
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
+import pymongo
+
 
 
 if __name__ == "__main__":
@@ -28,6 +30,15 @@ if __name__ == "__main__":
     sensor_counts.pprint()
     sensor_counts.count().pprint()
     parsed.count().pprint()
+
+    client = MongoClient("mongomaster", 27017)
+    db = client.osm
+    ways = db.ways
+
+    #sensor_directions = parsed.map(lambda x: (x['sensorId'], ways.find({"loc": { "$near": x['location'] , "$maxDistance": 0.001 } })[0])
+    #sensor_directions.pprint()
+
+    client.close()
 
     ssc.start()
     ssc.awaitTermination()

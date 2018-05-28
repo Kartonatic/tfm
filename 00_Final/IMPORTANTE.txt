@@ -5,3 +5,9 @@ si no, elasticsearch no podra ejecutarse.
 Si ya se te ha pasado y has visto que se te ha cerrado elasticsearch, lo que puedes hacer es:
 	- Ejecutas el comando anterior
 	- Usas docker-compose restart elasticsearch
+
+Si te has liado y te salen problemas con la red, puedes borrarlas todas con docker network prune.
+ 
+Si te sale que el contenedor ya existe en otro entorno, en el ultimo entorno que hayas ejecutado 
+puedes ejecutar docker-compose rm. Tambien puedes borrar las maquinas que te dan problemas con 
+docker rm [lista de los nombres de las maquinas]
