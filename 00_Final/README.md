@@ -1,6 +1,7 @@
 Si es la primera vez que lanzas este proyecto, debes lanzar el script:
 
-	- createFoldersFromGit.sh 
+	- cd ToGenerateFolders
+	- ./createFoldersFromGit.sh 
 
 Para usar este proyecto debemos de lanzar lo siguiente:
 
@@ -11,7 +12,7 @@ Para usar este proyecto debemos de lanzar lo siguiente:
 
 Revisar que ninguna maquina esté caida, en caso de que se haya caido alguna probar a apagarlas y usar docker-compose rm y luego docker-compose up (esto podria pasar si es la primera vez que las lanzas).
 
-Si es la primera vez que lo ejecutas (y solo si es la primera vez) lanza el script 'CreateIndexForElastic.py' con python3 para crear el indice en elasticsearch cuando las maquinas estén creadas.
+Si es la primera vez que lo ejecutas (y solo si es la primera vez) lanza el script 'CreateIndexForElastic.py' con python3 para crear el indice en elasticsearch cuando las maquinas estén creadas. También tendrás que meter los ficheros Users.csv y UserSensor.csv en el directorio ./spark_resources/spark_master/data/
 
 Una vez tenemos las maquinas en vuelo nos meteremos en spark y loghstash para lanzar los scripts correspondientes:
 	
@@ -19,13 +20,30 @@ Una vez tenemos las maquinas en vuelo nos meteremos en spark y loghstash para la
 		
 		- su hdmaster
 
+		- Si es la primera vez que vas a usarlo necesitaras subir los csv correspondientes al hdfs:
+
+			- cd /var/data/spark
+
+			- Aqui tendremos que tener los ficheros Users.csv y UserSensor.csv que subiremos a hadoop
+
+			- hadoop fs -put Users.csv
+
+			- hadoop fs -put UserSensor.csv
+
 		- cd ~/streaming/spark
 
-		- # Ahora pegamos sparkStreaming.py que hay en nuestro git en este directorio (podemos hacerlo con nano sparkStreaming.py pegando el codigo)
+		- # Ahora pegamos sparkStreaming.py que hay en nuestro git en el directorio Code (podemos hacerlo con nano sparkStreaming.py pegando el codigo)
 
 		- # Ahora lanzamos spark streaming (recuerda que si quieres lanzarlo en vez de con yarn con las maquinas spark puedes usar el parametro --master spark://sparkmaster:7077):
 
-		- spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0 sparkStreaming.py zoo1,zoo2,zoo3 streamKafka
+		- spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStreaming2.py zoo1,zoo2,zoo3 streamKafka sparkOut
+
+	- Existe otra version con spark struct streaming que se ha testeado:
+
+		- o tambien podemos probar la version de pruebas con spark struct streaming añadiendo sparkStructStream.py
+
+		- spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStructStream.py kafka1:9092,kafka2:9092,kafka3:9092 subscribe streamKafka 
+
 	
 	- # Ahora ya tenemos spark streaming en vuelo 
 
@@ -36,7 +54,9 @@ Una vez tenemos las maquinas en vuelo nos meteremos en spark y loghstash para la
 
 		- cd ~/logstash
 
-		- # Ahora pegamos logstashkafka.conf que hay en nuestro git en este directorio (podemos hacerlo con nano logstashkafka.conf pegando el yaml)
+		- # Ahora pegamos logstashkafka.conf que hay en nuestro git en el directorio 00_Final/Code/Logstash/ (podemos hacerlo con nano logstashkafka.conf pegando el yaml)
+
+		- # Tambien se ha creado una version que actualiza las posiciones de los vehiculos: logstashkafkaUpdates.conf
 
 		- logstash -f logstashkafka.conf
 

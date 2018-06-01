@@ -66,6 +66,11 @@ EVOLUCION DEL PROYECTO:
 		container a docker hub y el script createFolders.sh llamará al script createFolder.sh de cada carpeta '_resources' de cada tecnologia (dicho script genera las carpetas necesarias
 		para la persistencia).
 
+
+¿Como monto OSM con mongodb?
+	
+	- En el directorio MongoDB_to_OSM está todo lo necesario para obtener la base de datos
+
 HOSTS:
 
 172.28.0.2	namenode

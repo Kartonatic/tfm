@@ -1,4 +1,5 @@
-mkdir -f hadoop_resources
+cd ..
+mkdir -p hadoop_resources
 cd hadoop_resources
 
 
@@ -59,6 +60,7 @@ mkdir -p checkpointnode/hdfs/nn checkpointnode/hdfs/cpn checkpointnode/hdfs/dn
 mkdir -p checkpointnode/log
 mkdir -p checkpointnode/log/yarn checkpointnode/log/hdfs checkpointnode/log/mapred
 
+chmod a+rw  -R .
 
 cd ..
 mkdir -f zookeeper_resources
@@ -86,6 +88,7 @@ mkdir -p zoo3
 mkdir -p zoo3/data
 mkdir -p zoo3/log
 
+chmod a+rw  -R .
 
 cd ..
 mkdir -f kafka_resources
@@ -109,6 +112,7 @@ mkdir -p kafka/log
 mkdir -p kafka3
 mkdir -p kafka3/log
 
+chmod a+rw  -R .
 
 cd ..
 mkdir -f spark_resources
@@ -142,6 +146,7 @@ mkdir -p spark_worker3
 mkdir -p spark_worker3/data
 mkdir -p spark_worker3/data/shuffle_rdd spark_worker3/data/worker spark_worker3/data/zoo 
 
+chmod a+rw  -R .
 
 cd ..
 mkdir -f ELK_resources
@@ -161,6 +166,7 @@ mkdir -p kibana/data kibana/log
 mkdir -p logstash
 mkdir -p logstash/data logstash/log
 
+chmod a+rw  -R .
 
 cd ..
 mkdir -f mongodb_resources
@@ -176,4 +182,5 @@ mkdir -p mongodb/data mongodb/log
 mkdir -p mongomaster
 mkdir -p mongomaster/data mongomaster/log
 
+chmod a+rw  -R .
 cd ..

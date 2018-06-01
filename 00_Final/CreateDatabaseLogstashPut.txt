@@ -6,18 +6,21 @@ PUT car_gps
     "mappings" : {
     	"car_gps": { 
       		"properties": { 
+                        "id_user":  { "type": "integer"  },
+                        "name":  { "type": "keyword"  },
 			"sensorId":    { "type": "keyword"  },
 			"Type":    { "type": "keyword"  }, 
-			"coordinates.lat":    { "type": "double"  }, 
-			"coordinates.long":    { "type": "double"  }, 
+			"coordinates_lat":    { "type": "double"  }, 
+			"coordinates_long":    { "type": "double"  }, 
 			"location": {"type": "geo_point"},
 			"altitude":    { "type": "double"  }, 
 			"heading":    { "type": "integer"  },
 			"speed":    { "type": "integer"  },  
 			"speedmetric":     { "type": "text"  }, 
 			"temp":      { "type": "integer" },  
-			"observationTime":  { "type": "text"  },
-			"date2":  { "type": "date"  },
+			"observationTime":  { "type": "date"  },
+			"date":  { "type": "date"  },
+                        "serverTime":  { "type": "date"  },
 			"dateSend":  { "type": "date"  }
       		}
 	}
