@@ -24,11 +24,15 @@ Una vez tenemos las maquinas en vuelo nos meteremos en spark y loghstash para la
 
 			- cd /var/data/spark
 
-			- Aqui tendremos que tener los ficheros Users.csv y UserSensor.csv que subiremos a hadoop
+			- Aqui tendremos que tener los ficheros Users.csv, UserSensor.csv y blackshapes.csv que subiremos a hadoop
+
+				- Para esto podemos meter los ficheros (que se encuentran en Data) en el directorio spark_resources/spark_master/data/
 
 			- hadoop fs -put Users.csv
 
 			- hadoop fs -put UserSensor.csv
+
+                        - hadoop fs -put blackshapes.csv
 
 		- cd ~/streaming/spark
 

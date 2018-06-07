@@ -76,7 +76,8 @@ RUN mkdir /home/hdfs &&\
     cp /opt/bd/.bash_logout /home/hdfs/ &&\
     cp /opt/bd/.profile /home/hdfs/ &&\
     cp /opt/bd/.bashrc /home/hdfs/ &&\
-    chown -R hdfs /home/hdfs
+    chown -R hdfs /home/hdfs &&\
+    pip3 install pymongo
 
 # Based on:
 # https://github.com/sequenceiq/hadoop-docker 

@@ -285,6 +285,8 @@ services:
       - ./ELK_resources/elasticsearch/data:/var/log/elastic/elasticsearch/
     environment:
       - CLUSTER_NAME=my-elasticsearch
+    depends_on:
+      - sparkmaster
     networks:
       finalnet:
         ipv4_address: 172.28.0.25
@@ -297,6 +299,8 @@ services:
       - ./ELK_resources/kibana/data:/var/log/elastic/kibana/
     environment:
       - CLUSTER_NAME=my-elasticsearch
+    depends_on:
+      - sparkmaster
     networks:
       finalnet:
         ipv4_address: 172.28.0.26
@@ -309,6 +313,8 @@ services:
       - ./ELK_resources/logstash/data:/var/log/elastic/logstash/
     environment:
       - CLUSTER_NAME=my-elasticsearch
+    depends_on:
+      - sparkmaster
     networks:
       finalnet:
         ipv4_address: 172.28.0.27
@@ -319,6 +325,8 @@ services:
     volumes:
       - ./mongodb_resources/mongomaster/data:/var/data/mongodb/
       - ./mongodb_resources/mongomaster/log:/var/log/mongodb/
+    depends_on:
+      - sparkmaster
     networks:
       finalnet:
         ipv4_address: 172.28.0.28

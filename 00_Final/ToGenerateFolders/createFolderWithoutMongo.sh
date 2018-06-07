@@ -145,12 +145,10 @@ mkdir -p spark_worker3/data
 mkdir -p spark_worker3/data/shuffle_rdd spark_worker3/data/worker spark_worker3/data/zoo 
 
 
-
 cd ..
 chmod a+rw  -R spark_resources
 mkdir -p ELK_resources
 cd ELK_resources
-
 
 rm -r elasticsearch
 rm -r kibana
@@ -165,6 +163,5 @@ mkdir -p kibana/data kibana/log
 mkdir -p logstash
 mkdir -p logstash/data logstash/log
 
-
 cd ..
-chmod a+rw  -R elasticsearch
+chmod a+rw  -R ELK_resources

@@ -30,6 +30,7 @@ RUN echo export SPARK_HOME=/opt/bd/streaming/spark/  >> /opt/bd/.bashrc && \
     echo export LD_LIBRARY_PATH='$LD_LIBRARY_PATH':/opt/bd/hadoop/lib/native >> /opt/bd/.bashrc && \
     echo export PYSPARK_PYTHON=python3 >> /opt/bd/.bashrc  && \
     echo export PATH='$PATH':/opt/bd/streaming/spark/bin >> /opt/bd/.bashrc  && \
+    echo export PYTHONIOENCODING=utf8 >> /opt/bd/.bashrc  && \
     chmod a+x /run.sh && \
     mkdir -p /var/data/spark && \
     chown -R hdmaster:hadoop /var/data/spark/

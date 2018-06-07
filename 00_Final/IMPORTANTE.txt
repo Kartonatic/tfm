@@ -11,3 +11,10 @@ Si te has liado y te salen problemas con la red, puedes borrarlas todas con dock
 Si te sale que el contenedor ya existe en otro entorno, en el ultimo entorno que hayas ejecutado 
 puedes ejecutar docker-compose rm. Tambien puedes borrar las maquinas que te dan problemas con 
 docker rm [lista de los nombres de las maquinas]
+
+
+Si quieres ver una maquina con el docker compose tendras que añadir al docker-compose.yml:
+
+entrypoint: /bin/bash
+stdin_open: true
+tty: true 

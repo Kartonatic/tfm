@@ -21,4 +21,5 @@ for chunck_df in  pd.read_csv("../Data/miniTraffic.csv", chunksize=100):
         msg2 = json.loads(msg, encoding='utf-8')
         msgJson = json.dumps(msg2)
         producer.send(str(topic_name), bytes(msgJson + '\n', 'utf-8'))
+        time.sleep(0.0016)
 producer.close()

@@ -91,7 +91,5 @@ if __name__ == "__main__":
         .format('console')\
         .trigger(processingTime='2 seconds')\
         .start()
-        #.trigger(continuous='2 seconds')\
-        #.start()
 
     query.awaitTermination()
