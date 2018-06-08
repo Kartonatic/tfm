@@ -2,3 +2,11 @@ spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0,or
 
 spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStructStream.py kafka1:9092,kafka2:9092,kafka3:9092 subscribe streamKafka 
 
+
+
+
+
+LIGHT:
+
+
+spark-submit --num-executors 4  --executor-cores 8 --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStreaming.py zoo1 streamKafka sparkOut

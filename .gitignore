@@ -1,8 +1,11 @@
 Hadoop/Hadoop3.1.0/hadoop_base/hadoop-3.1.0.tar.gz
 Hadoop/Hadoop2.7.6/hadoop_base/hadoop-2.7.6.tar.gz
 Zookeeper/Zookeeper_base/zookeeper-3.4.10.tar.gz
+Zookeeper/Zookeeper_base/Light_version/zookeeper-3.4.10.tar.gz
 Kafka/kafka_base/kafka_2.12-1.1.0.tgz
+Kafka/kafka_base/Light_version/kafka_2.12-1.1.0.tgz
 Spark/spark_base/spark-2.3.0-bin-hadoop2.7.tgz
+Spark/spark_base/Light_version/spark-2.3.0-bin-hadoop2.7.tgz
 Flink/flink_base/flink-1.4.2-bin-hadoop28-scala_2.11.tgz
 ELK/ELK_base/elasticsearch-6.2.4.tar.gz
 ELK/ELK_base/kibana-6.2.4-linux-x86_64.tar.gz

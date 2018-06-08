@@ -1,0 +1,243 @@
+version: "3"
+services:
+  namenode:
+    image: karton91/hadoop_namenode310
+    container_name: namenode
+    hostname: namenode
+    volumes:
+      - ./hadoop_resources/namenode/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/namenode/log:/var/log/hadoop/
+    environment:
+      - CLUSTER_NAME=hadoop
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.2
+  
+  resourcemanager:
+    image: karton91/hadoop_resourcemanager310
+    container_name: resourcemanager
+    hostname: resourcemanager
+    depends_on:
+      - namenode
+    volumes:
+      - ./hadoop_resources/resourcemanager/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.3
+
+  historyserver:
+    image: karton91/hadoop_historyserver310
+    container_name: historyserver
+    hostname: historyserver
+    depends_on:
+      - namenode
+    volumes:
+      - ./hadoop_resources/historyserver/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.4
+
+  checkpointnode:
+    image: karton91/hadoop_checkpointnode310
+    container_name: checkpointnode
+    hostname: checkpointnode
+    depends_on:
+      - namenode
+      - datanode1
+      - datanode2
+      - datanode3
+      - nodemanager
+    volumes:
+      - ./hadoop_resources/checkpointnode/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/checkpointnode/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.5
+
+  nodemanager:
+    image: karton91/hadoop_nodemanager310
+    container_name: nodemanager
+    hostname: nodemanager
+    depends_on:
+      - namenode
+      - datanode1
+      - datanode2
+      - datanode3
+      - resourcemanager
+      - historyserver
+    volumes:
+      - ./hadoop_resources/nodemanager/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.6
+
+  proxyserver:
+    image: karton91/hadoop_proxyserver310
+    container_name: proxyserver
+    hostname: proxyserver
+    depends_on:
+      - namenode
+      - datanode1
+      - datanode2
+      - datanode3
+    volumes:
+      - ./hadoop_resources/proxyserver/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.7
+  
+  datanode1:
+    image: karton91/hadoop_datanode310
+    container_name: datanode1
+    hostname: datanode1
+    depends_on:
+      - namenode
+    volumes:
+      - ./hadoop_resources/datanode1/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode1/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.8
+  
+  datanode2:
+    image: karton91/hadoop_datanode310
+    container_name: datanode2
+    hostname: datanode2
+    depends_on:
+      - namenode
+    volumes:
+      - ./hadoop_resources/datanode2/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode2/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.9
+  
+  datanode3:
+    image: karton91/hadoop_datanode310
+    container_name: datanode3
+    hostname: datanode3
+    depends_on:
+      - namenode
+    volumes:
+      - ./hadoop_resources/datanode3/hdfs:/var/data/hadoop/hdfs/
+      - ./hadoop_resources/datanode3/log:/var/log/hadoop/
+    env_file:
+      - ./hadoop.env
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.10
+  zoo1:
+    image: karton91/zookeeper_light
+    container_name: zoo1
+    hostname: zoo1
+    volumes:
+      - ./zookeeper_resources/zoo1/log:/var/log/zookeeper/
+      - ./zookeeper_resources/zoo1/data:/var/data/zookeeper/
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.11
+  kafka1:
+    image: karton91/kafka_light
+    container_name: kafka1
+    hostname: kafka1
+    volumes:
+      - ./kafka_resources/kafka1/log:/var/log/kafka/
+    depends_on:
+      - zoo1
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.14
+  sparkmaster:
+    image: karton91/spark_light
+    container_name: sparkmaster
+    hostname: sparkmaster
+    ports:
+      - "9999:9999"
+    depends_on:
+      - checkpointnode
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - ./spark_resources/spark_master/data:/var/data/spark/
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.17
+  elasticsearch:
+    image: karton91/elasticserach
+    container_name: elasticsearch
+    hostname: elasticsearch
+    volumes:
+      - ./ELK_resources/elasticsearch/data:/var/data/elastic/elasticsearch/
+      - ./ELK_resources/elasticsearch/data:/var/log/elastic/elasticsearch/
+    environment:
+      - CLUSTER_NAME=my-elasticsearch
+    depends_on:
+      - sparkmaster
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.25
+  kibana:
+    image: karton91/kibana
+    container_name: kibana
+    hostname: kibana
+    volumes:
+      - ./ELK_resources/kibana/data:/var/data/elastic/kibana/
+      - ./ELK_resources/kibana/data:/var/log/elastic/kibana/
+    environment:
+      - CLUSTER_NAME=my-elasticsearch
+    depends_on:
+      - sparkmaster
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.26
+  logstash:
+    image: karton91/logstash
+    container_name: logstash
+    hostname: logstash
+    volumes:
+      - ./ELK_resources/logstash/data:/var/data/elastic/logstash/
+      - ./ELK_resources/logstash/data:/var/log/elastic/logstash/
+    environment:
+      - CLUSTER_NAME=my-elasticsearch
+    depends_on:
+      - sparkmaster
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.27
+  mongomaster:
+    image: karton91/mongodb_master
+    container_name: mongomaster
+    hostname: mongomaster
+    volumes:
+      - ./mongodb_resources/mongomaster/data:/var/data/mongodb/
+      - ./mongodb_resources/mongomaster/log:/var/log/mongodb/
+    depends_on:
+      - sparkmaster
+    networks:
+      finalnet:
+        ipv4_address: 172.28.0.28
+
+networks:
+  finalnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.28.0.0/24
