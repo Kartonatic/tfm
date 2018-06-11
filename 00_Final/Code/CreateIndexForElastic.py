@@ -59,7 +59,7 @@ mapping_body = '''
           "type": "text"
         },
         "actual_address": {
-          "type": "text"
+          "type": "keyword"
         },
         "max_speed": {
           "type": "integer"
@@ -75,9 +75,6 @@ mapping_body = '''
         },
         "blk_shp_accidents": {
           "type": "double"
-        },
-        "blk_shp_coordinates": {
-          "type": "geo_point"
         },
         "blk_shp_dist": {
           "type": "double"

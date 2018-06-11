@@ -11,7 +11,7 @@ topic_name = "streamKafka"
 print("sending messages to topic:" + str(topic_name))
 
 #Compatible with logstash
-for chunck_df in  pd.read_csv("../Data/miniTraffic.csv", chunksize=100):
+for chunck_df in  pd.read_csv("../Data/traffic_data_2.csv", chunksize=100):
     for index, point  in chunck_df.iterrows():
         # Los puntos no funcionan bien en las columnas de spark
         #point.index = [x.replace(".","_") for x in point.index]
@@ -21,5 +21,5 @@ for chunck_df in  pd.read_csv("../Data/miniTraffic.csv", chunksize=100):
         msg2 = json.loads(msg, encoding='utf-8')
         msgJson = json.dumps(msg2)
         producer.send(str(topic_name), bytes(msgJson + '\n', 'utf-8'))
-        time.sleep(0.0016)
+        time.sleep(0.04)
 producer.close()

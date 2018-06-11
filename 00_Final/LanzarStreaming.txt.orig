@@ -9,4 +9,8 @@ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkS
 LIGHT:
 
 
+<<<<<<< HEAD
 spark-submit --num-executors 4  --executor-cores 4 --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStreaming.py zoo1 streamKafka kafka1:9092 sparkOut
+=======
+spark-submit --num-executors 4  --executor-cores 8 --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStreaming.py zoo1 streamKafka sparkOut
+>>>>>>> 3e76d7c50ec6e0f680b3957f76600847f9728f3a

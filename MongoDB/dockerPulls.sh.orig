@@ -1,0 +1,6 @@
+docker push karton91/mongodb_base
+docker push karton91/mongodb_master
+<<<<<<< HEAD
+docker push karton91/mongoosm_master
+=======
+>>>>>>> 3e76d7c50ec6e0f680b3957f76600847f9728f3a

@@ -27,9 +27,15 @@
 # spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
 spark.master                         yarn
+<<<<<<< HEAD
 spark.driver.memory                  512m
 spark.yarn.am.memory                 512m
 spark.executor.memory                512m
+=======
+spark.driver.memory                  1g
+spark.yarn.am.memory                 1g
+spark.executor.memory                1g
+>>>>>>> 3e76d7c50ec6e0f680b3957f76600847f9728f3a
 spark.eventLog.enabled               true
 spark.eventLog.dir                   hdfs://namenode:9000/user/hdmaster/spark-logs
 spark.history.provider               org.apache.spark.deploy.history.FsHistoryProvider
@@ -46,6 +52,10 @@ spark.yarn.access.hadoopFileSystems  hdfs://namenode:9000
 spark.deploy.recoveryMode            ZOOKEEPER
 spark.deploy.zookeeper.url           zoo1:2181
 spark.deploy.zookeeper.dir           /var/data/spark/zoo
+<<<<<<< HEAD
 spark.debug.maxToStringFields        250
+=======
+spark.debug.maxToStringFields        100
+>>>>>>> 3e76d7c50ec6e0f680b3957f76600847f9728f3a
 
 

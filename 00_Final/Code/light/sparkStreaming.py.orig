@@ -251,7 +251,11 @@ if __name__ == "__main__":
                                             StructField("max_speed", IntegerType())
                                         ])
                 reference_to_dict_udf = udf(reference_to_dict, schema4udf)
+<<<<<<< HEAD
                 
+=======
+                print(dataToSend.rdd.getNumPartitions())
+>>>>>>> 3e76d7c50ec6e0f680b3957f76600847f9728f3a
                 #Obtenemos la georeferenciacion
                 dataToSend = dataToSend.withColumn("data_osm", reference_to_dict_udf(struct([dataToSend[x] for x in ['coordinates_lat','coordinates_long']])))
                 dataToSend = dataToSend.select("id", "Type","altitude","coordinates_lat","coordinates_long","date","observationTime","observationDate","dateSend", "serverDate",
@@ -307,10 +311,17 @@ if __name__ == "__main__":
                                                array(col('blk_shp.blk_point_lat'),col('blk_shp.blk_point_long')).alias("blk_shp_coordinates"),
                                                col("blk_shp.dist_to_blk_shp").alias("blk_shp_dist")
                                               )
+<<<<<<< HEAD
 
                 #Send data
                 dataToSend.printSchema()
                 print(dataToSend.rdd.getNumPartitions())
+=======
+                dataToSend.orderBy("blk_shp.Province", ascending=False).show()
+
+                #Send data
+                dataToSend.printSchema()
+>>>>>>> 3e76d7c50ec6e0f680b3957f76600847f9728f3a
                 dataToSend.select(to_json(struct([dataToSend[x] for x in dataToSend.columns])).alias("value")).write.format("kafka").option("kafka.bootstrap.servers", "kafka1:9092").option("topic", topicOut).save()
 
         except Exception as e:

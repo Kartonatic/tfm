@@ -221,7 +221,7 @@ services:
       finalnet:
         ipv4_address: 172.28.0.27
   mongomaster:
-    image: karton91/mongodb_master
+    image: karton91/mongoosm_master
     container_name: mongomaster
     hostname: mongomaster
     volumes:
