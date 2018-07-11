@@ -3,15 +3,15 @@ mkdir -p hadoop_resources
 cd hadoop_resources
 
 
-rm -r namenode
-rm -r datanode1
-rm -r datanode2
-rm -r datanode3
-rm -r historyserver
-rm -r resourcemanager
-rm -r nodemanager
-rm -r checkpointnode
-rm -r proxyserver
+#rm -r namenode
+#rm -r datanode1
+#rm -r datanode2
+#rm -r datanode3
+#rm -r historyserver
+#rm -r resourcemanager
+#rm -r nodemanager
+#rm -r checkpointnode
+#rm -r proxyserver
 
 mkdir -p namenode
 mkdir -p namenode/hdfs
@@ -63,14 +63,14 @@ mkdir -p checkpointnode/log/yarn checkpointnode/log/hdfs checkpointnode/log/mapr
 chmod a+rw  -R .
 
 cd ..
-mkdir -f zookeeper_resources
+mkdir -p zookeeper_resources
 cd zookeeper_resources
 
 
-rm -r zookeeper
-rm -r zoo1
-rm -r zoo2
-rm -r zoo3
+#rm -r zookeeper
+#rm -r zoo1
+#rm -r zoo2
+#rm -r zoo3
 
 mkdir -p zookeeper
 mkdir -p zookeeper/data
@@ -91,14 +91,14 @@ mkdir -p zoo3/log
 chmod a+rw  -R .
 
 cd ..
-mkdir -f kafka_resources
+mkdir -p kafka_resources
 cd kafka_resources
 
 
-rm -r kafka
-rm -r kafka1
-rm -r kafka2
-rm -r kafka3
+#rm -r kafka
+#rm -r kafka1
+#rm -r kafka2
+#rm -r kafka3
 
 mkdir -p kafka
 mkdir -p kafka/log
@@ -115,14 +115,14 @@ mkdir -p kafka3/log
 chmod a+rw  -R .
 
 cd ..
-mkdir -f spark_resources
+mkdir -p spark_resources
 cd spark_resources
 
-rm -r spark
-rm -r spark_master
-rm -r spark_worker1
-rm -r spark_worker2
-rm -r spark_worker3
+#rm -r spark
+#rm -r spark_master
+#rm -r spark_worker1
+#rm -r spark_worker2
+#rm -r spark_worker3
 
 mkdir -p spark
 mkdir -p spark/data
@@ -149,13 +149,13 @@ mkdir -p spark_worker3/data/shuffle_rdd spark_worker3/data/worker spark_worker3/
 chmod a+rw  -R .
 
 cd ..
-mkdir -f ELK_resources
+mkdir -p ELK_resources
 cd ELK_resources
 
 
-rm -r elasticsearch
-rm -r kibana
-rm -r logstash
+#rm -r elasticsearch
+#rm -r kibana
+#rm -r logstash
 
 mkdir -p elasticsearch
 mkdir -p elasticsearch/data elasticsearch/log
@@ -169,12 +169,12 @@ mkdir -p logstash/data logstash/log
 chmod a+rw  -R .
 
 cd ..
-mkdir -f mongodb_resources
+mkdir -p mongodb_resources
 cd mongodb_resources
 
 
-rm -r mongodb
-rm -r mongomaster
+#rm -r mongodb
+#rm -r mongomaster
 
 mkdir -p mongodb
 mkdir -p mongodb/data mongodb/log
