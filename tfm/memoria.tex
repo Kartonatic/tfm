@@ -1,0 +1,212 @@
+\documentclass[spanish,11pt,twoside,openany]{scrbook}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage[spanish,es-tabla,es-noindentfirst,english]{babel}
+\usepackage{titlesec}
+\usepackage{xltxtra}
+\usepackage{xcolor}
+\usepackage{scrhack}
+\usepackage{caption}
+\usepackage[formats]{listings}
+\usepackage[colorlinks=false,naturalnames,pdfborder={0 0 0},breaklinks=true]{hyperref}
+%\usepackage{pdfpages}
+\usepackage{floatrow}
+\usepackage[export]{adjustbox}
+\usepackage{ifthen}
+\setlength{\parskip}{0.75em plus .5em minus .5em}
+\setlength{\parindent}{0pt}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+%https://tex.stackexchange.com/a/313337
+\usepackage{enumitem,amssymb}
+\usepackage[title,toc, page]{appendix}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+
+\def\bf{\normalfont\bfseries}
+\def\sc{\scshape}
+\def\sf{\sffamily}
+\def\tt{\ttfamily}
+
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{black}{rgb}{0, 0, 0}
+
+\DeclareCaptionFont{black}{\color{black}}
+\DeclareCaptionFormat{listing}{%
+    \parbox{\textwidth}{\hspace{15pt}\vspace{0pt}#1#2#3}%
+}
+
+\captionsetup[lstlisting]{format=listing,labelfont={bf},textfont={},
+  singlelinecheck=false, margin=0pt, font={} }
+
+
+% \newfontface\myfont{Advent Pro}
+% \newfontface\myfont{Josefin Sans Std}
+\newfontface\myfont{Hero Light.otf}
+%\newfontface\myttfont{Inconsolata-Regular.ttf}
+\newfontfamily{\myttfont}%
+[Path=./,
+Ligatures=TeX, % recommended
+AutoFakeSlant, % Inconsolata no tiene italics
+  BoldItalicFeatures={FakeSlant},
+   UprightFont={*-Regular},
+   %ItalicFont={* Light Italic},
+   BoldFont={*-Bold},
+   % BoldItalicFont={* Medium Italic}
+   ]
+  {Inconsolata}
+
+
+\lstset{
+basicstyle=\scriptsize\myttfont,
+breaklines=true,
+frame=tb
+}
+
+\renewcommand*{\figureformat}{%
+  {\bf \figurename~\thefigure}%
+%  \autodot% DELETED
+}
+
+
+\let\oldenumerate=\enumerate
+\let\oldendenumerate=\endenumerate
+\renewenvironment{enumerate}
+{\oldenumerate\setlength\itemsep{-0.15em}}
+{\oldendenumerate\vspace{0.2em}}
+
+\let\olditemize=\itemize
+\let\oldenditemize=\enditemize
+\renewenvironment{itemize}
+{\olditemize\setlength\itemsep{-0.15em}}
+{\oldenditemize\vspace{0.2em}}
+
+\let\oldcite=\cite
+\renewcommand\cite[1]{\ifthenelse{\equal{#1}{NEEDED}}{[cita~requerida]}{\oldcite{#1}}}
+
+\titlespacing{\chapter}{0pc}{0pc}{1.5pc}
+\titlespacing{\section}{0pc}{1pc}{1pc}
+\titlespacing{\subsection}{0pc}{0.5pc}{0.5pc}
+\titlespacing{\subsubsection}{0pc}{0.05pc}{0pc}
+
+\titleformat{\chapter}[block]{\Huge\color{blue!70}\myfont}{\thechapter}{1em}{}
+\titleformat{\section}[block]{\huge\color{blue!70}\myfont}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\Large\color{blue!70}\myfont}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\large\color{blue!70}\myfont}{\thesubsubsection}{1em}{}
+
+\lstdefinelanguage{JavaScript}
+{
+keywords={typeof,new,true,false,catch,function,return,null,catch,switch,var,if,in,while,do,else,case
+,break},
+keywordstyle=\color{blue}\bfseries,
+ndkeywords={class, export, boolean, throw, implements, import, this},
+ndkeywordstyle=\color{darkgray}\bfseries,
+identifierstyle=\color{black},
+sensitive=false,
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{purple}\ttfamily,
+stringstyle=\color{red}\ttfamily,
+morestring=[b]',
+morestring=[b]"
+}
+
+
+\graphicspath{{img/}}
+\newgeometry{margin=1in}
+\begin{document}
+\thispagestyle{empty}
+\sloppy
+
+\setmonofont{Inconsolata-Regular.ttf}
+
+\selectlanguage{spanish}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\vfill\vspace*{1cm}
+\begin{center}
+{\sc Trabajo Fin de Máster}\\
+\vspace{.5cm}
+{\huge\sf\bfseries Inferencia en tiempo real de esquemas}\\
+{\huge\sf\bfseries de bases de datos NoSQL de documentos}\\[3.3cm]
+
+\begin{large}
+{\bf Alumno}\\
+\emph{Pablo David Muñoz Sánchez}\\[1cm]
+
+{\bf Directores}\\
+\emph{Jesús J. García Molina}\\
+\emph{Diego Sevilla Ruiz}\\
+\end{large}
+\vfill
+\begin{figure}[h!]
+\centerline{\includegraphics[width=.35\textwidth]{escudoum.png}}
+\end{figure}
+\vfill
+Junio de 2018
+\end{center}
+\end{titlepage}
+\restoregeometry
+
+%\maketitle
+\cleardoublepage
+
+%\input{ack}
+
+\cleardoublepage
+
+\tableofcontents
+\cleardoublepage
+
+\input{index}
+
+\cleardoublepage
+
+\phantomsection %hyperref
+
+% next line adds the Bibliography to the contents page
+\addcontentsline{toc}{chapter}{\bibname}
+
+% uncomment next line to change bibliography name to references
+% \renewcommand{\bibname}{References}
+% \bibliographystyle{abbrv}
+\bibliographystyle{plain}
+%\bibliographystyle{alpha}
+\bibliography{memoria}
+
+\cleardoublepage
+
+\phantomsection %hyperref
+
+%%%
+%%% appendix
+%%%
+
+%now enable appendix numbering format and include any appendices
+%\appendix
+\renewcommand{\appendixtocname}{Anexos}
+\renewcommand{\appendixname}{Anexo}
+\renewcommand{\appendixpagename}{\fontsize{50}{0}\color{blue!70}\myfont Anexos}
+\begin{appendices}
+\input{Tunning}
+\input{Testing}
+%\input{Tasks}
+\input{StackOverflow}
+\end{appendices}
+\end{document}
+
+%%% Local variables:
+%%% TeX-master: t
+%%% coding: utf-8
+%%% ispell-local-dictionary: "spanish"
+%%% TeX-parse-self: t
+%%% TeX-auto-save: t
+%%% fill-column: 75
+%%% End:

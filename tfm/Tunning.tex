@@ -1,0 +1,37 @@
+\chapter{SparkUI\label{spark-ui}}
+
+Durante la ejecución de una aplicación Spark, el \texttt{SparkContext}
+correspondiente despliega una aplicación web con el primer puerto
+disponible a partir del~\texttt{4040}~\cite{prosparkstreaming}. La web
+mostrada nos ofrece información muy útil para comprender el funcionamiento
+de la aplicación. Explicaremos sus componentes principales analizando
+nuestra aplicación de inferencia de esquemas.
+
+El aspecto más importante, una vez nuestra herramienta esté funcionando, es
+comprobar que sea \emph{estable} en la pestaña \emph{Streaming} de la web,
+Las figuras~\ref{figure:ui-unstable} y~\ref{figure:ui-stable} describen
+escenarios en los que nuestra aplicación de inferencia se comporta de
+manera \emph{inestable} y \emph{estable} respectivamente. Spark Streaming
+nos ofrece la opción de configuración
+\texttt{spark.streaming.backpressure.enabled} mediante la que delegamos en
+Spark el control del ratio de recepción~\cite{spark-configuration}, lo que
+causará que sea el emisor de los datos quien los almacene hasta su
+procesamiento~\cite{mastering-apache-spark}.
+
+\begin{figure}[htb!]
+\centering
+%\includegraphics[width=\textwidth]{ui-unstable}
+\caption{Aplicación funcionando de manera \emph{inestable}. El tiempo de
+  procesamiento \emph{supera} intervalo de batch con regularidad, lo que
+  causa retrasos en el procesamiento de nuevos
+  lotes.\label{figure:ui-unstable}}
+\end{figure}
+
+%%% Local variables:
+%%% TeX-master: "memoria.tex"
+%%% coding: utf-8
+%%% ispell-local-dictionary: "spanish"
+%%% TeX-parse-self: t
+%%% TeX-auto-save: t
+%%% fill-column: 75
+%%% End:
