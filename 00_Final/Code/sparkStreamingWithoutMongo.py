@@ -275,16 +275,16 @@ if __name__ == "__main__":
                 dataToSend = dataToSend.withColumn("id", monotonically_increasing_id())
 
                 #Convertimos la funcion en udf
-                schema4udf = StructType([StructField("addrs_name", StringType()),
-                                            StructField("max_speed", IntegerType())
-                                        ])
-                reference_to_dict_udf = udf(reference_to_dict, schema4udf)
+                #schema4udf = StructType([StructField("addrs_name", StringType()),
+                #                            StructField("max_speed", IntegerType())
+                #                        ])
+                #reference_to_dict_udf = udf(reference_to_dict, schema4udf)
 
                 #Obtenemos la georeferenciacion
-                dataToSend = dataToSend.withColumn("data_osm", reference_to_dict_udf(struct([dataToSend[x] for x in ['coordinates_lat','coordinates_long', 'Type', 'speed']])))
-                dataToSend = dataToSend.select("id", "Type","altitude","coordinates_lat","coordinates_long","date","observationTime","observationDate","dateSend", "serverDate",
-                                   "serverTime","heading","location","stream.sensorId","speed","speedmetric","temp","id_user", "name", 
-                                   col("data_osm.addrs_name").alias("addrs_name"), col("data_osm.max_speed").alias("max_speed") )
+                #dataToSend = dataToSend.withColumn("data_osm", reference_to_dict_udf(struct([dataToSend[x] for x in ['coordinates_lat','coordinates_long', 'Type', 'speed']])))
+                #dataToSend = dataToSend.select("id", "Type","altitude","coordinates_lat","coordinates_long","date","observationTime","observationDate","dateSend", "serverDate",
+                #                   "serverTime","heading","location","stream.sensorId","speed","speedmetric","temp","id_user", "name", 
+                #                   col("data_osm.addrs_name").alias("addrs_name"), col("data_osm.max_speed").alias("max_speed") )
 
                 actualCoordinates = dataToSend.select("id", "coordinates_lat","coordinates_long")
                 # Cargamos los puntos negros
@@ -324,8 +324,8 @@ if __name__ == "__main__":
                                                col("data.temp").alias("temp"),
                                                col("data.id_user").alias("id_user"),
                                                col("data.name").alias("user"),
-                                               col("data.addrs_name").alias("actual_address"),
-                                               col("data.max_speed").alias("max_speed"),
+                                               #col("data.addrs_name").alias("actual_address"),
+                                               #col("data.max_speed").alias("max_speed"),
                                                col("blk_shp.address").alias("blk_shp_address"),
                                                col("blk_shp.province").alias("blk_shp_province"),
                                                col("blk_shp.country").alias("blk_shp_country"),

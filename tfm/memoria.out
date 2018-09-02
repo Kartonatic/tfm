@@ -1,0 +1,17 @@
+\BOOKMARK [0][-]{chapter*.3}{Declaración firmada sobre originalidad del trabajo}{}% 1
+\BOOKMARK [0][-]{chapter*.4}{Resumen}{}% 2
+\BOOKMARK [0][-]{chapter*.5}{Extended\040Abstract}{}% 3
+\BOOKMARK [0][-]{chapter.1}{Introducción}{}% 4
+\BOOKMARK [1][-]{section.1.1}{Contexto}{chapter.1}% 5
+\BOOKMARK [0][-]{chapter.2}{Fundamentos:\040sistemas\040NoSQL\040y\040proceso\040de\040inferencia}{}% 6
+\BOOKMARK [0][-]{chapter.3}{Apache\040Spark\040}{}% 7
+\BOOKMARK [0][-]{chapter.4}{Objetivos y esquema de la solución}{}% 8
+\BOOKMARK [1][-]{section.4.1}{Objetivos}{chapter.4}% 9
+\BOOKMARK [0][-]{chapter.5}{Inferencia\040de\040esquemas\040con\040Spark\040Streaming}{}% 10
+\BOOKMARK [0][-]{chapter.6}{Estudio\040de\040rendimiento}{}% 11
+\BOOKMARK [0][-]{chapter.7}{Conclusiones\040y\040trabajo\040futuro}{}% 12
+\BOOKMARK [0][-]{section*.6}{Bibliografía}{}% 13
+\BOOKMARK [0][-]{section*.9}{Anexos}{}% 14
+\BOOKMARK [0][-]{Anexo.A}{SparkUI}{}% 15
+\BOOKMARK [0][-]{Anexo.B}{Despliegue\040con\040Hadoop-YARN\040}{}% 16
+\BOOKMARK [0][-]{Anexo.C}{Prueba\040de\040StackOverflow}{}% 17

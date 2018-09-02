@@ -40,7 +40,7 @@ Una vez tenemos las maquinas en vuelo nos meteremos en spark y loghstash para la
 
 		- # Ahora lanzamos spark streaming (recuerda que si quieres lanzarlo en vez de con yarn con las maquinas spark puedes usar el parametro --master spark://sparkmaster:7077):
 
-		- spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStreaming2.py zoo1,zoo2,zoo3 streamKafka sparkOut
+		- spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  sparkStreaming.py zoo1,zoo2,zoo3 streamKafka kafka1:9092,kafka2:9092,kafka3:9092 sparkOut
 
 	- Existe otra version con spark struct streaming que se ha testeado:
 
