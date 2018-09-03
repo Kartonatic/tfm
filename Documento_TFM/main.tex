@@ -1,6 +1,6 @@
 \documentclass[12pt,twoside,openany]{article}     % Tipo de documento y otras especificaciones
 
-\usepackage[spanish]{babel}
+\usepackage[spanish,english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -8,18 +8,18 @@
 \usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
 \usepackage{lscape} % Para poner horizontal una página intermedia
 \usepackage{enumerate} % enumerados
-\usepackage{multicol} 
+\usepackage{multicol}
 \usepackage[colorlinks=true,urlcolor=blue,linkcolor=black,citecolor=black]{hyperref}     % Para insertar hipervínculos y marcadores
 \usepackage{listings}
 \usepackage{subfigure}
 \usepackage{float}% Para ubicar las tablas y figuras justo después del texto
-\usepackage{url}	%Para que aparezca la url en la bibliografia
+\usepackage{url}        %Para que aparezca la url en la bibliografia
 \usepackage{appendix}   %Para los anexos
-\usepackage{fancyhdr}	% Para manejar los encabezados y pies de página
+\usepackage{fancyhdr}   % Para manejar los encabezados y pies de página
 \usepackage{lipsum}
 \usepackage{tabulary}
 \usepackage{etoolbox}
-\usepackage{apalike} 
+\usepackage{apalike}
 \usepackage{titlesec}
 \usepackage{pifont}
 \usepackage{scrhack}
@@ -79,14 +79,14 @@
 
 \lstdefinestyle{mystyle}{
         basicstyle=\ttfamily\scriptsize,
-        breakatwhitespace=false,         
-        breaklines=false,                 
-        captionpos=b,                    
-        keepspaces=true,                 
-        numbers=none,                    
-        showspaces=false,                
+        breakatwhitespace=false,
+        breaklines=false,
+        captionpos=b,
+        keepspaces=true,
+        numbers=none,
+        showspaces=false,
         showstringspaces=false,
-        showtabs=false, 
+        showtabs=false,
         tabsize=1
     }
 
@@ -95,80 +95,80 @@
 
 
 \begin{document}
-	\begin{titlepage}
-		
-		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
-		
-		\center % Center everything on the page
-		
-		%----------------------------------------------------------------------------------------
-		%	HEADING SECTIONS
-		%----------------------------------------------------------------------------------------
-		
-		\textsc{\LARGE Universidad de Murcia}\\[1.5cm] % Name of your university/college
-		\textsc{\Large Máster Universitario en Tecnologías de Análisis de Datos Masivos}\\[0.5cm] % Major heading such as course name
-		\textsc{\large Trabajo Fin de Máster}\\[0.5cm] % Minor heading such as course title
-		
-		%----------------------------------------------------------------------------------------
-		%	TITLE SECTION
-		%----------------------------------------------------------------------------------------
-		
-		\HRule \\[0.4cm]
-		{ \huge \bfseries Una arquitectura Big Data para el procesamiento en tiempo real de datos en aplicaciones de gestión de flotas
-			%\Large A
-			}\\[0.4cm] % Title of your document
-		\HRule \\[1cm]
-		
-		
-		%----------------------------------------------------------------------------------------
-		%	LOGO SECTION
-		%----------------------------------------------------------------------------------------
-		\includegraphics[scale = 0.3]{Imagenes/escudoum.png}\\[2cm] % Include a department/university logo - this will require the graphicx package
-		
-		%----------------------------------------------------------------------------------------
-		%	AUTHOR SECTION
-		%----------------------------------------------------------------------------------------
-		
-		\begin{minipage}{0.5\textwidth}
-			\begin{flushleft} \large
-				\emph{Alumno:}\\
-				\emph{Rubén Garrido Montesinos}
-			\end{flushleft}
-		\end{minipage}
-		~
-		\begin{minipage}{0.45\textwidth}
-			\begin{flushright} \large
-				\emph{Directores:} \\
-				\emph{Jesús J. García Molina}\\
-				\emph{Diego Sevilla Ruiz}
-			\end{flushright}
-		\end{minipage}\\[1.5cm]
-		
-		% If you don't want a supervisor, uncomment the two lines below and remove the section above
-		%\Large \emph{Author:}\\
-		%John \textsc{Smith}\\[3cm] % Your name
-		
-		
-	
-		
-		
-		%----------------------------------------------------------------------------------------
-		
-		%----------------------------------------------------------------------------------------
-		%	DATE SECTION
-		%----------------------------------------------------------------------------------------
-		
-		{\large Septiembre de 2018}\\[1cm] % Date, change the \today to a set date if you want to be precise
-		
-	
-		
-		\vfill % Fill the rest of the page with whitespace
-		
-	\end{titlepage}
-	
-%\pdfbookmark[1]{Portada}{portada} 	% Marcador para el título
+        \begin{titlepage}
 
-%\maketitle							% Título
+                \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+                \center % Center everything on the page
+
+                %----------------------------------------------------------------------------------------
+                %       HEADING SECTIONS
+                %----------------------------------------------------------------------------------------
+
+                \textsc{\LARGE Universidad de Murcia}\\[1.5cm] % Name of your university/college
+                \textsc{\Large Máster Universitario en Tecnologías de Análisis de Datos Masivos}\\[0.5cm] % Major heading such as course name
+                \textsc{\large Trabajo Fin de Máster}\\[0.5cm] % Minor heading such as course title
+
+                %----------------------------------------------------------------------------------------
+                %       TITLE SECTION
+                %----------------------------------------------------------------------------------------
+
+                \HRule \\[0.4cm]
+                { \huge \bfseries Una arquitectura Big Data para el procesamiento en tiempo real de datos en aplicaciones de gestión de flotas
+                        %\Large A
+                        }\\[0.4cm] % Title of your document
+                \HRule \\[1cm]
+
+
+                %----------------------------------------------------------------------------------------
+                %       LOGO SECTION
+                %----------------------------------------------------------------------------------------
+                \includegraphics[scale = 0.3]{Imagenes/escudoum.png}\\[2cm] % Include a department/university logo - this will require the graphicx package
+
+                %----------------------------------------------------------------------------------------
+                %       AUTHOR SECTION
+                %----------------------------------------------------------------------------------------
+
+                \begin{minipage}{0.5\textwidth}
+                        \begin{flushleft} \large
+                                \emph{Alumno:}\\
+                                \emph{Rubén Garrido Montesinos}
+                        \end{flushleft}
+                \end{minipage}
+                ~
+                \begin{minipage}{0.45\textwidth}
+                        \begin{flushright} \large
+                                \emph{Directores:} \\
+                                \emph{Jesús J. García Molina}\\
+                                \emph{Diego Sevilla Ruiz}
+                        \end{flushright}
+                \end{minipage}\\[1.5cm]
+
+                % If you don't want a supervisor, uncomment the two lines below and remove the section above
+                %\Large \emph{Author:}\\
+                %John \textsc{Smith}\\[3cm] % Your name
+
+
+
+
+
+                %----------------------------------------------------------------------------------------
+
+                %----------------------------------------------------------------------------------------
+                %       DATE SECTION
+                %----------------------------------------------------------------------------------------
+
+                {\large Septiembre de 2018}\\[1cm] % Date, change the \today to a set date if you want to be precise
+
+
+
+                \vfill % Fill the rest of the page with whitespace
+
+        \end{titlepage}
+
+%\pdfbookmark[1]{Portada}{portada}      % Marcador para el título
+
+%\maketitle                                                     % Título
 
 
 
@@ -185,36 +185,25 @@ Abstract
 
 \newpage
 \input{Introduccion.tex}
-\include{Introduccion.tex}
 
 
 \input{EstadoDelArte.tex}
-\include{EstadoDelArte.tex}
 
 
 \input{FundamentosYHerramientas.tex}
-\include{FundamentosYHerramientas.tex}
 
 \input{Requisitos.tex}
-\include{Requisitos.tex}
 
 \input{ArquitecutraPropuesta.tex}
-\include{ArquitecutraPropuesta.tex}
 
 
 
 \input{AplicacionDesarrollada.tex}
-\include{AplicacionDesarrollada.tex}
 
 
 \input{Validacion.tex}
-\include{Validacion.tex}
-
-
-
 
 \input{Conclusiones.tex}
-\include{Conclusiones.tex}
 
 
 
@@ -239,4 +228,11 @@ Abstract
 
 \end{document}
 
-
+%%% Local variables:
+%%% TeX-master: t
+%%% coding: utf-8
+%%% ispell-local-dictionary: "spanish"
+%%% TeX-parse-self: t
+%%% TeX-auto-save: t
+%%% fill-column: 75
+%%% End:
