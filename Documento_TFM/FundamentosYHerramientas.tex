@@ -56,8 +56,64 @@ Por otro lado, Docker nos ofrece la herramienta “compose”. Dicha herramienta
 
 Por último, vamos a comentar por qué hemos elegido Docker frente a otras posibilidades. Aunque algunas empresas nos recomiendan subcontratar los nuevos proyectos relacionados con tecnologías de Big Data en vez de hacer un proyecto DIY (Do It Yourself) \cite{Dck-14}, dada la naturaleza de nuestro trabajo, Docker es la mejor opción. Docker nos ofrece ventajas tales como replicar y modificar las máquinas fácilmente, podemos usarlo desde cualquier máquina descargando la imagen directamente de Docker Hub y, posteriormente, poder probarlo en la nube sin tener que realizar grandes modificaciones. De esta forma, realizar cualquier cambio no requiere hacer copias de una máquina virtual entera sino modificar el Dockerfile de la máquina correspondiente. En la figura \ref{dock-2} \cite{Dck-15} podemos comprobar que el rendimiento que se obtiene con Docker es mejor que el de usar una máquina virtual KVM tanto para el arranque de las máquinas como para el benchmark UnixBench \cite{Dck-15}. En concreto, obtenemos un 30\% más de rendimiento con Docker que con KVM aunque, evidentemente, lo mejor es ejecutarlo sobre la máquina directamente. También podemos comprobar en la figura \ref{dock-3}  \cite{Dck-15} que el tiempo que tarda en arrancar una máquina Docker es de 5 segundos, mientras que una máquina virtual KVM tarda 15 segundos.\par
 
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.40]{Imagenes/dockervsvm2.png}
+\caption{Rendimiento del benchmark con el índice UnixBench para el software sobre una máquina real, sobre Docker y sobre KVM}
+\label{dock-2}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.40]{Imagenes/dockervsvm3.png}
+\caption{Tiempo de arranque sobre una máquina real, sobre Docker y sobre KVM}
+\label{dock-3}
+\end{figure}
+
 
 \subsection{Apache Hadoop\label{Hadoop}}
+
+
+
+Obviamente, cuando hablamos de Big Data tenemos que hacer referencia a Apache Hadoop. Para la realización de esta herramienta, se basaron en dos en dos artículos publicados por Google sobre su sistema de ficheros distribuido \cite{Hdp-2} y MapReduce \cite{Hdp-3}. El sistema de ficheros de Hadoop fué bautizado como HDFS convirtiéndose en una herramienta muy popular de la que hacen uso grandes empresas como Yahoo!,   Last.fm, Facebook o el New York Times. Además de esto, en 2009, Hadoop superó el récord de Google en ordenar un terabyte de datos en menos tiempo \cite{Hdp-1}. Además de esto, Apache Hadoop forma parte de Apache Foundation, lo que quiere decir que es totalmente OpenSource.\par
+
+Actualmente, la arquitectura de la versión 3 de Hadoop, está formada por cuatro módulos principales y sus diferentes servicios \cite{Hdp-4}:\par
+
+\begin{itemize}
+	\item \textbf{Hadoop Common}: Este paquete contiene las utilidades comunes que soportan todos los demás módulos de Hadoop.
+	\item \textbf{Hadoop Distributed File System (HDFS)}: Es el sistema de ficheros distribuido de Hadoop. Por definición es un sistema de ficheros distribuidos que proporciona un alto rendimiento a los datos de aplicación. Tiene una estructura maestro/esclavo que se compone de los siguientes servicios:
+	\begin{itemize}
+		\item \textbf{Namenode}: Administra el espacio de nombres del sistema de ficheros y regula el acceso a los diferentes ficheros. Además, asigna el datanode donde se almacenará cada bloque físico de cada fichero para que quede balanceado dicho sistema. Por tanto, en este nodo se encontrarán los metadatos de donde se encuentra cada bloque.
+		\item \textbf{Datanode}: Es un nodo de almacenamiento. En dicho nodo existirán bloques de datos, asignados por el NameNode.
+		\item \textbf{Secondary NameNode}: Es una réplica del namenode que se usa como copia por si en algún momento el NameNode cae. Se hace una copia de los metadatos cada hora o cada millón de transacciones por defecto.
+		\item \textbf{Checkpoint node}: Al igual que el Secundary NameNode, hace copias de seguridad del NameNode, pero no tiene la capacidad de sustituirlo.
+	\end{itemize}
+	\item \textbf{Hadoop YARN}: Este módulo es el framework que gestiona los trabajos y los diferentes recursos del cluster. La idea consiste en separar la planificación y la supervisión de los diferentes trabajos sobre Hadoop. También usa una estructura de maestro/esclavo para los cuales se suministran los siguientes servicios:
+	\begin{itemize}
+		\item \textbf{Resource Manager}: Este servicio se considera el “maestro”. Tiene dos funcionalidades principales, la función de Scheduler (planificador) y la función de ApplicationsManager (gestor de aplicaciones). Como planificador debe ser capaz de asignar los recursos necesarios a cada aplicación cuando lo necesite o reiniciar una aplicación en caso de fallo. Como gestor de aplicaciones es el encargado de asignar trabajo a cada uno de los componentes del cluster.
+		\item \textbf{Node Manager}:Es el responsable de iniciar y administrar los trabajos para una nodo del cluster.
+		\item \textbf{ProxyServer}: Por defecto, se ejecuta junto al Resource Manager, pero se puede ejecutar por separado. Se encarga de reducir ataques web que puedan producirse a través de YARN.
+	\end{itemize}
+	\item \textbf{Hadoop MapReduce}: Es el módulo para el procesamiento paralelo de grandes conjuntos de datos. Este sistema está basado en YARN. Además, tiene un servicio adicional que podemos añadir: 
+	\begin{itemize}
+		\item \textbf{HistoryServer}: simplemente muestra a través de una web los logs que producen los diferentes trabajos de MapReduce.
+	\end{itemize}
+\end{itemize}
+
+HDFS, como ya hemos dicho, es el sistema de ficheros de Hadoop, cuya característica más importante es que es distribuido, aunque no es la única característica que posee. HDFS, como los sistemas de ficheros convencionales, distribuye los diferentes ficheros en bloques de un tamaño fijo, normalmente de 128 MB, ya que suponen ficheros de gran tamaño, aunque esto es modificable. Dichos bloques están divididos entre los diferentes nodos del cluster de forma que sea más fácil realizar diversos tratamientos sobre ellos de forma paralela. Además de esto, contamos con la replicación de los distintos bloques, según establezcamos cuantas replicaciones de bloque queramos. Esto tiene muchas implicaciones tales como cuando cae uno de los nodos, siempre tenemos los datos disponibles en otro nodo, si uno de los nodos cae o se rompe el disco duro, podemos volver a generar dicho nodo a partir de los metadatos del namenode y la replicación de bloques. Dicho esto, podemos ver que no tiene sentido montar un RAID sobre el servidor, ya que el sistema de Hadoop te proporciona dicha funcionalidad.\par
+
+MapReduce consiste en uno o varios procesos distribuidos que manejan grandes volúmenes de datos. Tiene dos funciones principales, map y reduce. La función Map genera una tupla clave/valor intermedios y la función Reduce combina esos valores para cada clave para obtener un resultado. Dicho esto, se muestra en la figura \ref{hdImg1} \cite{Hdp-1} un ejemplo de cómo funcionaria gráficamente:\par
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.28]{Imagenes/hadoop1.png}
+\caption{Funcionamiento de Map Reduce sobre HDFS. }
+\label{hdImg1}
+\end{figure}
+
+Por último, decir que Apache Hadoop está programado en Java y necesitamos la JVM (Java Virtual Machine) para ejecutarlo.\par
+
+
 \subsection{Apache Spark\label{Spark}}
 \subsection{Apache Kafka\label{Kafka}}
 \subsection{Elastic\label{Elastic}}
