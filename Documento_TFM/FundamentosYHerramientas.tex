@@ -1,7 +1,31 @@
 \section{Fundamentos y herramientas\label{FunAndTools}}
 
+En esta sección vamos a realizar una breve introducción al Big Data y haremos un estudio de las herramientas que escogemos para entender mejor por qué se han seleccionado.\par
 
 \subsection{Qué es el Big data\label{WhatIsBigD}}
+
+El motivo por el que se inició este nuevo paradigma “Big Data” fue debido a la gran explosión de datos que tiene lugar con el surgimiento de tecnologías como la Web 2.0, los smartphones e IoT. Se calcula que se emiten más de 30 Terabytes de información cada segundo en el mundo \cite{BD-2} y el IDC predice que desde 2010 a 2020 el volumen de datos aumentará por 50 llegando por encima del Zettabyte de datos \cite{BD-2}. Por tanto, este nuevo paradigma surge debido a que los paradigmas tradicionales no tenían la capacidad de dar una respuesta al manejo de grandes volúmenes de datos.\par
+
+En 2001, Doug Laney describe el Big Data mediante los siguientes términos conocidos como las 3 Vs del Big Data \cite{BD-4}:
+
+\begin{itemize}
+\item Volumen: El conjunto de datos debe ser grande.
+\item Velocidad: Debe existir una forma rápida de que lleguen los datos, procesarlos y devolverlos.
+\item Variedad: Los datos pueden ser de cualquier tipo ya sea alfanumérico, imágenes, sonidos, videos, etc…
+\end{itemize}
+
+No obstante, a día de hoy, IBM introdujo la cuarta V del Big Data que se define como Veracidad, es decir, que los datos sean lo más reales posible, ya que cuando manejamos esta cantidad de datos, encontrar datos erróneos se hace más probable. Esto quiere decir que en Big Data nos encontramos el gran reto de gestionar gran cantidad de datos de una forma óptima \cite{BD-5}.\par
+
+Por otra parte, encontramos tres formas de tratar los datos según las diferentes necesidades que aparecen. A la hora de analizar los datos debemos tener en cuenta si se procesarán los datos del pasado, lo que implicaría reportes analíticos, entre otras aplicaciones; si se procesan en tiempo real, lo que quiere decir que se debe mostrar lo que pasa en el momento, y si queremos saber lo que pasará en el futuro, lo que implica procesos de machine learning entre otros \cite{BD-3}.\par
+
+Por otro lado, encontramos un cambio sustancial en las herramientas que pertenecen a este paradigma. Esto ha dado lugar a las siguientes características que hecho tan popular el concepto de Big Data \cite{BD-6}: 
+\begin{itemize}
+	\item Las bases de datos manejan datos no estructurados, aportando mucha más flexibilidad y dando lugar a las bases de datos NoSQL.
+	\item El hecho de almacenar los datos en una sola máquina suponía un mayor gasto económico y dificultad en su propia administración, lo que supuso que surgiera el concepto de escalabilidad horizontal de los datos. Este concepto implica que los datos no aparecen en una sola máquina, sino que se distribuyen horizontalmente entre varias máquinas. Para añadir seguridad a estas bases de datos distribuidas, debe existir una redundancia de datos que son repartidos en cada máquina, dando lugar a que cada una de ellas tenga una pequeña copia de otra para poder recuperarse.
+	\item Siguiendo con el punto anterior, se debe escalar horizontalmente el procesamiento de los datos. Esto implica una coordinación absoluta entre las diferentes máquinas que alojan los datos y los procesan para devolverlos procesados a un nodo líder del cluster y que sea capaz de devolver, rápidamente, los datos procesados.                   
+	\item Finalmente, tras obtener los datos, los usuarios desean que se pueda visualizar fácilmente la información recogida. Para que dicha cantidad de datos, sea más fácil de entender, se pueden mostrar en diferentes gráficas aplicando diversas ecuaciones estadísticas significativas si fuera necesario. El hecho de que este paradigma maneja gran cantidad de datos a favorecido el desarrollo de herramientas de visualización de datos. 
+\end{itemize}
+
 \subsection{Docker\label{Docker}}
 \subsection{Apache Hadoop\label{Hadoop}}
 \subsection{Apache Spark\label{Spark}}
