@@ -136,14 +136,14 @@ Por último, con los datos cedidos por Movildata, hemos obtenido dos gráficas q
 
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=0.28]{Imagenes/graf2.png}
+\includegraphics[scale=0.26]{Imagenes/graf2.png}
 \caption{Frecuencia de las tramas durante un día cada 60 segundos.}
 \label{graf60sec}
 \end{figure}
 
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=0.28]{Imagenes/graf3.png}
+\includegraphics[scale=0.26]{Imagenes/graf3.png}
 \caption{ Frecuencia de las tramas durante un día cada segundo.}
 \label{graf1sec}
 \end{figure}
@@ -161,7 +161,7 @@ En cuanto a la arquitectura desarrollada, planificamos una estructura como la qu
 
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=0.28]{Imagenes/arqProp1.png}
+\includegraphics[scale=0.26]{Imagenes/arqProp1.png}
 \caption{Lambda arquitectura propuesta.}
 \label{lmdarq1}
 \end{figure}
@@ -207,7 +207,7 @@ Se creará un directorio en “/var/data” en el caso de los datos de aplicaci�
 
 \item Dado que podemos tener varios servicios por aplicación, tendremos que crear, dentro de este directorio, otro directorio con el nombre del servicio. Siguiendo el ejemplo de Hadoop y haciendo referencia al servicio datanode, crearemos el directorio “hadoop\_resources/datanode/”
 
-\item Para terminar, dentro de este directorio debemos crear los directorios data y log que serán los que realmente enlazarán con el directorio que corresponde a los del paso 1. Para seguir con el ejemplo, tendremos que crear los directorios “./hadoop\_resources/datanode/data” para los datos, y “./hadoop\_resources/datanode/log” para los logs. Esto lo podremos enlazar a través del comando correspondiente de Docker o en el fichero “docker-compose” que define cómo se lanzarán los servicios.
+\item Para terminar, dentro de este directorio debemos crear los directorios data y log que serán los que realmente enlazarán con el directorio que corresponde a los del paso 1. Para seguir con el ejemplo, tendremos que crear los directorios “./hadoop\_resources/datanode/ data” para los datos, y “./hadoop\_resources/datanode/log” para los logs. Esto lo podremos enlazar a través del comando correspondiente de Docker o en el fichero “docker-compose” que define cómo se lanzarán los servicios.
 
 \end{enumerate}
 
@@ -358,7 +358,8 @@ El script de Spark Streaming realizará lo siguiente:
 \end{itemize}
 
 
-Dado esto, también vamos a intentar obtener la dirección exacta de por dónde van los vehículos para ver si van en exceso de velocidad. Para ello, haremos uso de la base de datos que hemos creado de OSM en MongoDB. Hemos realizado pruebas abriendo y cerrando la conexión sobre la base de datos pero no era eficiente, por lo que se ha decidido realizarlo a través de la API web que hemos creado. Para poder tratar esto, se ha de tratar trama por trama, haciendo una petición por cada una de ellas. A continuación, explicaremos el proceso que sigue para saber si va en exceso de velocidad y la dirección en la que se encuentra, por sí mejorando el hardware usado, es decir, usando varios cluster de verdad, llega a ser viable. Los pasos son los siguientes:
+Dado esto, también vamos a intentar obtener la dirección exacta de por dónde van los vehículos para ver si van en exceso de velocidad. Para ello, haremos uso de la base de datos que hemos creado de OSM en MongoDB. Hemos realizado pruebas abriendo y cerrando la conexión sobre la base de datos pero no era eficiente, por lo que se ha decidido realizarlo a través de la API web que hemos creado. Para poder tratar esto, se ha de realizar una petición trama por trama. A continuación, explicaremos el proceso que sigue para saber si va en exceso de velocidad y la dirección en la que se encuentra. Los pasos son los siguientes:
+
 \begin{itemize} 
 	\item Haciendo uso de la función “udf” de Spark, que nos permitirá aplicar una función a cada una de las filas del Dataframe y devolver una estructura de datos, crearemos una función que:
 	\begin{itemize} 

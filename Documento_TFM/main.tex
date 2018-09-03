@@ -187,8 +187,10 @@ Abstract
 \input{Introduccion.tex}
 \include{Introduccion.tex}
 
+
 \input{EstadoDelArte.tex}
 \include{EstadoDelArte.tex}
+
 
 \input{FundamentosYHerramientas.tex}
 \include{FundamentosYHerramientas.tex}
@@ -196,9 +198,10 @@ Abstract
 \input{Requisitos.tex}
 \include{Requisitos.tex}
 
-
 \input{ArquitecutraPropuesta.tex}
 \include{ArquitecutraPropuesta.tex}
+
+
 
 \input{AplicacionDesarrollada.tex}
 \include{AplicacionDesarrollada.tex}
@@ -214,9 +217,26 @@ Abstract
 \include{Conclusiones.tex}
 
 
+
 \newpage
 \bibliography{referencias}
 \bibliographystyle{apalike}
 \nocite{*}
 
+\newpage
+
+\appendix
+\renewcommand{\appendixname}{Anexos}
+\renewcommand{\appendixtocname}{Anexos}
+\renewcommand{\appendixpagename}{Anexos}
+\addappheadtotoc
+\appendixpage
+\section{Anexo 1: tal tal tal}\label{aped.A}
+\lstinputlisting[language=Python]{Anexos/sparkStructStream.py}
+
+\section{Anexo 2: tal tal tal}\label{aped.B}
+\lstinputlisting[language=Python]{Anexos/sparkStreaming.py}
+
 \end{document}
+
+

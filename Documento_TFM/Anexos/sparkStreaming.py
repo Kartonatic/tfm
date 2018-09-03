@@ -93,7 +93,143 @@ def dist(long_x, lat_x, long_y, lat_y):
             cos(radians(long_x) - radians(long_y))
     ) * lit(6371.0)
 
+#   bearing = atan2(sin(long2-long1)*cos(lat2), cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(long2-long1))
+#   bearing = degrees(bearing)
+#   bearing = (bearing + 360) % 360
 
+
+'''
+Obtener datos de OSM
+'''
+def getWay(lat, long, waysConnection):
+    try:
+        query = waysConnection.find({ "$and": [ {"loc": { "$near": [lat, long], "$maxDistance": 0.01 } }, 
+                                  { "$and": [ {"tg" : {'$elemMatch':{'$elemMatch':{'$in':['highway']}}}},
+                                            {"tg" : {'$elemMatch':{'$elemMatch':{'$in':['motorway', 'trunk', 'primary',
+                                                                                       'secundary', 'tertiary',
+                                                                                       'unclassified', 'residential',
+                                                                                       'service', 'road'
+                                                                                       ]
+                                                                                }
+                                                                  }
+                                                    }
+                                            }
+                                            ]
+                                  }
+                                ]} ).limit(1)
+        if (query.count(with_limit_and_skip=True))>0:
+            return query[0]
+        return None
+    except:
+        return None
+
+def getWayUrl(lat, long):
+    try:
+        url = "http://mongomaster:5000/getway/"+str(lat)+"/"+str(long)
+        response = urlopen(url)
+        data = json.loads(response.read().decode("utf-8"))
+        return data
+    except:
+        return None
+
+#Datos de velocidad
+carLimit = {
+    'motorway' : 120,
+    'trunk' : 100,
+    'primary' : 50,
+    'secundary' : 90,
+    'tertiary' : 90,
+    'unclassified' : 60,
+    'residential' : 30,
+    'service' : 50,
+    'road' : 80
+}
+
+busLimit = {
+    'motorway' : 100,
+    'trunk' : 90,
+    'primary' : 50,
+    'secundary' : 80,
+    'tertiary' : 80,
+    'unclassified' : 60,
+    'residential' : 30,
+    'service' : 50,
+    'road' : 80
+}
+
+truckLimit = {
+    'motorway' : 100,
+    'trunk' : 90,
+    'primary' : 50,
+    'secundary' : 70,
+    'tertiary' : 70,
+    'unclassified' : 60,
+    'residential' : 30,
+    'service' : 50,
+    'road' : 80
+}
+
+'''
+Obtain max velocity for road type and vehicle type 
+'''
+def getSpeedLimit(road_type, vh_type):
+    if (vh_type == "truck"):
+        return truckLimit.get(road_type, 120)
+    elif (vh_type == "bus"):
+        return busLimit.get(road_type, 120)
+    else:
+        return carLimit.get(road_type, 120)
+        
+
+'''
+Obtener los datos que nos interesan de mongodb
+'''
+def getInfo(query, vh_type):
+    speedLimit = 120
+    tagSpeed=False
+    tafRef = False
+    name = ""
+    try:
+        if (query is None):
+            return (name, speedLimit)
+        for i in query['tg']:
+            if ("maxspeed" == i[0]):
+                speedLimit = int(i[1])
+                tagSpeed = True
+            elif ("highway" == i[0]):
+                if not tagSpeed:
+                    speedLimit = getSpeedLimit(i[1], vh_type)
+            elif ("name" in i[0]):
+                if not tagSpeed:
+                    name = i[1]
+            elif ("ref" in i[0]):
+                name = i[1]
+        return (name, speedLimit)
+    except:
+        return (name, speedLimit)
+
+'''
+Funcion que pasaremos por el udf que obtiene los datos de mongo OSM
+Hay que pasarle las columnas latitud y longitud
+'''
+def reference_to_dict(l):
+    d = []
+    if (l[3] is not None):
+        if (l[3]>0):
+            if ((l[0] is not None) and (l[1] is not None)):
+                if (l[2] is None):
+                    l[2] = "truck"
+                try:
+                    #client = MongoClient("mongomaster", 27017)
+                    #db = client.osm
+                    #ways = db.ways
+                    #d = getInfo(getWay(l[0], l[1], ways), l[2])
+                    #client.close()
+                    d =  getInfo(getWayUrl(l[0], l[1]), l[2])
+                    return [d[0], d[1]]
+                except:
+                    return [None, 120]
+    return [None, 120]
 
 
 if __name__ == "__main__":
@@ -138,7 +274,17 @@ if __name__ == "__main__":
                 dataToSend = joinData.select("Type","altitude","coordinates_lat","coordinates_long","date","observationTime","observationDate","dateSend", "serverDate", "heading","location","stream.sensorId","serverTime","speed","speedmetric","temp","id_user", "name")
                 dataToSend = dataToSend.withColumn("id", monotonically_increasing_id())
 
-                
+                #Convertimos la funcion en udf
+                schema4udf = StructType([StructField("addrs_name", StringType()),
+                                            StructField("max_speed", IntegerType())
+                                        ])
+                reference_to_dict_udf = udf(reference_to_dict, schema4udf)
+
+                #Obtenemos la georeferenciacion
+                dataToSend = dataToSend.withColumn("data_osm", reference_to_dict_udf(struct([dataToSend[x] for x in ['coordinates_lat','coordinates_long', 'Type', 'speed']])))
+                dataToSend = dataToSend.select("id", "Type","altitude","coordinates_lat","coordinates_long","date","observationTime","observationDate","dateSend", "serverDate",
+                                   "serverTime","heading","location","stream.sensorId","speed","speedmetric","temp","id_user", "name", 
+                                   col("data_osm.addrs_name").alias("addrs_name"), col("data_osm.max_speed").alias("max_speed") )
 
                 actualCoordinates = dataToSend.select("id", "coordinates_lat","coordinates_long")
                 # Cargamos los puntos negros
@@ -178,6 +324,8 @@ if __name__ == "__main__":
                                                col("data.temp").alias("temp"),
                                                col("data.id_user").alias("id_user"),
                                                col("data.name").alias("user"),
+                                               col("data.addrs_name").alias("actual_address"),
+                                               col("data.max_speed").alias("max_speed"),
                                                col("blk_shp.address").alias("blk_shp_address"),
                                                col("blk_shp.province").alias("blk_shp_province"),
                                                col("blk_shp.country").alias("blk_shp_country"),
