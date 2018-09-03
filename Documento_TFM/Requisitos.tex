@@ -1,27 +1,50 @@
 
-\section{Requisitos\label{requisitos}}
+\chapter{Requisitos\label{requisitos}}
 
-\subsection{Requisitos funcionales\label{RF}}
+\section{Requisitos funcionales\label{RF}}
+
 \begin{enumerate}
-        \item Debe existir una cola que reciba los mensajes en bruto y de la cual, varios procesos puedan estar leyendo a la vez de dicha cola.
-        \item Deben existir varias réplicas de la cola de forma que si uno de sus nodos cae, se puedan seguir obteniendo los datos de forma transparente al servicio de streaming o batching.
-        \item La plataforma debe ser capaz de tener varios servidores coordinados usando la herramienta de streaming y distribuyendo el trabajo entre los diferentes nodos.
-        \item Cuando uno de los nodos que aloja a la herramienta de streaming caiga, los trabajos deben seguir ejecutándose en los demás nodos, siendo capaces de procesar la información del servidor que ha caído.
-        \item El servicio de streaming debe devolver a otra cola todos los datos procesados para que diferentes procesos puedan obtener dichos datos.
-        \item El sistema debe ser capaz de obtener los vehículos que circulan con exceso de velocidad.
-        \item El sistema debe ser capaz de identificar a qué usuario pertenece cada vehículo para poder filtrarlos posteriormente.
-        \item El sistema debe ser capaz de asociar los vehículos con los usuarios a los que pertenecen.
-El sistema debe ser capaz de detectar proximidad a puntos geográficos en tiempo real.
+% DSR: Ojo, especificar qué tipo de mensajes y qué contienen más o menos.
+% ¿Mensajes de coches? ¿Contínuos? ¿Cada cierto tiempo? Eso no se
+% especifica en ningún lado...
+\item Debe existir una cola que reciba los mensajes en bruto y de la cual,
+  varios procesos puedan estar leyendo a la vez de dicha cola.
+\item Deben existir varias réplicas de la cola de forma que si uno de sus
+  nodos cae, se puedan seguir obteniendo los datos de forma transparente al
+  servicio de {\em streaming} o {\em batching}.
+\item La plataforma debe ser capaz de tener varios servidores coordinados
+  usando la herramienta de {\em streaming} y distribuyendo el trabajo entre
+  los diferentes nodos.
+\item Cuando uno de los nodos que aloja a la herramienta de streaming
+  caiga, los trabajos deben seguir ejecutándose en los demás nodos, siendo
+  capaces de procesar la información del servidor que ha caído.
+\item El servicio de {\em streaming} debe devolver a otra cola todos los
+  datos procesados para que diferentes procesos puedan obtener dichos
+  datos.
+\item El sistema debe ser capaz de obtener los vehículos que circulan con
+  exceso de velocidad.
+\item El sistema debe ser capaz de identificar a qué usuario pertenece cada
+  vehículo para poder filtrarlos posteriormente.
+\item El sistema debe ser capaz de asociar los vehículos con los usuarios a
+  los que pertenecen. El sistema debe ser capaz de detectar proximidad a
+  puntos geográficos en tiempo real.
 \end{enumerate}
-\subsection{Requisitos no funcionales\label{RNF}}
+
+\section{Requisitos no funcionales\label{RNF}}
+
 \begin{enumerate}
-        \item Debe existir la posibilidad de mostrar los datos de tráfico sobre un mapa.
-        \item Se deben mostrar gráficas de temperatura de los vehículos.
-        \item Se debe mostrar en tiempo real si hay vehículos que se encuentran cerca de un punto negro.
-        \item Existen un dashboard con las diferentes gráficas y mapas en el cual se puede filtrar por usuario.
-        \item Las herramientas usadas deben ser gratuitas.
-        \item Se debe tener en cuenta que se deben almacenar los datos históricos para realizar futuros desarrollos.
-        \item Se debe tener en cuenta que se podrán procesar los datos históricos posteriormente de una forma ágil.
+\item Debe existir la posibilidad de mostrar los datos de tráfico sobre un
+  mapa.
+\item Se deben mostrar gráficas de temperatura de los vehículos.
+\item Se debe mostrar en tiempo real si hay vehículos que se encuentran
+  cerca de un punto negro.
+\item Un {\em dashboard} con las diferentes gráficas y mapas en el cual se
+  pueda filtrar por usuario.
+\item Las herramientas usadas deben ser gratuitas.
+\item Se debe tener en cuenta que se deben almacenar los datos históricos
+  para realizar futuros desarrollos.
+\item Se debe tener en cuenta que se podrán procesar los datos históricos
+  posteriormente de una forma ágil.
 \end{enumerate}
 
 %%% Local variables:

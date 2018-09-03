@@ -1,22 +1,161 @@
 
 \chapter{Estado del arte\label{EstadoArte}}
 
-En este capítulo se analizará cómo han evolucionado las arquitecturas software en las que se han basado en los sistemas de gestión de flotas. Nuestro estudio se ha centrado, principalmente, en la evolución que ha tenido lugar y en exponer las razones por la que es interesante cambiar a una arquitectura basada en Big Data.
+En este capítulo se analizará cómo han evolucionado las arquitecturas
+software en las que se han basado en los sistemas de gestión de
+flotas. Nuestro estudio se ha centrado, principalmente, en la
+evolución que ha tenido lugar y en exponer las razones por la que es
+interesante cambiar a una arquitectura basada en Big Data.
 
-A finales de la década de los 90, gracias al desarrollo de las telecomunicaciones móviles se hizo posible un diagnóstico más preciso a la hora del seguimiento por satélite y la monitorización de los vehículos en los sistemas de gestión de flotas. Gracias al aumento de la velocidad de comunicación y la bajada de tarifas en telecomunicaciones, los sistemas de gestión de flotas se hicieron muy populares en la década pasada \cite{2-1}.
+A finales de la década de los 90, gracias al desarrollo de las
+telecomunicaciones móviles se hizo posible un diagnóstico más preciso
+a la hora del seguimiento por satélite y la monitorización de los
+vehículos en los sistemas de gestión de flotas. Gracias al aumento de
+la velocidad de comunicación y la bajada de tarifas en
+telecomunicaciones, los sistemas de gestión de flotas se hicieron muy
+populares en la década pasada \cite{2-1}.
 
-En sus inicios, los sistemas de gestión de flotas recogían los datos directamente de los dispositivos mandando un SMS en caso de que existiera alguna infracción. Conforme fue avanzando la tecnología, estos dispositivos eran capaces de enviar más datos a un servidor central que los almacenaba. Este sistema central era también el encargado de avisar al destinatario de las infracciones y de los diferentes parámetros que se monitorizaban del vehículo. Las tareas que debía realizar el sistema de gestión de flotas eran complicadas: se debían recoger los datos de los vehículos de una forma segura y confiable evitando la pérdida de datos y asegurando que eran correctos, al mismo tiempo que se debían manejar diferentes alertas y realizar diferentes tareas relacionadas con información la geográfica \cite{2-1}.
+En sus inicios, los sistemas de gestión de flotas recogían los datos
+directamente de los dispositivos mandando un SMS en caso de que
+existiera alguna infracción. Conforme fue avanzando la tecnología,
+estos dispositivos eran capaces de enviar más datos a un servidor
+central que los almacenaba. Este sistema central era también el
+encargado de avisar al destinatario de las infracciones y de los
+diferentes parámetros que se monitorizaban del vehículo. Las tareas
+que debía realizar el sistema de gestión de flotas eran complicadas:
+se debían recoger los datos de los vehículos de una forma segura y
+confiable evitando la pérdida de datos y asegurando que eran
+correctos, al mismo tiempo que se debían manejar diferentes alertas y
+realizar diferentes tareas relacionadas con información la geográfica
+\cite{2-1}.
 
-La adquisición de los datos del vehículo era una tarea compleja. En 1983, Robert Bosch diseñó la tecnología CAN bus (\emph{Controller Area Network}), que se trataba de un sistema central con el cual se podría manejar las diferentes partes electrónicas del vehículo y era, dicho sistema, del que se debían leer los datos. El problema de este sistema era que cada fabricante lo diseñaba según sus necesidades por lo que no existía un estándar que facilitase su lectura. En 2002, varios fabricantes decidieron crear una interfaz estándar que permitiera el sistema de seguimiento GPS. Dicho sistema se bautizó como Estándar FMS (\emph{Float Management System}). Esto supuso un gran avance, ya que era mucho más fácil leer la posición de los vehículos. En 2010, se diseñó el Estándar FMS 2.0 que ya recogía algunos datos importantes del CAN bus y ya, en 2012, se desarrolló el Estándar FMS 3.0, diseñada especialmente para algunos parámetros importantes para vehículos pesados, como son los autobuses o los camiones. El desarrollo de este estándar supervisado por la ACEA (\emph{European Automobile Manufacturers’ Association}), la cual se reúne para analizar las diferentes necesidades que están surgiendo \cite{2-1}. Esto ha hecho que disponer de soluciones para terceros sea una tarea más fácil, ya que no hay que realizar un desarrollo independiente por cada tipo de vehículo. Aun con estos estándares, encontramos que hay diferentes parámetros que las empresas desean monitorizar dependiendo de las necesidades de cada una por lo que, aun teniendo los principales parámetros monitorizados, se desean obtener diferentes parámetros que se deben leer del CAN bus. Por otro lado, los vehículos ligeros, leen algunos estándares del CAN bus con el OBD (\emph{On-Board Diagnostic}), pero sigue siendo una tarea compleja de monitorizar. Este tipo de vehículos, como son furgonetas o coches, se desean monitorizar principalmente para comprobar que el conductor cumple con sus diferentes pedidos y realiza su trabajo de forma eficiente sin perder de vista la ley, por lo que son menos parámetros los que habría que recoger. Sin embargo, aun siendo las partes más importantes, las que forman parte del estándar, y se pudieran recoger a través del CAN bus o del OBD, son muchos los empresarios que desean recoger muchos más parámetros para asegurarse del estado del vehículo. Esto hace que también sea una tarea difícil para las empresas que quieran realizar un sistema de gestión de flotas a terceros \cite{2-2}.
+La adquisición de los datos del vehículo era una tarea compleja. En
+1983, Robert Bosch diseñó la tecnología CAN bus (\emph{Controller Area
+  Network}), un sistema central con el cual se podría manejar las
+diferentes partes electrónicas del vehículo. De dicho sistema se
+podían leer los datos. El problema de este sistema era que cada
+fabricante lo diseñaba según sus necesidades por lo que no existía un
+estándar que facilitase su lectura. En 2002, varios fabricantes
+decidieron crear una interfaz estándar que permitiera el sistema de
+seguimiento GPS. Dicho sistema se bautizó como Estándar FMS
+(\emph{Float Management System}). Esto supuso un gran avance, ya que
+era mucho más fácil leer la posición de los vehículos. En 2010, se
+diseñó el Estándar FMS 2.0 que ya recogía algunos datos importantes
+del CAN bus y ya, en 2012, se desarrolló el Estándar FMS 3.0, diseñado
+especialmente para algunos parámetros importantes para vehículos
+pesados, como son los autobuses o los camiones. El desarrollo de este
+estándar supervisado por la ACEA (\emph{European Automobile
+  Manufacturers’ Association}), la cual se reúne para analizar las
+diferentes necesidades que están surgiendo \cite{2-1}. Esto ha hecho
+que disponer de soluciones para terceros sea una tarea más fácil, ya
+que no hay que realizar un desarrollo independiente por cada tipo de
+vehículo. Aún con estos estándares, encontramos que hay diferentes
+parámetros que las empresas desean monitorizar dependiendo de las
+necesidades de cada una por lo que, aun teniendo los principales
+parámetros monitorizados, se desean obtener diferentes parámetros que
+se deben leer del CAN bus. Por otro lado, los vehículos ligeros, leen
+algunos estándares del CAN bus con el OBD (\emph{On-Board
+  Diagnostic}), pero sigue siendo una tarea compleja de monitorizar.
+Este tipo de vehículos, como son furgonetas o coches, se desean
+monitorizar principalmente para comprobar que el conductor cumple con
+sus diferentes pedidos y realiza su trabajo de forma eficiente sin
+perder de vista la ley, por lo que son menos parámetros los que habría
+que recoger. Sin embargo, aun siendo las partes más importantes, las
+que forman parte del estándar, y se pudieran recoger a través del CAN
+bus o del OBD, son muchos los empresarios que desean recoger muchos
+más parámetros para asegurarse del estado del vehículo. Esto hace que
+también sea una tarea difícil para las empresas que quieran realizar
+un sistema de gestión de flotas a terceros \cite{2-2}.
 
-Existen diversas investigaciones sobre los beneficios que se obtienen al tener un sistema de seguimiento de vehículos en tiempo real y lo crítico que puede resultar este aspecto para una empresa. Además de estas, existen varios algoritmos para obtener beneficios en el enrutamiento de los vehículos dinámicamente para lo que es esencial obtener dicha información lo antes posible \cite{1-1-4}. Por otro lado, las multas por exceso de velocidad \cite{1-1-5} o de tiempo de conducción \cite{1-1-6} son realmente elevadas y peligrosas, por lo que el aviso de horas de conducción y descanso a los conductores también sería de gran utilidad en estos casos.
+Existen diversas investigaciones sobre los beneficios que se obtienen
+al tener un sistema de seguimiento de vehículos en tiempo real y lo
+crítico que puede resultar este aspecto para una empresa. Además de
+estas, existen varios algoritmos para obtener beneficios en el
+enrutamiento de los vehículos dinámicamente para lo que es esencial
+obtener dicha información lo antes posible \cite{1-1-4}. Por otro
+lado, las multas por exceso de velocidad \cite{1-1-5} o de tiempo de
+conducción \cite{1-1-6} son realmente elevadas y peligrosas, por lo
+que el aviso de horas de conducción y descanso a los conductores
+también sería de gran utilidad en estos casos.
 
-Dada la cantidad de campos que hay que recoger, usualmente se ha optado por recoger los datos en XML o en JSON \cite{2-1}. Sin embargo, al existir únicamente conocimiento sobre bases de datos relacionales, dichos ficheros usualmente se encuentran en la base de datos para, posteriormente, realizar diferentes procesamientos y obtener los datos necesarios. Esto hizo que el proceso de monitorización fuera realmente complicado de gestionar e implicaba que la escalabilidad fuera limitada \cite{2-2}. Algunos ejemplos de software libre que usa bases de datos relacionales son: OpenGTS \cite{OpenGTS} que usa MySQL para almacenar las tramas. También encontramos algunos documentos de investigación en el que explican cómo usar bases de datos relacionales con este propósito \cite{2-4}. Por otro lado, podemos encontrar algunas empresas privadas como Sateltrack que usaron XML para almacenar los datos \cite{Sateltrack}, además de tener servidores separados para los procesamientos más complejos, o Fleematics que usaban SQL Server y XML para almacenar los datos \cite{fleematics}.
+Dada la cantidad de campos que hay que recoger, usualmente se ha
+optado por recoger los datos en XML o en JSON \cite{2-1}. Sin embargo,
+al existir únicamente conocimiento sobre bases de datos relacionales,
+dichos ficheros usualmente se encuentran en la base de datos para,
+posteriormente, realizar diferentes procesamientos y obtener los datos
+necesarios. Esto hizo que el proceso de monitorización fuera realmente
+complicado de gestionar e implicaba que la escalabilidad fuera
+limitada \cite{2-2}. Algunos ejemplos de software libre que usa bases
+de datos relacionales son: OpenGTS \cite{OpenGTS} que usa MySQL para
+almacenar las tramas. También encontramos algunos documentos de
+investigación en el que explican cómo usar bases de datos relacionales
+con este propósito \cite{2-4}. Por otro lado, podemos encontrar
+algunas empresas privadas como Sateltrack que usaron XML para
+almacenar los datos \cite{Sateltrack}, además de tener servidores
+separados para los procesamientos más complejos, o Fleematics que
+usaban SQL Server y XML para almacenar los datos \cite{fleematics}.
 
-Actualmente, con la evolución de la tecnología y gracias a los paradigmas Big Data e IoT, encontramos otros tipos de arquitecturas software como es la arquitectura Lambda \cite{BD-2}\cite{Lambda}. Dicha arquitectura software nos ofrecerá diferentes lineas de procesamiento: una para procesar los datos en tiempo real y otra para realizar los procesamientos de históricos. Dicho esto, encontramos que los proveedores PaaS líderes, como son Azure o AWS (\emph{Amazon Web Services}) nos ofertan diferentes arquitecturas basadas en Big Data como solución para recolectar los datos de vehículos. AWS ofrece una arquitectura que nos permite conectar diferentes vehículos a una plataforma que, por un lado, almacena los datos recibidos en bruto y, por otro lado, muestra diferentes resultados tras un análisis en tiempo real. Esta plataforma, también obtiene diferentes métricas e historicos de los datos, tras ser introducidas en diferentes bases de datos según el propósito para el que se contrate. Visto esto, podemos comprobar cómo la solución que ofrece, propone una arquitectura Lambda \cite{AWS}. Por otro lado, Azure también nos ofrece un servicio muy parecido con una arquitectura Lambda para obtener los datos de los vehículos \cite{Azure}.
+Actualmente, con la evolución de la tecnología y gracias a los
+paradigmas Big Data e IoT, encontramos otros tipos de arquitecturas
+software como es la arquitectura Lambda \cite{BD-2,Lambda}.
+Dicha arquitectura software nos ofrecerá diferentes lineas de
+procesamiento: una para procesar los datos en tiempo real y otra para
+realizar los procesamientos de históricos. Dicho esto, encontramos que
+los proveedores PaaS líderes, como son Azure o AWS (\emph{Amazon Web
+  Services}) nos ofertan diferentes arquitecturas basadas en Big Data
+como solución para recolectar los datos de vehículos. AWS ofrece una
+arquitectura que nos permite conectar diferentes vehículos a una
+plataforma que, por un lado, almacena los datos recibidos en bruto y,
+por otro lado, muestra diferentes resultados tras un análisis en
+tiempo real. Esta plataforma, también obtiene diferentes métricas e
+historicos de los datos, tras ser introducidas en diferentes bases de
+datos según el propósito para el que se contrate. Visto esto, podemos
+comprobar cómo la solución que ofrece, propone una arquitectura Lambda
+\cite{AWS}. Por otro lado, Azure también nos ofrece un servicio muy
+parecido con una arquitectura Lambda para obtener los datos de los
+vehículos \cite{Azure}.
 
-En nuestro estudio hemos encontrado algunas soluciones de otros líderes en el mercado como Oracle, que ofrece una solución basada en sus tecnologías NoSQL, Datawarehouse, SQL y OLAP, así como procesamiento en tiempo real con reportes a través de sus herramientas \cite{Oracle}. También existen algunas recomendaciones de empresas menos conocidas como YugaByte DB, en la que se aplica un ejemplo de arquitectura para la obtención de datos de gestión de flotas, realizando el procesamiento en tiempo real. En su página oficial muestran cómo desarrollar este tipo de arquitecturas con Apache Kafka, Apache Spark y su solución de base de datos \cite{Yuga}. Por otra parte, en algunos artículos en revistas online, como es InfoQ, relacionados con IoT se propone usar Apache Kafka, Apache Spark, Cassandra DB, entre otras tecnologías big datas \cite{InfoQ}. También hemos encontrado algunas investigaciones como la de la Universidad de Seúl, Corea, en la que se propone un modelo en tiempo real con MongoDB y con un Datawarehouse con Hadoop \cite{NoSQLVehicle}. A su vez y más reciente, una investigación de 2017 de la misma universidad, ha propuesto Apache Kafka, Apache Storm y MongoDB para procesar y manejar más eficientemente los datos \cite{MDPI}.
+En nuestro estudio hemos encontrado algunas soluciones de otros
+líderes en el mercado como Oracle, que ofrece una solución basada en
+sus tecnologías NoSQL, Datawarehouse, SQL y OLAP, así como
+procesamiento en tiempo real con reportes a través de sus herramientas
+\cite{Oracle}. También existen algunas recomendaciones de empresas
+menos conocidas como YugaByte DB, en la que se aplica un ejemplo de
+arquitectura para la obtención de datos de gestión de flotas,
+realizando el procesamiento en tiempo real. En su página oficial
+muestran cómo desarrollar este tipo de arquitecturas con Apache Kafka,
+Apache Spark y su solución de base de datos \cite{Yuga}. Por otra
+parte, en algunos artículos en revistas online, como es InfoQ,
+relacionados con IoT se propone usar Apache Kafka, Apache Spark,
+Cassandra DB, entre otras tecnologías big datas \cite{InfoQ}. También
+hemos encontrado algunas investigaciones como la de la Universidad de
+Seúl, Corea, en la que se propone un modelo en tiempo real con MongoDB
+y con un Datawarehouse con Hadoop \cite{NoSQLVehicle}. A su vez y más
+reciente, una investigación de 2017 de la misma universidad, ha
+propuesto Apache Kafka, Apache Storm y MongoDB para procesar y manejar
+más eficientemente los datos \cite{MDPI}.
 
-Para terminar con este análisis y evolución de los sistemas de gestión de flotas, podemos decir que normalmente se orientan a la web, dado que a la hora de representar las diferentes posiciones en mapas, los servicios que ofrecen tanto Google, como Bing o Here Go, entre otros, ofrecen una gran calidad sin la necesidad de tener que almacenar dichos mapas. Además, al mostrar los sistemas a través de una web nos aseguramos que sea multiplataforma \cite{2-1}.
+Para terminar con este análisis y evolución de los sistemas de gestión
+de flotas, podemos decir que normalmente se orientan a la web, dado
+que a la hora de representar las diferentes posiciones en mapas, los
+servicios que ofrecen tanto Google, como Bing o Here Go, entre otros,
+ofrecen una gran calidad sin la necesidad de tener que almacenar
+dichos mapas. Además, al mostrar los sistemas a través de una web nos
+aseguramos que sea multiplataforma \cite{2-1}.
 
-Por último, y para finalizar con este apartado, diremos que la decisión de Movildata para estudiar este tipo de arquitecturas y no contratar una es tener sus propios servicios para tener mayor control con la arquitectura software que proponemos en este trabajo. De esta forma, a la hora de realizar diferentes propuestas o mejoras, irá de parte de la propia empresa Movildata diferenciándose del resto \cite{2-12}.
+Por último, y para finalizar con este apartado, diremos que la
+decisión de Movildata para estudiar este tipo de arquitecturas y no
+contratar una es tener sus propios servicios para tener mayor control
+con la arquitectura software que proponemos en este trabajo. De esta
+forma, a la hora de realizar diferentes propuestas o mejoras, irá de
+parte de la propia empresa Movildata diferenciándose del resto
+\cite{2-12}.
+
+%%% Local variables:
+%%% TeX-master: "main.tex"
+%%% coding: utf-8
+%%% ispell-local-dictionary: "spanish"
+%%% TeX-parse-self: t
+%%% TeX-auto-save: t
+%%% fill-column: 75
+%%% End:
