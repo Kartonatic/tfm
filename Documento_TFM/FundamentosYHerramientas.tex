@@ -203,3 +203,20 @@ Elastic Stack tiene como núcleo Elasticsearch y está formado por Kibana, Logst
 Sobre cualquiera de los módulos se pueden instalar diferentes plugins o librerías para añadir seguridad, conectores, operaciones o incluso gráficos. Esta es una de las razones por la que Elastic Stack es tan popular ya que, al ser código libre, todo el mundo puede aportar su granito de arena, mejorar las herramientas o crear nuevos plugins. Actualmente, estamos en la versión 6.
 
 \subsection{MongoDB\label{MongoDB}}
+
+
+MongoDB es una base de datos NoSQL en concreto, de tipo documental. Almacena los datos con una estructura muy parecida al JSON llamada BSON. MongoDB es código abierto, lo que quiere decir que cualquiera puede reportar fallos directamente del código o contribuir a nuevas mejoras, lo que finalmente ha contribuido a su popularidad.
+
+Dado que MongoDB fue diseñada para la web moderna \cite{Mng-2}, está pensada para tener gran flujo de entrada y salida de datos, con un esquema dinámico. Esto quiere decir que, frente al SQL tradicional, podemos insertar y extraer datos sin tener que definir previamente una estructura fija. Al almacenar BSON podemos añadir todos los tipos de datos que queramos y que nos permita JSON, por tanto tenemos arrays o documentos dentro de documentos entre otros tipos de datos. Estas bases de datos son formadas por colecciones que a su vez, contienen los diferentes documentos. Cada uno de estos documentos contiene múltiples campos los cuales, definen las claves por las que realizar las búsquedas posteriormente. Podemos ver esto último en la figura \ref{Mng-img-1} \cite{Mng-5}. Esto hace que las búsquedas sean realmente potentes ya que son muy flexibles y lo sorprendente es que son en algunos casos, incluso más rápidas que muchas bases de datos SQL tradicionales ya que, no hace falta hacer tantos JOINs. Otra diferencia entre las bases de datos NoSQL y una SQL relacional es que no soporta transacciones, por lo que no es recomendable usar MongoDB en programas de tipo transaccionales. Por otra parte, una de las características importantes de MongoDB para este proyecto es que nos permitirá realizar consultas y operaciones de tipo geoespaciales \cite{Mng-3}.
+
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.57]{Imagenes/mongo1.png}
+\caption{Relación de conceptos de SQL a MongoDB}
+\label{Mng-img-1}
+\end{figure}
+
+
+Otra de las características que hacen a MongoDB tan potente es el hecho de que es fácilmente escalable \cite{Mng-1}. Podemos crear réplicas o distribuir los datos horizontalmente de una forma fácil. Para distribuir los datos, MongoDB añade el concepto de sharding, que consiste en una colección distribuida a través de un hash de los campos obligatorios que tengan los documentos de dicha colección, como puede ser el id. Por otro lado, también tenemos las réplicas, nombradas Replica Set. El Replica Set consiste en tener un servidor primario y uno o varios secundarios. Normalmente se hacen todas las peticiones al servidor primario y es el que se encarga de que los secundarios se mantengan actualizados. Dependiendo de la carga podemos hacer que se puedan realizar consultas a los secundarios pero las peticiones van al servidor primario por normal general. Si el servidor primario cae, se asignará automáticamente a otro servidor la función de primario hasta que el primario se recupere. Con las librerías de MongoDB esto se hace totalmente transparente al programador por lo que, una vez montadas las réplicas o los shards, el programador hará las lecturas y escrituras tal y como lo haría si solo existiera un único servidor de MongoDB.
+
