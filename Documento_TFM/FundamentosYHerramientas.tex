@@ -1,12 +1,11 @@
 \chapter{Fundamentos y selección de herramientas\label{FunAndTools}}
-%RGM:NUEVO
-En esta sección vamos a realizar una breve introducción al
-paradigma conocido como Big Data. Tras esto, veremos qué
-modelos de arquitecturas propone este paradigma. Para
-terminar con este capítulo, haremos un breve análisis de
-las distintas herramientas disponibles para que encajen con
-esta arquitectura, proponiendo, finalmente, la que más se
-adapte a nuestros objetivos.
+
+En esta sección vamos a realizar una breve introducción al paradigma
+conocido como Big Data. Tras esto, veremos qué modelos de arquitecturas
+propone este paradigma. Para terminar con este capítulo, haremos un breve
+análisis de las distintas herramientas disponibles para que encajen con
+esta arquitectura, proponiendo, finalmente, la que más se adapte a nuestros
+objetivos.
 
 \section{Big Data\label{WhatIsBigD}}
 
@@ -79,7 +78,8 @@ características que han hecho tan popular el concepto de Big Data
 
 
 \section{Selección del modelo de arquitectura\label{arqSelect}}
-%RGM:MODIFICADO DE AQUI PARA ABAJO
+
+% RGM:MODIFICADO DE AQUI PARA ABAJO
 A la hora de seleccionar la arquitectura, seleccionaremos la que mejor se
 adapte a la casuística de nuestro problema. Por un lado, tenemos la
 arquitectura Kappa, la cual se reduce a una sola capa donde se procesan los
@@ -89,27 +89,26 @@ lado, la arquitectura Lambda lanza dos líneas, una para los datos que se
 han de mostrar rápidamente y otra para los datos de los cuales necesitamos
 un procesamiento más sofisticado. Esto podemos verlo en la figura
 \ref{arqLambda} \cite{LambdaKappa}. Vista la casuística del problema se
-propone, una arquitectura Lambda frente a una arquitectura Kappa.
-La arquitectura Lambda, nos permitirá realizar diferentes
-procesamientos en tiempo real por un lado, mientras que por otro,
-podremos dejar programados trabajos más costosos, como análisis
-históricos,  sin penalizar el rendimiento.
+propone, una arquitectura Lambda frente a una arquitectura Kappa. La
+arquitectura Lambda, nos permitirá realizar diferentes procesamientos en
+tiempo real por un lado, mientras que por otro, podremos dejar programados
+trabajos más costosos, como análisis históricos, sin penalizar el
+rendimiento.
 
-Por último en este apartado, decir que dada la arquitectura
-seleccionada necesitaremos seleccionar varios tipos de
-herramientas. Para repartir la carga de los mensajes enviados/recibidos
-necesitaremos un distribuidor de los diferentes datos que recibamos ({\em
-  broker}). Tras recibir el dato necesitamos que el {\em speed layer}
-realice el procesamiento en tiempo real necesitaremos con una tecnología de
-Streaming que nos permita obtener del dato en bruto, la parte que nos
-interesa. Por otro lado, el {\em batch layer} nos debe permitir almacenar y
-consultar cualquier dato en cualquier momento ya sea en una o varias bases
-de datos. Para procesar los datos posteriormente necesitamos un sistema de
-{\em batching} que vaya haciendo resúmenes y obteniendo estadísticas, esto
-se almacenará en el {\em serving layer}. Finalmente, para poder mostrar
-dichos datos, necesitamos una plataforma de dashboard que nos ayude a
-mostrar los datos en tiempo real y los post-procesados, a la cual podamos
-añadir futuros informes.
+Por último en este apartado, decir que dada la arquitectura seleccionada
+necesitaremos seleccionar varios tipos de herramientas. Para repartir la
+carga de los mensajes enviados/recibidos necesitaremos un distribuidor de
+los diferentes datos que recibamos ({\em broker}). Tras recibir el dato
+necesitamos que el {\em speed layer} realice el procesamiento en tiempo
+real necesitaremos con una tecnología de Streaming que nos permita obtener
+del dato en bruto, la parte que nos interesa. Por otro lado, el {\em batch
+  layer} nos debe permitir almacenar y consultar cualquier dato en
+cualquier momento ya sea en una o varias bases de datos. Para procesar los
+datos posteriormente necesitamos un sistema de {\em batching} que vaya
+haciendo resúmenes y obteniendo estadísticas, esto se almacenará en el {\em
+  serving layer}. Finalmente, para poder mostrar dichos datos, necesitamos
+una plataforma de dashboard que nos ayude a mostrar los datos en tiempo
+real y los post-procesados, a la cual podamos añadir futuros informes.
 
 \begin{figure}[htp]
 \centering
@@ -128,28 +127,29 @@ añadir futuros informes.
 \section{Selección de herramientas\label{toolSelect}}
 
 \subsection{Herramientas de virtualización\label{hvirt}}
+
 Debido a la casuística del hardware en el que realizaremos el desarrollo y
 para conseguir un sistema totalmente portable se ha decidido usar Docker
-como herramienta de virtualización de los diferentes servicios. De
-esta forma usaremos menos recursos a la hora de lanzar los diferentes
-servicios y siendo, aún así, totalmente independientes. Por otra parte, 
-Docker nos va a permitir encapsular los diferentes servicios para que puedan
-ejecutarse desde cualquier máquina. Aun habiendo elegido este sistema 
-también se ha valorado el uso de un Datacenter Manager como Mesos o Ambari
-\cite{Hrr-1}, pero resulta ser muy pesado para el hardware que disponemos.
+como herramienta de virtualización de los diferentes servicios. De esta
+forma usaremos menos recursos a la hora de lanzar los diferentes servicios
+y siendo, aún así, totalmente independientes. Por otra parte, Docker nos va
+a permitir encapsular los diferentes servicios para que puedan ejecutarse
+desde cualquier máquina. Aun habiendo elegido este sistema también se ha
+valorado el uso de un Datacenter Manager como Mesos o Ambari \cite{Hrr-1},
+pero resulta ser muy pesado para el hardware que disponemos.
 
 Por último, vamos a comentar por qué hemos elegido Docker frente a otras
 posibilidades, como son las maquinas virtuales. Aunque algunas empresas
 nos recomiendan subcontratar los nuevos proyectos relacionados con
-tecnologías de Big Data en vez de hacer un proyecto DIY (Do It Yourself) 
+tecnologías de Big Data en vez de hacer un proyecto DIY (Do It Yourself)
 \cite{Dck-14}, dada la naturaleza de nuestro trabajo, Docker es la mejor
 opción. Docker nos ofrece ventajas tales como replicar y modificar las
 máquinas fácilmente, podemos usarlo desde cualquier máquina descargando
 la imagen directamente de Docker Hub y, posteriormente, poder probarlo en
 la nube sin tener que realizar grandes modificaciones.De esta forma,
 realizar cualquier cambio no requiere hacer copias de una máquina virtual
-completa, sino que unicamente tendremos que modificar el fichero de 
-configuración de la máquina correspondiente. En la figura 
+completa, sino que unicamente tendremos que modificar el fichero de
+configuración de la máquina correspondiente. En la figura
 \ref{dock-2} \cite{Dck-15} podemos comprobar que el rendimiento que se
 obtiene con Docker es mejor que el de usar una máquina virtual KVM tanto
 para el arranque de las máquinas como para el benchmark UnixBench
@@ -178,18 +178,18 @@ tarda 15 segundos.
 
 \subsection{Herramientas para el broker de mensajes\label{hbrok}}
 
-En cuanto al \emph{broker} de mensajes, tenemos dos candidatos que son 
+En cuanto al \emph{broker} de mensajes, tenemos dos candidatos que son
 Apache Kafka y RabbitMQ. RabbitMQ consiste en un sistema de colas
 tradicional donde encontramos un productor del mensaje y un consumidor del
 mensaje y diferentes colas a las que se pueden suscribir diferentes
 productores y consumidores. Por el contrario, en Apache Kafka, encontramos
-que hay un productor del mensaje y varios consumidores del mismo, lo que implica
-que el mensaje persistente un cierto tiempo. Podemos ver el funcionamiento
-de ambos en la figura \ref{brokers-img}. Dado que, además de usarlo
-como \emph{broker} también podemos usar Apache Kafka como caché, nos puede ser
-útil para recuperar datos y poder operar fácilmente con las diferentes capas
-que se proponen en una arquitectura Lambada. Dado esto, seleccionaremos 
-como broker a Apache Kafka \cite{Hrr-2}.
+que hay un productor del mensaje y varios consumidores del mismo, lo que
+implica que el mensaje persistente un cierto tiempo. Podemos ver el
+funcionamiento de ambos en la figura \ref{brokers-img}. Dado que, además de
+usarlo como \emph{broker} también podemos usar Apache Kafka como caché, nos
+puede ser útil para recuperar datos y poder operar fácilmente con las
+diferentes capas que se proponen en una arquitectura Lambada. Dado esto,
+seleccionaremos como broker a Apache Kafka \cite{Hrr-2}.
 
 \begin{figure}[htp]
 \centering
@@ -236,8 +236,8 @@ Foundation. Dado que Apex es una tecnología que aún no está madura la
 descartamos y nos tendremos que decidir entre Apache Spark y Apache Flink.
 En cuanto a la integración con otras herramientas he de destacar que ambas
 herramientas presentan gran compatibilidad para interoperar con Apache Hadoop.
-Por otro lado, sabemos que Apache Spark trabaja en órdenes de segundos, 
-ya que es {\em microbaching}, mientras que Apache Flink trabaja en el orden 
+Por otro lado, sabemos que Apache Spark trabaja en órdenes de segundos,
+ya que es {\em microbaching}, mientras que Apache Flink trabaja en el orden
 de microsegundos. Aunque Apache Flink trabaja con tiempos más pequeños
 \cite{Hrr-4}, realmente no necesitamos tanta precisión en cuanto al tiempo
 en streaming lo que nos hace, finalmente, decidirnos por Apache Spark
