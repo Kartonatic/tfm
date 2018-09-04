@@ -480,7 +480,8 @@ que asignar y, posteriormente, lance el proceso de Kafka.
 
 \subsection{Montaje de las imágenes de Spark\label{montSpark}}
 
-Para montar la imagen de Apache Spark, añadiremos la aplicación en {\tt
+Para montar la imagen de Apache Spark, usaremos la imagen padre de Hadoop.
+Para ello, añadiremos la aplicación en {\tt
   /opt/bd/streaming}, debido a que se conectará con la base de datos para
 realizar el streaming. Por otro lado, estableceremos en el fichero {\tt
   spark-defaults.conf} la siguiente configuración:
@@ -726,9 +727,11 @@ el anexo \ref{apendG}.
 
 \subsection{Uso de la arquitectura\label{uso}}
 
-En este apartado explicaremos como montar en las diferentes imágenes de la
-arquitectura de forma propia a partir de descargar el código que se
-encuentra en el repositorio de
+
+En este apartado explicaremos las opciones que tenemos para 
+montar la arquitectura y el funcionamiento de la
+misma. Para poder hacer uso de esta necesitaremos descargar
+el código que se encuentra en el repositorio de
 GitHub\footnote{\url{https://github.com/Kartonatic/tfm}.}.
 
 Para hacer uso de la arquitectura, tenemos dos opciones. En la primera
@@ -737,70 +740,23 @@ los Dockerfiles, de forma que reemplacemos los certificados de acceso. La
 segunda forma es más sencilla, pero no reemplazamos los certificados, por
 lo que, cualquiera, podrá acceder a las máquinas con el certificado que hay
 disponible en la imagen de Docker Hub. Aún así, para ambas opciones
-necesitaremos descargarnos el proyecto del repositorio.
+necesitaremos descargarnos el proyecto del repositorio. Los pasos
+para montar esta plataforma en nuestro \emph{host} se encuentra
+en el anexo \ref{apendK}.
 
-En cuanto a la primera opción, para montar las imagenes de Docker en
-nuestro host, se ha creado un script en la carpeta principal del proyecto
-con nombre {\tt rebuildAllDocker.sh}. Dicho Script creará todas las
-imágenes a partir de los Dockerfiles mencionados anteriormente, sin
-embargo, antes de lanzar estos scripts, debemos descargarnos las imágenes
-de cada aplicación y añadirlas en su directorio correspondiente, cuyo
-nombre estará compuesto por el nombre de la aplicación + {\tt \_base}. En
-el README que se encuentra en estos directorios aparece la URL con la que
-podemos descargar las aplicaciones.
-
-Si vamos a usar la segunda opción, simplemente haremos uso del comando {\tt
-  docker-compose} y descarga las imágenes del repositorio.
-
-Antes de usar la arquitectura debemos cargar los datos de OSM. Para ello,
-en el directorio {\tt MongoDB\_to\_OSM}, seguiremos las instrucciones del
-README. Cuando se empiecen a cargar los datos puede llevar varias horas,
-según el hardware utilizado. Una vez hecho esto, tendremos los datos de la
-base de datos en {\tt mongodb\_resources}. Este directorio lo podremos
-copiar en cualquier otro lado y seguirá siendo funcional con la imagen de
-MongoDB que hemos creado.
-
-Para lanzar la arquitectura vamos a seguir los siguientes pasos, que serán
-idénticos para ambos métodos. La arquitectura final se encontrará en el
-directorio {\tt 00\_final} y habrá que seguir los siguientes pasos:
-
-\begin{enumerate}
-\item Tendremos que crear los directorios de datos, para lo que haremos uso
-  del script {\tt createFoldersFromGit.sh} que se encuentra en el
-  directorio {\tt ToGenerateFolders}.
-\item Reemplazaremos el directorio {\tt mongodb\_resources} por el
-  directorio obtenido en la integración de MongoDB con OSM.
-\item Estableceremos con el comando {\tt sysctl -w
-    vm.max\_map\_count=262144} mas memoria virtual a las máquinas. Esto es
-  porque Elasticsearch la necesita.
-\item Añadiremos a {\tt spark\_resources}, al directorio de {\tt
-    sparkmaster} los csv de los usuarios y los puntos negros que se
-  encuentran en el directorio {\tt Data}.
-\item Lanzaremos con {\tt docker-compose} el yaml del directorio {\tt
-    00\_Final}, que lanzará los diferentes contenedores que hemos creado.
-\item Accederemos al container de Spark, {\tt sparkmaster} y usuario {\tt
-    hdmaster}, y haremos lo siguiente:
-\begin{enumerate}
-\item Añadiremos, desde este contenedor, los ficheros de datos que hemos
-  introducido en {\tt spark\_resources} en el HDFS.
-\item Introduciremos el script {\tt sparkstreaming.py}, que se encuentra en
-  el directorio {\tt Code} y lo lanzamos con {\tt spark-submit}.
-\end{enumerate}
-\item Creamos los índices de Elasticsearch con el script {\tt
-    CreateIndexForElastic.py}.
-\item Accedemos al container de Logstash y copiamos el fichero {\tt
-    logstashkafkaUpdates.conf} que define una pipe de Logstash que
-  actualiza los datos actualizando cada vehículo. Tras realizar esto
-  lanzamos la pipe de Logstash.
-\item Abriremos Kibana, a través de un navegador web, y añadimos el índice
-  que hemos creado en Elasticsearch.
-\item Cargamos el fichero de dashboards que se encuentran en el directorio
-  {\tt DASHBOARD\_KIBANA}. Este fichero es un JSON que te deja importar y
-  exportar Kibana con la configuración de diferentes gráficos y dashboards.
-\end{enumerate}
+Una vez montado, como se ha expuesto en la sección \ref{integracion},
+la ejecución de la arquitectura debe hacer lo siguiente: En primer lugar, 
+el simulador enviará tramas continuamente a un \emph{Topic} de Kafka.
+Los mensajes serán leidos por Spark Streaming obteniendo los usuarios 
+y la ubicación en donde se encuentran los vehiculos para, posterormente,
+enviarlo a otro \emph{Topic} de Kafka. Por último, Logstash recogerá estos
+datos del \emph{Topic} que serán enviados a Elasticsearch. De esta forma,
+podremos esplorar los datos con Kibana.
 
 Una vez hecho esto, nos debe aparecer un dashboard en Kibana como el que
-aparece en las figura \ref{kibana1}.
+aparece en las figura \ref{kibana1}. Además de esto, tendremos acceso a la
+web de administración del HDFS, a la web de administración de procesos y
+la del \emph{historyserver} tanto de Spark como de Hadoop.
 
 \begin{figure}[htp]
 \centering
@@ -810,6 +766,8 @@ aparece en las figura \ref{kibana1}.
 \caption{Dashboards de Kibana.}
 \label{kibana1}
 \end{figure}
+
+
 
 %\begin{figure}[htp]
 %\centering
