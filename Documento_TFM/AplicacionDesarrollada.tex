@@ -172,8 +172,12 @@ el máximo de tramas durante 1 segundo es de 250.
 \label{graf1sec}
 \end{figure}
 
+%RGM: Dado que aqui no has llegado he metido cosas nuevas
+
 Por otro lado, hemos obtenido de la DGT los puntos negros de España en 2014, que es el último documento público actualizado que hemos encontrado. Dicho documento es un excel con varias hojas, una por cada provincia o región de España, y en cada hoja se detalla la dirección del punto donde se han eventuado accidentes y se consideran puntos negros. Debido a la dificultad del formato y que no tenemos los puntos geográficos, se ha realizado un preprocesamiento para obtener un CSV más fácil de procesar por los servicios que vamos a crear. Dicho preprocesamiento aplana el excel en un solo csv y, además, obtiene los puntos geográficos a través del API de Google Maps usando la función de georreferenciación inversa.
 Finalmente, se han obtenido los datos de los mapas de OSM, concretamente se han obtenido los datos del mapa de España en un fichero .osm para, posteriormente, poder procesarlo e insertarlo en la base de datos seleccionada.
+
+Por último en este apartado, comentar que dejamos a disposición del lector las rutas de un vehiculo y los puntos negros que hemos recogido representados en un mapa en el anexo \ref{apend.A}. %RGM: NO ENTIENDO POR QUE NO ME APARECE LA REFERENCIA EN EL PDF
 
 \section{Detalles de implementación\label{implementacion}}
 
@@ -351,15 +355,15 @@ Para montar Mongo DB, crearemos una imagen en la que añadiremos el repositorio 
 
 Para integrar los datos de OSM, usaremos esta misma imagen añadiendo el mapa de España. Para subir los datos nos basaremos en un proyecto de GitHub que recomiendan en la página oficial de OSM. Dicho proyecto contiene unos scripts de Python que hemos actualizado a Python 3 para que sea compatible con nuestros proyectos. Una vez hecho esto, usando estos los scripts, hemos usado el fichero especificado en el apartado \ref{datos} del mapa de España y lo hemos subido a nuestra base de datos de MongoDB. Dado que los datos se almacenan en “/var/data/mongodb”, podremos transportarlos entre los container que queramos.
 
-Dado esto, crearemos una API web para poder consultar la información de un punto, de forma que no tengamos que abrir las conexiones a la base de datos cada vez que se realiza una consulta. Se ha de tener en cuenta esto, ya que, si trabajamos con programas que se ejecutan en un cluster, cada una de las máquinas del cluster ejecutará diferentes partes del código y no podemos asegurar que una sola máquina realice la ejecución de las consultas a la base de datos. Dado esto, crearemos dicha API, con Python y la librería werkzeug, con la que podremos consultar un punto geográfico. Esta API nos devolverá la información de la carretera de la base de datos que más se aproxime al punto que pidamos, en un radio de 1,11 km. El código se puede ver en el anexo 9.1, y podremos realizar consultas a través de la url “http://mongomaster:5000/getway/<latitud>/<longitud>” que nos devolverá un JSON con los datos que se encuentran en la base de datos.
+Dado esto, crearemos una API web para poder consultar la información de un punto, de forma que no tengamos que abrir las conexiones a la base de datos cada vez que se realiza una consulta. Se ha de tener en cuenta esto, ya que, si trabajamos con programas que se ejecutan en un cluster, cada una de las máquinas del cluster ejecutará diferentes partes del código y no podemos asegurar que una sola máquina realice la ejecución de las consultas a la base de datos. Dado esto, crearemos dicha API, con Python y la librería werkzeug, con la que podremos consultar un punto geográfico. Esta API nos devolverá la información de la carretera de la base de datos que más se aproxime al punto que pidamos, en un radio de 1,11 km. El código se puede ver en el anexo 9.1, y podremos realizar consultas a través de la url “http://mongomaster:5000/getway/<latitud>/<longitud>” que nos devolverá un JSON con los datos que se encuentran en la base de datos. El código de esta API web la podemos consultar en el anexo \ref{apend.B}.
 
 \subsection {Integración de los datos de pruebas \label{integracion}}
 
-Para que los datos se introduzcan en Kafka simularemos con un script de Python los mensajes que se recibirán de los vehículos. Este script introducirá un JSON por cada trama en el topic “streamKafka” de Kafka.
+Para que los datos se introduzcan en Kafka simularemos con un script de Python los mensajes que se recibirán de los vehículos. Este script introducirá un JSON por cada trama en el topic “streamKafka” de Kafka. Dicho script lo podemos encontrar en el anexo \ref{apend.C}.
 
 Tras esto, haremos el preprocesamiento de Spark Streaming. Para ello, debemos introducir, en el HDFS, los CSV creados de los usuarios y la asociación de los vehículos para, posteriormente, cargarlos. Por otro lado, tendremos que integrar los datos de los puntos negros, por lo que subiremos también el CSV al HDFS.
 
-Una vez subidos los datos, probaremos Spark Streaming y SparkSQL Streaming para ver cómo se comportan. Esto lo encontraremos en el \textcolor{red}{ANEXO 9.3. y 9.4}. Dicho esto, comprobamos que los conectores a Kafka son diferentes al igual que la configuración de tiempo del microbatching, además de comportarse de forma distinta. En dichas pruebas, que consisten en recoger las tramas y asociar los vehículos con sus usuarios, comprobamos que Spark Streaming se comporta mejor que SparkSQL Streaming. Dado esto, seleccionamos Spark Streaming para realizar las pruebas. Por otro lado, para la asociación de los vehículos y los usuarios, probamos si funciona mejor con SparkSQL cambiando de contexto o con un rdd de Spark y comprobamos que SparkSQL funciona mejor, ya que, además de que es más fácil de usar, crea un batch con la concatenación de las diferentes aplicaciones que realizamos sobre los conjuntos de datos.
+Una vez subidos los datos, probaremos Spark Streaming y SparkSQL Streaming para ver cómo se comportan. Esto lo encontraremos en el anexo \ref{apend.D} y \ref{apend.E}. Dicho esto, comprobamos que los conectores a Kafka son diferentes al igual que la configuración de tiempo del microbatching, además de comportarse de forma distinta. En dichas pruebas, que consisten en recoger las tramas y asociar los vehículos con sus usuarios, comprobamos que Spark Streaming se comporta mejor que SparkSQL Streaming. Dado esto, seleccionamos Spark Streaming para realizar las pruebas. Por otro lado, para la asociación de los vehículos y los usuarios, probamos si funciona mejor con SparkSQL cambiando de contexto o con un rdd de Spark y comprobamos que SparkSQL funciona mejor, ya que, además de que es más fácil de usar, crea un batch con la concatenación de las diferentes aplicaciones que realizamos sobre los conjuntos de datos.
 
 El script de Spark Streaming realizará lo siguiente:
 
@@ -382,7 +386,7 @@ El script de Spark Streaming realizará lo siguiente:
 \end{itemize}
 
 
-Dado esto, también vamos a intentar obtener la dirección exacta de por dónde van los vehículos para ver si van en exceso de velocidad. Para ello, haremos uso de la base de datos que hemos creado de OSM en MongoDB. Hemos realizado pruebas abriendo y cerrando la conexión sobre la base de datos pero no era eficiente, por lo que se ha decidido realizarlo a través de la API web que hemos creado. Para poder tratar esto, se ha de realizar una petición trama por trama. A continuación, explicaremos el proceso que sigue para saber si va en exceso de velocidad y la dirección en la que se encuentra. Los pasos son los siguientes:
+Dado esto, también vamos a intentar obtener la dirección exacta de por dónde van los vehículos para ver si van en exceso de velocidad. Para ello, haremos uso de la base de datos que hemos creado de OSM en MongoDB. Hemos realizado pruebas abriendo y cerrando la conexión sobre la base de datos pero no era eficiente, por lo que se ha decidido realizarlo a través de la API web que hemos creado. Para poder tratar esto, se ha de realizar una petición trama por trama. A continuación, explicaremos el proceso que sigue para saber si va en exceso de velocidad y la dirección en la que se encuentra. Dicho script lo podremos encontrar en el anexo \ref{apend.F}. Los pasos son los siguientes:
 
 \begin{itemize}
         \item Haciendo uso de la función “udf” de Spark, que nos permitirá aplicar una función a cada una de las filas del Dataframe y devolver una estructura de datos, crearemos una función que:
@@ -396,7 +400,7 @@ Dado esto, también vamos a intentar obtener la dirección exacta de por dónde 
 \end{itemize}
 Dicho esto, también se ha comprobado que eliminando cualquier esclavo de Spark o de Hadoop cuando se está ejecutando, este es capaz de recuperarse del fallo.
 
-Para introducir los datos producidos por Spark en Elasticsearch, usaremos Logstash. Dicha herramienta, es capaz de leer los JSON del Topic donde Spark deposita su salida para, posteriormente, introducirlos en la Elasticsearch. Para ello, lanzaremos nuestra pipe de Logstash e introducirá dichos datos en un índice de Elasticsearch previamente creado. A partir de aquí, podemos hacer uso de Kibana, obteniendo los datos del índice. Con esta herramienta, somos capaces de ver, gráficamente, el tráfico de los vehículos, filtrar por usuario, o saber que vehículos van en exceso de velocidad, si hemos activamos la parte de consultas a OSM.
+Para introducir los datos producidos por Spark en Elasticsearch, usaremos Logstash. Dicha herramienta, es capaz de leer los JSON del Topic donde Spark deposita su salida para, posteriormente, introducirlos en la Elasticsearch. Para ello, lanzaremos nuestra pipe de Logstash e introducirá dichos datos en un índice de Elasticsearch previamente creado. A partir de aquí, podemos hacer uso de Kibana, obteniendo los datos del índice. Con esta herramienta, somos capaces de ver, gráficamente, el tráfico de los vehículos, filtrar por usuario, o saber que vehículos van en exceso de velocidad, si hemos activamos la parte de consultas a OSM. Las pipes que hemos creado para Logstash se encuentran en los anexos \ref{apend.H} e \ref{apend.I}, mientras que el script para crear el índice se encuentra en el anexo \ref{apend.G}.
 
 \subsection {Uso de la arquitectura \label{uso}}
 
@@ -434,9 +438,8 @@ Una vez hecho esto, nos debe aparecer un dashboard en Kibana como el que aparece
 \begin{figure}[htp]
 \centering
 \centering
-                \subfigure{\includegraphics[width=150mm]{Imagenes/kibana1.png}}
-                \subfigure{\includegraphics[width=150mm]{Imagenes/kibana2.png}}
-%\includegraphics[scale=0.26]{Imagenes/kibana1.png}
+\subfigure{\includegraphics[width=150mm]{Imagenes/kibana1.png}}
+\subfigure{\includegraphics[width=150mm]{Imagenes/kibana2.png}}
 \caption{Dashboards de Kibana}
 \label{kibana1}
 \end{figure}

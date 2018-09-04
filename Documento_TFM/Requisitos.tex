@@ -7,6 +7,11 @@
 % DSR: Ojo, especificar qué tipo de mensajes y qué contienen más o menos.
 % ¿Mensajes de coches? ¿Contínuos? ¿Cada cierto tiempo? Eso no se
 % especifica en ningún lado...
+% RGM: Acabo de poner estos dos items nuevos
+\item Se debe recibir un flujo continuo de tramas de vehículos en forma de
+  mensaje, los cuales contendrán, entre otros, la ubicación del vehículo.
+\item El formato del mensaje debe ser flexible dado que las tramas de los
+  vehículos son variables.
 \item Debe existir una cola que reciba los mensajes en bruto y de la cual,
   varios procesos puedan estar leyendo a la vez de dicha cola.
 \item Deben existir varias réplicas de la cola de forma que si uno de sus
