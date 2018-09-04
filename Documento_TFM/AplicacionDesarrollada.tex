@@ -35,8 +35,8 @@ un MSI GP60 2PE Leopard con las siguientes características:
 \section {Datos obtenidos y preprocesado\label{datos}}
 
 Para realizar las pruebas se han obtenido datos de diferentes fuentes.
-Por una parte, \mdata{} nos ha ofrecido los datos anonimizados de
-varios vehículos obtenidos durante tres días, en concreto, durante los
+Por una parte, tenemos datos anonimizados de
+varios vehículos que transcurren durante tres días, en concreto, durante los
 días 28, 29 y 30 de Mayo. Dichos datos se almacenan en un JSON de 1,83
 GB en el siguiente formato:
 
@@ -151,8 +151,8 @@ podemos verla en la figura \ref{userGraf}.
 A partir de esto, crearemos dos CSV que almacenaremos en Hadoop, en la que
 aparezcan los nombres de los usuarios y la asociación de los vehículos con
 los usuarios. Con esto obtenemos 876 vehículos en el usuario que más
-vehículos y 168 en el que menos. Por último, con los datos cedidos por
-\mdata{}, hemos obtenido dos gráficas que nos mostrarán la frecuencia de
+vehículos y 168 en el que menos. Por último, con los datos de las tramas de los 
+vehículos, hemos obtenido dos gráficas que nos mostrarán la frecuencia de
 los datos cada 60 segundos y cada segundo en un día concreto. Esto lo
 podemos ver en las siguientes figuras (\ref{graf60sec} y \ref{graf1sec}),
 en las que vemos como el máximo número de tramas en un minuto es de 8000 y
@@ -185,7 +185,7 @@ Dedicaremos esta sección a explicar en detalle el desarrollo realizado. Dicho e
 
 \subsection{Diseño de la arquitectura con las herramientas seleccionadas\label{disenio}}
 
-En cuanto a la arquitectura desarrollada, planificamos una estructura como la que se muestra en la figura \ref{lmdarq1}. En esta arquitectura encontramos los datos ofrecidos por \mdata{} como emisor de los datos, los cuales llegarán a una cola de Kafka. Dichos datos serán recogidos por Hadoop para almacenarlos en bruto en HDFS. Por otro lado, Spark recogerá los datos de la cola para realizar el procesamiento en tiempo real, es decir, para asociarlos con el usuario y detectar anomalías. Tras realizar el procesamiento, Spark insertará en otra cola de Kafka los datos, los cuales serán leídos por Logstash para insertarlos en Elasticsearch. Una vez insertados en Elasticsearch seremos capaces de mostrarlos en tiempo real a través de Kibana, donde configuraremos diferentes gráficos y dashboard.
+En cuanto a la arquitectura desarrollada, planificamos una estructura como la que se muestra en la figura \ref{lmdarq1}. En esta arquitectura encontramos la simulación con las tramas de vehículos emitiendose, los cuales llegarán a una cola de Kafka. Dichos datos serán recogidos por Hadoop para almacenarlos en bruto en HDFS. Por otro lado, Spark recogerá los datos de la cola para realizar el procesamiento en tiempo real, es decir, para asociarlos con el usuario y detectar anomalías. Tras realizar el procesamiento, Spark insertará en otra cola de Kafka los datos, los cuales serán leídos por Logstash para insertarlos en Elasticsearch. Una vez insertados en Elasticsearch seremos capaces de mostrarlos en tiempo real a través de Kibana, donde configuraremos diferentes gráficos y dashboard.
 
 \begin{figure}[htp]
 \centering
