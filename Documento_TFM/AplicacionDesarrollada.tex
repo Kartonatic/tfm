@@ -473,43 +473,81 @@ tarea, estableceremos el nombre del host de la misma forma como {\tt
   @hostname}. Por último, asignaremos el número de particiones por defecto
 a 1, al igual que el factor de replicación.
 
-Para lanzar los diferentes contenedores de Kafka, lanzaremos un shell que modifique el fichero de configuración estableciendo los valores que haya que asignar y, posteriormente, lance el proceso de Kafka.
+Para lanzar los diferentes contenedores de Kafka, lanzaremos un shell que
+modifique el fichero de configuración estableciendo los valores que haya
+que asignar y, posteriormente, lance el proceso de Kafka.
 
 
-\subsection {Montaje de las imágenes de Spark\label{montSpark}}
+\subsection{Montaje de las imágenes de Spark\label{montSpark}}
 
-Para montar la imagen de Apache Spark, añadiremos la aplicación en {\tt /opt/bd/streaming}, debido a que se conectará con la base de datos para realizar el streaming. Por otro lado, estableceremos en el fichero {\tt spark-defaults.conf} la siguiente configuración:
+Para montar la imagen de Apache Spark, añadiremos la aplicación en {\tt
+  /opt/bd/streaming}, debido a que se conectará con la base de datos para
+realizar el streaming. Por otro lado, estableceremos en el fichero {\tt
+  spark-defaults.conf} la siguiente configuración:
 \begin{itemize}
-        \item Asignamos, por defecto, user {\tt yarn} es decir, el cluster de Hadoop.
-        \item Establecemos que reserve como máximo de memoria 512MB, tanto para el yarn como para el cluster de Spark.
-        \item Establecemos los logs.
-        \item Asignamos los ficheros de logs si usa el yarn en el directorio {\tt hdfs://namenode:9000/user/ hdmaster/spark-logs}.
-        \item Establecemos el history server de Spark.
-        \item Establecemos el puerto para la web de Spark a {\tt 18080}.
-        \item Seleccionamos dónde se albergan las librerías de Spark en el hdfs a {\tt hdfs://namenode:9000/ user/hdmaster/spark-archives.zip}
-        \item Le confirmamos que la replicación de bloques del yarn está a 2.
-        \item Le especificamos dónde está el cluster de Hadoop y con los puertos por los que se debe comunicar con: {\tt hdfs://namenode:9000, hdfs://datanode1:9866, hdfs://datanode2:9866, hdfs://datanode3:9866}
-        \item Establecemos el acceso a datos de HDFS a {\tt hdfs://namenode:9000}
-        \item Especificamos que la forma de recuperación, en caso de caÍdas, para seleccionar un nuevo líder, lo haremos con Zookeeper. Esta integración se hará automática añadiendo las direcciones del cluster de Zookeeper {\tt zoo1:2181, zoo2:2181, zoo3:2181}
+\item Asignamos, por defecto, user {\tt yarn} es decir, el cluster de
+  Hadoop.
+\item Establecemos que reserve como máximo de memoria 512MB, tanto para el
+  yarn como para el cluster de Spark.
+\item Establecemos los logs.
+\item Asignamos los ficheros de logs si usa el yarn en el directorio {\tt
+    hdfs://namenode:9000/user/ hdmaster/spark-logs}.
+\item Establecemos el history server de Spark.
+\item Establecemos el puerto para la web de Spark a {\tt 18080}.
+\item Seleccionamos dónde se albergan las librerías de Spark en el hdfs a
+  {\tt hdfs://namenode:9000/ user/hdmaster/spark-archives.zip}
+\item Le confirmamos que la replicación de bloques del yarn está a 2.
+\item Le especificamos dónde está el cluster de Hadoop y con los puertos
+  por los que se debe comunicar con: {\tt hdfs://namenode:9000,
+    hdfs://datanode1:9866, hdfs://datanode2:9866, hdfs://datanode3:9866}
+\item Establecemos el acceso a datos de HDFS a {\tt hdfs://namenode:9000}
+\item Especificamos que la forma de recuperación, en caso de caÍdas, para
+  seleccionar un nuevo líder, lo haremos con Zookeeper. Esta integración se
+  hará automática añadiendo las direcciones del cluster de Zookeeper {\tt
+    zoo1:2181, zoo2:2181, zoo3:2181}
 \end{itemize}
 
-Por otro lado, añadiremos como esclavos en el fichero {\tt slaves}, que serán los procesos de Spark que ejecutarán trabajos, a los nodos sparkmaster, sparkworker1, sparkworker2 y sparkworker3, para el caso que queramos ejecutar el cluster de Spark.
+Por otro lado, añadiremos como esclavos en el fichero {\tt slaves}, que
+serán los procesos de Spark que ejecutarán trabajos, a los nodos
+sparkmaster, sparkworker1, sparkworker2 y sparkworker3, para el caso que
+queramos ejecutar el cluster de Spark.
 
-Para terminar con la configuración de la imagen base de Spark, decir que para poder usar pyspark con Python 3, hemos establecido la variable de entorno {\tt PYSPARK\_PYTHON} a {\tt python3}, ya que, de no ser así, usará por defecto Python2. Por otra parte, también hemos establecido que el código de Python será introducido con codificación UTF-8, de manera que minimizaremos los problemas con caracteres españoles. Para ello, estableceremos la variable de entorno {\tt PYTHONIOENCODING} a {\tt UTF-8}.
-Con esta configuración, seleccionará por defecto los workers de Hadoop para ejecutar los trabajos. Hadoop debe contener las librerías de Spark para poder hacer uso de ellas, por lo que será necesario que estén introducidas en la ruta del HDFS especificadas. Para esto, cuando definamos el nodo spark-master, llevará a cabo su ejecución de la siguiente forma:
+Para terminar con la configuración de la imagen base de Spark, decir que
+para poder usar pyspark con Python 3, hemos establecido la variable de
+entorno {\tt PYSPARK\_PYTHON} a {\tt python3}, ya que, de no ser así, usará
+por defecto Python2. Por otra parte, también hemos establecido que el
+código de Python será introducido con codificación UTF-8, de manera que
+minimizaremos los problemas con caracteres españoles. Para ello,
+estableceremos la variable de entorno {\tt PYTHONIOENCODING} a {\tt UTF-8}.
+Con esta configuración, seleccionará por defecto los workers de Hadoop para
+ejecutar los trabajos. Hadoop debe contener las librerías de Spark para
+poder hacer uso de ellas, por lo que será necesario que estén introducidas
+en la ruta del HDFS especificadas. Para esto, cuando definamos el nodo
+spark-master, llevará a cabo su ejecución de la siguiente forma:
+
 \begin{enumerate}
-        \item Cuando esté lanzado el contenedor por primera vez, esperará 14 segundos, dado que no hay forma de saber si el HDFS está montado.
-        \item Cuando hayan pasado los 14 segundos correspondientes, tendrá que comprobar de un fichero que esté guardado de forma persistente, si se han añadido ya las librerías de Spark al HDFS. Esto lo sabremos si se ha ejecutado anteriormente el script que las añade.
-        \item Una vez hecho esto, los slaves y el history-server de Spark estarán esperando a que el spark-master lance sus demonios.
+\item Cuando esté lanzado el contenedor por primera vez, esperará 14
+  segundos, dado que no hay forma de saber si el HDFS está montado.
+\item Cuando hayan pasado los 14 segundos correspondientes, tendrá que
+  comprobar de un fichero que esté guardado de forma persistente, si se han
+  añadido ya las librerías de Spark al HDFS. Esto lo sabremos si se ha
+  ejecutado anteriormente el script que las añade.
+\item Una vez hecho esto, los slaves y el history-server de Spark estarán
+  esperando a que el spark-master lance sus demonios.
 \end{enumerate}
-Para cumplir con los requisitos, hemos hecho también pruebas con Apache Flink, comprobando que podemos cambiar la herramienta si en algún momento se requiere valorando esta alternativa cuando esté más madura en el mercado. Dado que usamos Kafka, también hemos comprobado que podemos usar ambas herramientas a la vez sin ningún problema, ya que pueden existir varios suscriptores en las colas.
 
+Para cumplir con los requisitos, se han hecho también pruebas con Apache
+Flink, comprobando que podemos cambiar la herramienta si en algún momento
+se requiere valorando esta alternativa cuando esté más madura en el
+mercado. Dado que usamos Kafka, también hemos comprobado que podemos usar
+ambas herramientas a la vez sin ningún problema, ya que pueden existir
+varios suscriptores en las colas.
 
 
 \subsection{Montaje de las imágenes Elastic\label{montElastic}}
 
 Para el montaje del Stack de Elastic introduciremos Elasticsearch, Logstash
-y Kibana en /opt/bd, en la imagen base. En la configuración de
+y Kibana en {\tt /opt/bd}, en la imagen base. En la configuración de
 Elasticsearch, en el fichero {\tt elasticserhc.yml}, estableceremos el
 nombre del cluster a {\tt elastic-cluster}, como nombre descriptivo lo
 estableceremos a {\tt elastic-1-master}, la ruta del host a {\tt
@@ -523,8 +561,14 @@ la ruta al host como Kibana (está en la ruta del DNS), en el puerto 5601,
 la ruta a Elasticsearch a {\tt http://elasticsearch:9200} y el fichero de
 log como se establece en el apartado \ref{pasosUbuntu}.
 
-Para hacer uso de las aplicaciones de una forma más fácil, estableceremos las variables de entorno ES\_HOME, que contendrá la ruta a Elasticsearch, ES\_PATH\_CONF, que contiene la ruta al fichero de configuración a Elasticsearch, LOGSTASH\_HOME, que contendrá la ruta a Logstash, y KIBANA\_HOME, que contendrá la ruta de Kibana.
-Para lanzar los servicios, crearemos una imagen para Elasticsearch, que lanzará Elasticsearch, la de Kibana lanzará Kibana y la de Logstash no lanzará nada para poder realizar las diferentes pruebas.
+Para hacer uso de las aplicaciones de una forma más fácil, estableceremos
+las variables de entorno ES\_HOME, que contendrá la ruta a Elasticsearch,
+ES\_PATH\_CONF, que contiene la ruta al fichero de configuración a
+Elasticsearch, LOGSTASH\_HOME, que contendrá la ruta a Logstash, y
+KIBANA\_HOME, que contendrá la ruta de Kibana. Para lanzar los servicios,
+crearemos una imagen para Elasticsearch, que lanzará Elasticsearch, la de
+Kibana lanzará Kibana y la de Logstash no lanzará nada para poder realizar
+las diferentes pruebas.
 
 \subsection{Montaje de las imágenes de MongoDB en integración de
   OSM\label{montMongo}}
@@ -570,93 +614,200 @@ Python los mensajes que se recibirán de los vehículos. Este script
 introducirá un JSON por cada trama en el topic {\tt streamKafka} de Kafka.
 Dicho script lo podemos encontrar en el anexo \ref{apendC}.
 
-Tras esto, haremos el preprocesamiento de Spark Streaming. Para ello, debemos introducir, en el HDFS, los CSV creados de los usuarios y la asociación de los vehículos para, posteriormente, cargarlos. Por otro lado, tendremos que integrar los datos de los puntos negros, por lo que subiremos también el CSV al HDFS.
+Tras esto, haremos el preprocesamiento de Spark Streaming. Para ello,
+debemos introducir, en el HDFS, los CSV creados de los usuarios y la
+asociación de los vehículos para, posteriormente, cargarlos. Por otro lado,
+tendremos que integrar los datos de los puntos negros, por lo que subiremos
+también el CSV al HDFS.
 
-Una vez subidos los datos, probaremos Spark Streaming y SparkSQL Streaming para ver cómo se comportan. Esto lo encontraremos en el anexo \ref{apendD} y \ref{apendE}. Dicho esto, comprobamos que los conectores a Kafka son diferentes al igual que la configuración de tiempo del microbatching, además de comportarse de forma distinta. En dichas pruebas, que consisten en recoger las tramas y asociar los vehículos con sus usuarios, comprobamos que Spark Streaming se comporta mejor que SparkSQL Streaming. Dado esto, seleccionamos Spark Streaming para realizar las pruebas. Por otro lado, para la asociación de los vehículos y los usuarios, probamos si funciona mejor con SparkSQL cambiando de contexto o con un rdd de Spark y comprobamos que SparkSQL funciona mejor, ya que, además de que es más fácil de usar, crea un batch con la concatenación de las diferentes aplicaciones que realizamos sobre los conjuntos de datos.
+Una vez subidos los datos, probaremos Spark Streaming y SparkSQL Streaming
+para ver cómo se comportan. Esto lo encontraremos en el anexo \ref{apendD}
+y \ref{apendE}. Dicho esto, comprobamos que los conectores a Kafka son
+diferentes al igual que la configuración de tiempo del {\em microbatching},
+además de comportarse de forma distinta. En dichas pruebas, que consisten
+en recoger las tramas y asociar los vehículos con sus usuarios, comprobamos
+que Spark Streaming se comporta mejor que SparkSQL Streaming. Dado esto,
+seleccionamos Spark Streaming para realizar las pruebas. Por otro lado,
+para la asociación de los vehículos y los usuarios, probamos si funciona
+mejor con SparkSQL cambiando de contexto o con un rdd de Spark y
+comprobamos que SparkSQL funciona mejor, ya que, además de que es más fácil
+de usar, crea un batch con la concatenación de las diferentes aplicaciones
+que realizamos sobre los conjuntos de datos.
 
 El script de Spark Streaming realizará lo siguiente:
 
 \begin{itemize}
-        \item Cada 10 segundos se añade un trabajo a la cola de trabajos de Spark que se ejecutarán si el cluster no está ejecutando ningún otro proceso de esa misma cola.
-        \item Cada uno de esos trabajos leerá de Kafka los 10 segundos que le corresponden indiferentemente de si corresponden en el tiempo o no. Esto es porque puede ser que algún trabajo se retrase, en ese caso, los trabajos retrasados se ejecutarán tras haber terminado el anterior.
-        \item El proceso convertirá los JSON leídos de Kafka en una Dataframe de SparkSQL.
-        \item Posteriormente, filtrará los datos erróneos, es decir, los que no son del día actual. En el caso de la simulación, los que no sean de los días que hemos recogido los datos.
-        \item Se realizará los JOINs correspondientes para obtener el usuario.
-        \item Analizamos la temperatura
-        \item A continuación, buscaremos trama por trama, la que se acerque a un punto negro y la distancia hasta el mismo. Para ello, haremos lo siguiente:
-        \begin{itemize}
-                \item Eliminamos todas las tramas que contengan velocidad 0 km/h.
-                \item Realizaremos la combinación completa de una trama a todos los puntos.
-                \item Filtraremos todos aquellos que se encuentren por encima de puntos que tengan una distancia por encima de 1.11 Km a través de la latitud y la longitud, es decir, truncando por el tercer decimal.
-                \item Calcularemos la distancia a los puntos negros con el
-                  algoritmo de
-                  Haversine\footnote{\url{https://en.wikipedia.org/wiki/Haversine_formula}.}
-                  y nos quedaremos con el que menos distancia tenga.
-                \item Añadiremos los puntos negros que corresponden a cada trama y la distancia que hay hasta los mismos al Dataframe obtenido en el paso anterior.
-        \end{itemize}
-        \item Por último, introduciremos cada fila del Dataframe (cada trama procesada), convertidas en un JSON, en otro topic de Kafka, diferente al que usábamos para recibir las tramas.
+\item Cada 10 segundos se añade un trabajo a la cola de trabajos de Spark
+  que se ejecutarán si el cluster no está ejecutando ningún otro proceso de
+  esa misma cola.
+\item Cada uno de esos trabajos leerá de Kafka los 10 segundos que le
+  corresponden indiferentemente de si corresponden en el tiempo o no. Esto
+  es porque puede ser que algún trabajo se retrase, en ese caso, los
+  trabajos retrasados se ejecutarán tras haber terminado el anterior.
+\item El proceso convertirá los JSON leídos de Kafka en una Dataframe de
+  SparkSQL.
+\item Posteriormente, filtrará los datos erróneos, es decir, los que no son
+  del día actual. En el caso de la simulación, los que no sean de los días
+  que hemos recogido los datos.
+\item Se realizará los JOINs correspondientes para obtener el usuario.
+\item Analizamos la temperatura
+\item A continuación, buscaremos trama por trama, la que se acerque a un
+  punto negro y la distancia hasta el mismo. Para ello, haremos lo
+  siguiente:
+  \begin{itemize}
+  \item Eliminamos todas las tramas que contengan velocidad 0 km/h.
+  \item Realizaremos la combinación completa de una trama a todos los
+    puntos.
+  \item Filtraremos todos aquellos que se encuentren por encima de puntos
+    que tengan una distancia por encima de 1.11 Km a través de la latitud y
+    la longitud, es decir, truncando por el tercer decimal.
+  \item Calcularemos la distancia a los puntos negros con el algoritmo de
+    Haversine\footnote{\url{https://en.wikipedia.org/wiki/Haversine_formula}.}
+    y nos quedaremos con el que menos distancia tenga.
+  \item Añadiremos los puntos negros que corresponden a cada trama y la
+    distancia que hay hasta los mismos al Dataframe obtenido en el paso
+    anterior.
+  \end{itemize}
+\item Por último, introduciremos cada fila del Dataframe (cada trama
+  procesada), convertidas en un JSON, en otro topic de Kafka, diferente al
+  que usábamos para recibir las tramas.
 \end{itemize}
 
 
-Dado esto, también vamos a intentar obtener la dirección exacta de por dónde van los vehículos para ver si van en exceso de velocidad. Para ello, haremos uso de la base de datos que hemos creado de OSM en MongoDB. Hemos realizado pruebas abriendo y cerrando la conexión sobre la base de datos pero no era eficiente, por lo que se ha decidido realizarlo a través de la API web que hemos creado. Para poder tratar esto, se ha de realizar una petición trama por trama. A continuación, explicaremos el proceso que sigue para saber si va en exceso de velocidad y la dirección en la que se encuentra. Dicho script lo podremos encontrar en el anexo \ref{apendF}. Los pasos son los siguientes:
+Dado esto, también vamos a intentar obtener la dirección exacta de por
+dónde van los vehículos para ver si van en exceso de velocidad. Para ello,
+haremos uso de la base de datos que hemos creado de OSM en MongoDB. Hemos
+realizado pruebas abriendo y cerrando la conexión sobre la base de datos
+pero no era eficiente, por lo que se ha decidido realizarlo a través de la
+API web que hemos creado. Para poder tratar esto, se ha de realizar una
+petición trama por trama. A continuación, explicaremos el proceso que sigue
+para saber si va en exceso de velocidad y la dirección en la que se
+encuentra. Dicho script lo podremos encontrar en el anexo \ref{apendF}. Los
+pasos son los siguientes:
 
 \begin{itemize}
-        \item Haciendo uso de la función {\tt udf} de Spark, que nos permitirá aplicar una función a cada una de las filas del Dataframe y devolver una estructura de datos, crearemos una función que:
-        \begin{itemize}
-                \item Obtenga la ubicación y la velocidad a la que va el vehículo.
-                \item Consulte en nuestra API la dirección, el tipo de vía y si tiene la velocidad máxima a la que se puede transitar en la misma.
-                \item Si tiene marcado la velocidad máxima, devolveremos ese límite de velocidad aplicando las reglas que se aplican según el tipo de vehículo. En el caso de no ser así, dependiendo del tipo de vía y de vehículo, distinguiremos la velocidad máxima de la vía para dicho vehículo para devolverla.
-                \item La función devolverá la dirección y la velocidad máxima a la que puede transitar el vehículo.
-        \end{itemize}
-        \item Aplicamos la función definida con {\tt udf}, se la pasamos a cada fila del Dataframe usando la ubicación y el tipo de vehículo que es y obteniendo la dirección y la velocidad máxima para añadirlos al Dataframe que, posteriormente, se enviará a la siguiente cola de Kafa.
+\item Haciendo uso de la función {\tt udf} de Spark, que nos permitirá
+  aplicar una función a cada una de las filas del Dataframe y devolver una
+  estructura de datos, crearemos una función que:
+  \begin{itemize}
+  \item Obtenga la ubicación y la velocidad a la que va el vehículo.
+  \item Consulte en nuestra API la dirección, el tipo de vía y si tiene la
+    velocidad máxima a la que se puede transitar en la misma.
+  \item Si tiene marcado la velocidad máxima, devolveremos ese límite de
+    velocidad aplicando las reglas que se aplican según el tipo de
+    vehículo. En el caso de no ser así, dependiendo del tipo de vía y de
+    vehículo, distinguiremos la velocidad máxima de la vía para dicho
+    vehículo para devolverla.
+  \item La función devolverá la dirección y la velocidad máxima a la que
+    puede transitar el vehículo.
+  \end{itemize}
+\item Aplicamos la función definida con {\tt udf}, se la pasamos a cada
+  fila del Dataframe usando la ubicación y el tipo de vehículo que es y
+  obteniendo la dirección y la velocidad máxima para añadirlos al Dataframe
+  que, posteriormente, se enviará a la siguiente cola de Kafa.
 \end{itemize}
 
-Dicho esto, también se ha comprobado que eliminando cualquier esclavo de Spark o de Hadoop cuando se está ejecutando, este es capaz de recuperarse del fallo.
+Dicho esto, también se ha comprobado que eliminando cualquier esclavo de
+Spark o de Hadoop cuando se está ejecutando, este es capaz de recuperarse
+del fallo.
 
-Para introducir los datos producidos por Spark en Elasticsearch, usaremos Logstash. Dicha herramienta, es capaz de leer los JSON del Topic donde Spark deposita su salida para, posteriormente, introducirlos en la Elasticsearch. Para ello, lanzaremos nuestra pipe de Logstash e introducirá dichos datos en un índice de Elasticsearch previamente creado. A partir de aquí, podemos hacer uso de Kibana, obteniendo los datos del índice. Con esta herramienta, somos capaces de ver, gráficamente, el tráfico de los vehículos, filtrar por usuario, o saber que vehículos van en exceso de velocidad, si hemos activamos la parte de consultas a OSM. Las pipes que hemos creado para Logstash se encuentran en los anexos \ref{apendH} e \ref{apendI}, mientras que el script para crear el índice se encuentra en el anexo \ref{apendG}.
+Para introducir los datos producidos por Spark en Elasticsearch, usaremos
+Logstash. Dicha herramienta, es capaz de leer los JSON del Topic donde
+Spark deposita su salida para, posteriormente, introducirlos en la
+Elasticsearch. Para ello, lanzaremos nuestra pipe de Logstash e introducirá
+dichos datos en un índice de Elasticsearch previamente creado. A partir de
+aquí, podemos hacer uso de Kibana, obteniendo los datos del índice. Con
+esta herramienta, somos capaces de ver, gráficamente, el tráfico de los
+vehículos, filtrar por usuario, o saber que vehículos van en exceso de
+velocidad, si hemos activamos la parte de consultas a OSM. Las pipes que
+hemos creado para Logstash se encuentran en los anexos \ref{apendH} e
+\ref{apendI}, mientras que el script para crear el índice se encuentra en
+el anexo \ref{apendG}.
 
-\subsection{Uso de la arquitectura \label{uso}}
+\subsection{Uso de la arquitectura\label{uso}}
 
 En este apartado explicaremos como montar en las diferentes imágenes de la
 arquitectura de forma propia a partir de descargar el código que se
 encuentra en el repositorio de
 GitHub\footnote{\url{https://github.com/Kartonatic/tfm}.}.
 
-Para hacer uso de la arquitectura, tenemos dos opciones. En la primera opción habrá que montar las imagenes de Docker nosotros mismos a través de los Dockerfiles, de forma que reemplacemos los certificados de acceso. La segunda forma es más sencilla, pero no reemplazamos los certificados, por lo que, cualquiera, podrá acceder a las máquinas con el certificado que hay disponible en la imagen de Docker Hub. Aún así, para ambas opciones necesitaremos descargarnos el proyecto del repositorio.
+Para hacer uso de la arquitectura, tenemos dos opciones. En la primera
+opción habrá que montar las imagenes de Docker nosotros mismos a través de
+los Dockerfiles, de forma que reemplacemos los certificados de acceso. La
+segunda forma es más sencilla, pero no reemplazamos los certificados, por
+lo que, cualquiera, podrá acceder a las máquinas con el certificado que hay
+disponible en la imagen de Docker Hub. Aún así, para ambas opciones
+necesitaremos descargarnos el proyecto del repositorio.
 
-En cuanto a la primera opción, para montar las imagenes de Docker en nuestro host, se ha creado un script en la carpeta principal del proyecto con nombre {\tt rebuildAllDocker.sh}. Dicho Script creará todas las imágenes a partir de los Dockerfiles mencionados anteriormente, sin embargo, antes de lanzar estos scripts, debemos descargarnos las imágenes de cada aplicación y añadirlas en su directorio correspondiente, cuyo nombre estará compuesto por el nombre de la aplicación + {\tt \_base}. En el README que se encuentra en estos directorios aparece la URL con la que podemos descargar las aplicaciones.
+En cuanto a la primera opción, para montar las imagenes de Docker en
+nuestro host, se ha creado un script en la carpeta principal del proyecto
+con nombre {\tt rebuildAllDocker.sh}. Dicho Script creará todas las
+imágenes a partir de los Dockerfiles mencionados anteriormente, sin
+embargo, antes de lanzar estos scripts, debemos descargarnos las imágenes
+de cada aplicación y añadirlas en su directorio correspondiente, cuyo
+nombre estará compuesto por el nombre de la aplicación + {\tt \_base}. En
+el README que se encuentra en estos directorios aparece la URL con la que
+podemos descargar las aplicaciones.
 
-Si vamos a usar la segunda opción, simplemente haremos uso del comando {\tt docker-compose} y descarga las imágenes del repositorio.
+Si vamos a usar la segunda opción, simplemente haremos uso del comando {\tt
+  docker-compose} y descarga las imágenes del repositorio.
 
-Antes de usar la arquitectura debemos cargar los datos de OSM. Para ello, en el directorio {\tt MongoDB\_to\_OSM}, seguiremos las instrucciones del README. Cuando se empiecen a cargar los datos puede llevar varias horas, según el hardware utilizado. Una vez hecho esto, tendremos los datos de la base de datos en {\tt mongodb\_resources}. Este directorio lo podremos copiar en cualquier otro lado y seguirá siendo funcional con la imagen de MongoDB que hemos creado.
+Antes de usar la arquitectura debemos cargar los datos de OSM. Para ello,
+en el directorio {\tt MongoDB\_to\_OSM}, seguiremos las instrucciones del
+README. Cuando se empiecen a cargar los datos puede llevar varias horas,
+según el hardware utilizado. Una vez hecho esto, tendremos los datos de la
+base de datos en {\tt mongodb\_resources}. Este directorio lo podremos
+copiar en cualquier otro lado y seguirá siendo funcional con la imagen de
+MongoDB que hemos creado.
 
-Para lanzar la arquitectura vamos a seguir los siguientes pasos, que serán idénticos para ambos métodos. La arquitectura final se encontrará en el directorio {\tt 00\_final} y habrá que seguir los siguientes pasos:
+Para lanzar la arquitectura vamos a seguir los siguientes pasos, que serán
+idénticos para ambos métodos. La arquitectura final se encontrará en el
+directorio {\tt 00\_final} y habrá que seguir los siguientes pasos:
 
 \begin{enumerate}
-\item Tendremos que crear los directorios de datos, para lo que haremos uso del script {\tt createFoldersFromGit.sh} que se encuentra en el directorio {\tt ToGenerateFolders}.
-\item Reemplazaremos el directorio {\tt mongodb\_resources} por el directorio obtenido en la integración de MongoDB con OSM.
-\item Estableceremos con el comando {\tt sysctl -w vm.max\_map\_count=262144} mas memoria virtual a las máquinas. Esto es porque Elasticsearch la necesita.
-\item Añadiremos a {\tt spark\_resources}, al directorio de {\tt sparkmaster}  los csv de los usuarios y los puntos negros que se encuentran en el directorio {\tt Data}.
-\item Lanzaremos con {\tt docker-compose} el yaml del directorio {\tt 00\_Final}, que lanzará los diferentes contenedores que hemos creado.
-\item Accederemos al container de Spark, {\tt sparkmaster} y usuario {\tt hdmaster}, y haremos lo siguiente:
+\item Tendremos que crear los directorios de datos, para lo que haremos uso
+  del script {\tt createFoldersFromGit.sh} que se encuentra en el
+  directorio {\tt ToGenerateFolders}.
+\item Reemplazaremos el directorio {\tt mongodb\_resources} por el
+  directorio obtenido en la integración de MongoDB con OSM.
+\item Estableceremos con el comando {\tt sysctl -w
+    vm.max\_map\_count=262144} mas memoria virtual a las máquinas. Esto es
+  porque Elasticsearch la necesita.
+\item Añadiremos a {\tt spark\_resources}, al directorio de {\tt
+    sparkmaster} los csv de los usuarios y los puntos negros que se
+  encuentran en el directorio {\tt Data}.
+\item Lanzaremos con {\tt docker-compose} el yaml del directorio {\tt
+    00\_Final}, que lanzará los diferentes contenedores que hemos creado.
+\item Accederemos al container de Spark, {\tt sparkmaster} y usuario {\tt
+    hdmaster}, y haremos lo siguiente:
 \begin{enumerate}
-\item Añadiremos, desde este contenedor, los ficheros de datos que hemos introducido en {\tt spark\_resources} en el HDFS.
-\item Introduciremos el script {\tt sparkstreaming.py}, que se encuentra en el directorio {\tt Code} y lo lanzamos con {\tt spark-submit}.
+\item Añadiremos, desde este contenedor, los ficheros de datos que hemos
+  introducido en {\tt spark\_resources} en el HDFS.
+\item Introduciremos el script {\tt sparkstreaming.py}, que se encuentra en
+  el directorio {\tt Code} y lo lanzamos con {\tt spark-submit}.
 \end{enumerate}
-\item Creamos los índices de Elasticsearch con el script {\tt CreateIndexForElastic.py}.
-\item Accedemos al container de Logstash y copiamos el fichero {\tt logstashkafkaUpdates.conf} que define una pipe de Logstash que actualiza los datos actualizando cada vehículo. Tras realizar esto lanzamos la pipe de Logstash.
-\item Abriremos Kibana, a través de un navegador web, y añadimos el índice que hemos creado en Elasticsearch.
-\item Cargamos el fichero de dashboards que se encuentran en el directorio {\tt DASHBOARD\_KIBANA}. Este fichero es un JSON que te deja importar y exportar Kibana con la configuración de diferentes gráficos y dashboards.
+\item Creamos los índices de Elasticsearch con el script {\tt
+    CreateIndexForElastic.py}.
+\item Accedemos al container de Logstash y copiamos el fichero {\tt
+    logstashkafkaUpdates.conf} que define una pipe de Logstash que
+  actualiza los datos actualizando cada vehículo. Tras realizar esto
+  lanzamos la pipe de Logstash.
+\item Abriremos Kibana, a través de un navegador web, y añadimos el índice
+  que hemos creado en Elasticsearch.
+\item Cargamos el fichero de dashboards que se encuentran en el directorio
+  {\tt DASHBOARD\_KIBANA}. Este fichero es un JSON que te deja importar y
+  exportar Kibana con la configuración de diferentes gráficos y dashboards.
 \end{enumerate}
 
-Una vez hecho esto, nos debe aparecer un dashboard en Kibana como el que aparece en las figura \ref{kibana1}.
+Una vez hecho esto, nos debe aparecer un dashboard en Kibana como el que
+aparece en las figura \ref{kibana1}.
 
 \begin{figure}[htp]
 \centering
 \centering
 \subfigure{\includegraphics[width=150mm]{Imagenes/kibana1.png}}
 \subfigure{\includegraphics[width=150mm]{Imagenes/kibana2.png}}
-\caption{Dashboards de Kibana}
+\caption{Dashboards de Kibana.}
 \label{kibana1}
 \end{figure}
 
