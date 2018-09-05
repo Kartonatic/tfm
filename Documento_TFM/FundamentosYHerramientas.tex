@@ -2,7 +2,8 @@
 
 En esta sección vamos a realizar una breve introducción al paradigma
 conocido como Big Data. Tras esto, veremos qué modelos de arquitecturas
-propone este paradigma. Para terminar con este capítulo, haremos un breve
+propone este paradigma y seleccionaremos uno de ellos. 
+Para terminar con este capítulo, haremos un breve
 análisis de las distintas herramientas disponibles para que encajen con
 esta arquitectura, proponiendo, finalmente, la que más se adapte a nuestros
 objetivos.
@@ -24,7 +25,7 @@ conocidos como las 3 Vs del Big Data \cite{BD-4}:
 
 \begin{itemize}
 \item Volumen: El conjunto de datos debe ser grande.
-\item Velocidad: Debe existir una forma rápida de que lleguen los datos,
+\item Velocidad: Debe existir una forma rápida de recibir datos,
   procesarlos y devolverlos.
 \item Variedad: Los datos pueden ser de cualquier tipo ya sea alfanumérico,
   imágenes, sonidos, videos, etc…
@@ -100,7 +101,7 @@ necesitaremos seleccionar varios tipos de herramientas. Para repartir la
 carga de los mensajes enviados/recibidos necesitaremos un distribuidor de
 los diferentes datos que recibamos ({\em broker}). Tras recibir el dato
 necesitamos que el {\em speed layer} realice el procesamiento en tiempo
-real necesitaremos con una tecnología de Streaming que nos permita obtener
+real con una tecnología de Streaming que nos permita obtener,
 del dato en bruto, la parte que nos interesa. Por otro lado, el {\em batch
   layer} nos debe permitir almacenar y consultar cualquier dato en
 cualquier momento ya sea en una o varias bases de datos. Para procesar los
@@ -180,11 +181,13 @@ tarda 15 segundos.
 
 En cuanto al \emph{broker} de mensajes, tenemos dos candidatos que son
 Apache Kafka y RabbitMQ. RabbitMQ consiste en un sistema de colas
-tradicional donde encontramos un productor del mensaje y un consumidor del
-mensaje y diferentes colas a las que se pueden suscribir diferentes
-productores y consumidores. Por el contrario, en Apache Kafka, encontramos
-que hay un productor del mensaje y varios consumidores del mismo, lo que
-implica que el mensaje persistente un cierto tiempo. Podemos ver el
+tradicional donde encontramos un productor del mensaje y un único
+consumidor del mensaje. Los mensajes se almacenan en diferentes colas
+a las que se pueden suscribir diferentes productores y consumidores. Por
+el contrario, en Apache Kafka, encontramos que hay un productor del
+mensaje y varios consumidores del mismo. Esto implica que el mensaje
+deba ser persistente durante un tiempo determinado para que varios
+consumidores puedan hacer uso de él. Podemos ver el
 funcionamiento de ambos en la figura \ref{brokers-img}. Dado que, además de
 usarlo como \emph{broker} también podemos usar Apache Kafka como caché, nos
 puede ser útil para recuperar datos y poder operar fácilmente con las

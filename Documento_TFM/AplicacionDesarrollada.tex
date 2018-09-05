@@ -129,30 +129,31 @@ Aquí podemos ver un ejemplo:
 
 \end{lstlisting}
 
-Dado el formato de estos datos hemos tenido que preprocesarlos con Spark
+Dado el formato de estos datos se han tenido que preprocesar con Spark
 para obtener un fichero CSV equivalente, en el que cada trama se almacene
 en una sola línea. Esto se ha realizado para facilitar la simulación del
 envío de las tramas de los vehículos.
 
 Una vez obtenido esto, para simular los usuarios, se han creado 180
 usuarios y dividido, con una distribución aleatoria, los vehículos con
-los usuarios que hemos creado. De esta forma, simularemos la cantidad de
-vehículos que tienen los clientes reales de una empresa de este tipo, donde
-cada empresa tiene una cantidad determinada, según su necesidad. Esta
-distribución podemos verla en la figura \ref{userGraf}.
+los usuarios que hemos creado. De esta forma, simularemos la cantidad variable de
+vehículos que tienen los clientes reales de una empresa de este tipo donde,
+cada empresa, dispone de vehiculos según su necesidad. Esta
+distribución podemos verla en la figura \ref{userGraf}. Dicho esto, 
+se encuentran 876 vehículos en el usuario que más
+vehículos tiene y 168 en el que menos.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[scale=0.3]{Imagenes/graf1.png}
-\caption{Cantidad de vehiculos para cada usuario.}
+\caption{Cantidad de vehículos para cada usuario.}
 \label{userGraf}
 \end{figure}
 
-A partir de esto, crearemos dos CSV que almacenaremos en Hadoop, en la que
-aparezcan los nombres de los usuarios y la asociación de los vehículos con
-los usuarios. Con esto obtenemos 876 vehículos en el usuario que más
-vehículos y 168 en el que menos. Por último, con los datos de las tramas de los
-vehículos, hemos obtenido dos gráficas que nos mostrarán la frecuencia de
+A partir de esto, se crearan dos CSV que se almacenarán en Hadoop. Dichos CSV,
+contendrá, por un lado, los nombres de los usuarios y la asociación de los vehículos con
+los usuarios por otro. Por último, se analizan los datos de las tramas de los
+vehículos. Para ello se han obtenido dos gráficas que muestran la frecuencia de
 los datos cada 60 segundos y cada segundo en un día concreto. Esto lo
 podemos ver en las siguientes figuras (\ref{graf60sec} y \ref{graf1sec}),
 en las que vemos como el máximo número de tramas en un minuto es de 8000 y
@@ -172,9 +173,8 @@ el máximo de tramas durante 1 segundo es de 250.
 \label{graf1sec}
 \end{figure}
 
-%RGM: Dado que aqui no has llegado he metido cosas nuevas
 
-Por otro lado, se han obtenido de la DGT los puntos negros de España en
+Por otro lado, se han obtenido de la DGT los puntos negros de España de
 2014, que es el último documento público actualizado. Dicho documento es un
 Excel con varias hojas, una por cada provincia o región de España, y en
 cada hoja se detalla la dirección del punto donde se han producido
@@ -188,10 +188,9 @@ han obtenido los datos de los mapas de OSM, concretamente se han obtenido
 los datos del mapa de España en un fichero {\tt .osm} para, posteriormente,
 poder procesarlo e insertarlo en la base de datos seleccionada.
 
-Por último en este apartado, comentar que dejamos a disposición del lector
+Por último en este apartado, comentar que se deja a disposición del lector
 las rutas de un vehiculo y los puntos negros que hemos recogido
-representados en un mapa en el anexo
-\ref{apendA}. %RGM: NO ENTIENDO POR QUE NO ME APARECE LA REFERENCIA EN EL PDF
+representados en un mapa en el anexo \ref{apendA}.
 
 \section{Detalles de implementación\label{implementacion}}
 
@@ -222,7 +221,7 @@ través de Kibana, donde configuraremos diferentes gráficos y dashboard.
 \end{figure}
 
 Para realizar esto, lo primero que se ha hecho es configurar los diferentes
-Dockerfiles para establecer las imagenes de los contenedores. Para ello,
+Dockerfiles para establecer las imágenes de los contenedores. Para ello,
 usaremos la herencia que nos proporciona Docker y crearemos un esquema como
 el que aparece en la figura \ref{lmdarq2}. Como padre tendremos una imagen
 de Ubuntu que contendrá todas las librerías comunes para todos. Por
@@ -234,7 +233,7 @@ de cada una de estas imágenes.
 
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=0.20]{Imagenes/arqProp2.png}
+\includegraphics[scale=0.45]{Imagenes/arqProp2.png}
 \caption{Esquema jerárquico docker.}
 \label{lmdarq2}
 \end{figure}
@@ -396,7 +395,7 @@ hemos modificado los siguientes ficheros de configuración:
 
 \item mapred-site.xml
   \begin{itemize}
-  \item Definimos que usaremos el framework yarn, que será el que realiza
+  \item Definimos que usaremos el \emph{framework} Yarn, que será el que realiza
     el MapReduce.
   \item Definimos el JobHistory a historyserver:10020 y la interfaz web a
     historyserver:19888.
@@ -480,24 +479,25 @@ que asignar y, posteriormente, lance el proceso de Kafka.
 
 \subsection{Montaje de las imágenes de Spark\label{montSpark}}
 
-Para montar la imagen de Apache Spark, usaremos la imagen padre de Hadoop.
+Para montar la imagen de Apache Spark, usaremos la imagen padre de Hadoop 
+para que Spark se pueda leer la configuración de Hadoop y usar {\tt Yarn}.
 Para ello, añadiremos la aplicación en {\tt
   /opt/bd/streaming}, debido a que se conectará con la base de datos para
 realizar el streaming. Por otro lado, estableceremos en el fichero {\tt
   spark-defaults.conf} la siguiente configuración:
 \begin{itemize}
-\item Asignamos, por defecto, user {\tt yarn} es decir, el cluster de
+\item Asignamos, por defecto, user {\tt Yarn} es decir, el cluster de
   Hadoop.
 \item Establecemos que reserve como máximo de memoria 512MB, tanto para el
-  yarn como para el cluster de Spark.
+  {\tt Yarn} como para el cluster de Spark.
 \item Establecemos los logs.
-\item Asignamos los ficheros de logs si usa el yarn en el directorio {\tt
+\item Asignamos los ficheros de logs si usa el {\tt Yarn} en el directorio {\tt
     hdfs://namenode:9000/user/ hdmaster/spark-logs}.
 \item Establecemos el history server de Spark.
 \item Establecemos el puerto para la web de Spark a {\tt 18080}.
 \item Seleccionamos dónde se albergan las librerías de Spark en el hdfs a
   {\tt hdfs://namenode:9000/ user/hdmaster/spark-archives.zip}
-\item Le confirmamos que la replicación de bloques del yarn está a 2.
+\item Le confirmamos que la replicación de bloques del {\tt Yarn} está a 2.
 \item Le especificamos dónde está el cluster de Hadoop y con los puertos
   por los que se debe comunicar con: {\tt hdfs://namenode:9000,
     hdfs://datanode1:9866, hdfs://datanode2:9866, hdfs://datanode3:9866}
@@ -539,7 +539,7 @@ spark-master, llevará a cabo su ejecución de la siguiente forma:
 
 Para cumplir con los requisitos, se han hecho también pruebas con Apache
 Flink, comprobando que podemos cambiar la herramienta si en algún momento
-se requiere valorando esta alternativa cuando esté más madura en el
+se requiere, valorando esta alternativa cuando esté más madura en el
 mercado. Dado que usamos Kafka, también hemos comprobado que podemos usar
 ambas herramientas a la vez sin ningún problema, ya que pueden existir
 varios suscriptores en las colas.
@@ -583,9 +583,13 @@ ficheros de datos y logs como se especifica en el apartado
 crearemos la imagen que lanza MongoDB.
 
 Para integrar los datos de OSM, usaremos esta misma imagen añadiendo el
-mapa de España. Para subir los datos nos basaremos en un proyecto de GitHub
-que recomiendan en la página oficial de OSM. Dicho proyecto contiene unos
-scripts de Python que hemos actualizado a Python 3 para que sea compatible
+mapa de España. Para subir los datos nos basaremos en un proyecto de
+GitHub\footnote{\url{https://github.com/iandees/mongosm}}
+que recomiendan en la página oficial de
+OSM\footnote{\url{https://wiki.openstreetmap.org/wiki/Databases\_and\_data\_access\_APIs\#mongosm}}.
+Dicho proyecto contiene diferentes
+scripts de Python que hemos actualizado a Python 3 y a la última versión
+de \emph{pymongo} para que sea compatible
 con nuestros proyectos. Una vez hecho esto, usando estos los scripts, hemos
 usado el fichero especificado en el apartado \ref{datos} del mapa de España
 y lo hemos subido a nuestra base de datos de MongoDB. Dado que los datos se
@@ -601,9 +605,8 @@ podemos asegurar que una sola máquina realice la ejecución de las consultas
 a la base de datos. Dado esto, crearemos dicha API, con Python y la
 librería werkzeug, con la que podremos consultar un punto geográfico. Esta
 API nos devolverá la información de la carretera de la base de datos que
-más se aproxime al punto que pidamos, en un radio de 1,11 km. El código se
-puede ver en el anexo %DSR: ref
-, y podremos realizar consultas a través de la url {\tt
+más se aproxime al punto que pidamos, en un radio de 1,11 km. A través de
+esta, podremos realizar consultas a través de la url {\tt
   http://mongomaster:5000/getway/<latitud>/<longitud>} que nos devolverá un
 JSON con los datos que se encuentran en la base de datos. El código de esta
 API web la podemos consultar en el anexo \ref{apendB}.
@@ -735,11 +738,11 @@ el código que se encuentra en el repositorio de
 GitHub\footnote{\url{https://github.com/Kartonatic/tfm}.}.
 
 Para hacer uso de la arquitectura, tenemos dos opciones. En la primera
-opción habrá que montar las imagenes de Docker nosotros mismos a través de
+opción habrá que montar las imágenes de Docker nosotros mismos a través de
 los Dockerfiles, de forma que reemplacemos los certificados de acceso. La
 segunda forma es más sencilla, pero no reemplazamos los certificados, por
 lo que, cualquiera, podrá acceder a las máquinas con el certificado que hay
-disponible en la imagen de Docker Hub. Aún así, para ambas opciones
+disponible en la imagen de Docker Hub. Aun así, para ambas opciones
 necesitaremos descargarnos el proyecto del repositorio. Los pasos
 para montar esta plataforma en nuestro \emph{host} se encuentra
 en el anexo \ref{apendK}.
@@ -747,11 +750,11 @@ en el anexo \ref{apendK}.
 Una vez montado, como se ha expuesto en la sección \ref{integracion},
 la ejecución de la arquitectura debe hacer lo siguiente: En primer lugar, 
 el simulador enviará tramas continuamente a un \emph{Topic} de Kafka.
-Los mensajes serán leidos por Spark Streaming obteniendo los usuarios 
-y la ubicación en donde se encuentran los vehiculos para, posterormente,
+Los mensajes serán leídos por Spark Streaming obteniendo los usuarios 
+y la ubicación en donde se encuentran los vehículos para, posteriormente,
 enviarlo a otro \emph{Topic} de Kafka. Por último, Logstash recogerá estos
 datos del \emph{Topic} que serán enviados a Elasticsearch. De esta forma,
-podremos esplorar los datos con Kibana.
+podremos explorar los datos con Kibana.
 
 Una vez hecho esto, nos debe aparecer un dashboard en Kibana como el que
 aparece en las figura \ref{kibana1}. Además de esto, tendremos acceso a la
@@ -769,12 +772,6 @@ la del \emph{historyserver} tanto de Spark como de Hadoop.
 
 
 
-%\begin{figure}[htp]
-%\centering
-%\includegraphics[scale=0.26]{Imagenes/kibana2.png}
-%\caption{Dashboard de Kibana}
-%\label{kibana2}
-%\end{figure}
 
 %%% Local variables:
 %%% TeX-master: "main.tex"

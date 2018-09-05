@@ -4,7 +4,7 @@
 \section{Docker\label{Docker}}
 
 
-Docker es un proyecto OpenSource que nos ayudará, de una forma eficiente,
+Docker es un proyecto \emph{OpenSource} que nos ayudará, de una forma eficiente,
 simple, segura, portable y replicable a lanzar servicios
 \cite{Dck-5,Dck-6}. Para entender Docker, debemos entender el concepto de
 contenedor. Según la definición que nos da RedHat, un contenedor es:
@@ -43,29 +43,28 @@ hace que cada contenedor pueda ser lanzado indistintamente de la máquina o
 el SO. Pero, ¿esto es del todo cierto? ¿cómo puede lanzar un contenedor de
 Linux en Windows o viceversa? Evidentemente, esto no es posible, en el caso
 de Windows, por ejemplo, la solución consiste en lanzar una maquina virtual
-con un kernel de Linux sobre el Hyper-V (el hypervisor de windows a partir
+con un \emph{kernel} de Linux sobre el Hyper-V (el hypervisor de Windows a partir
 de Windows 10) o sobre una maquina virtual Virtualbox (versiones
 anteriores) y ejecutar todos los contenedores de Linux sobre esa máquina
 virtual. Sin embargo, los contenedores de Windows únicamente es posible
 lanzarlos desde este mismo sistema operativo \cite{Dck-10}.
 
-Cada imagen del contenedor Docker se almacenan físicamente en el disco con
-una estructura de diferentes capas que hace que, cada imagen, sea aún más
+Cada imagen del contenedor Docker se almacena físicamente en el disco, con
+una estructura de diferentes capas que hace que cada imagen sea aún más
 ligera de almacenar. Dicha cuestión ocurre porque se puede aplicar algo
 similar al concepto de herencia entre las diferentes máquinas permitiendo
 así, que cada imagen sea a su vez parte de la máquina de la que hereda.
 Para entender esto, debemos saber cuál es la estructura de un Dockerfile
 que define la imagen de un contenedor Docker. Cada una de estas imágenes se
-etiquetan con un nombre de modo que sean fáciles de manejar posteriormente.
+etiquetan con un nombre, de modo que sean fáciles de manejar posteriormente.
 
 Un Dockerfile es un fichero que contiene diferentes macros para compilar y
 crear la imagen. La primera instrucción de dicha imagen siempre es el
 contenedor base \cite{Dck-11}. Cada una de las instrucciones que se
-ejecuten da lugar a una nueva capa (layer) que se almacena y se puede
+ejecuten da lugar a una nueva capa (\emph{layer}) que se almacena y se puede
 compartir, si fuera necesario, entre otros contenedores. Por otra parte,
-cada contenedor tiene un límite de capacidad, que en este caso es un límite
-de capas para cada contenedor. Cuando se ha realizado este trabajo el
-límite estaba en 150 capas. \cite{Dck-12}.
+cada contenedor tiene un límite de capas. Cuando se ha realizado este trabajo
+el límite estaba en 150 capas. \cite{Dck-12}.
 
 Este diseño de capas nos permite, además de ocupar menos espacio en disco,
 poder tenerlas en un repositorio y solo descargarnos las capas que no
@@ -87,8 +86,10 @@ manejar toda una estructura de aplicaciones y diferentes servicios.
 \section{Apache Kafka\label{Kafka}}
 
 Apache Kafka surgió de la empresa LinkedIn a partir del sistema que tenían
-para recopilar múltiples métricas de sus sistemas y aplicaciones. Tenían un
-sistema que registraba la información de la actividad de cada usuario a
+para recopilar múltiples métricas de sus sistemas y aplicaciones. Este
+sistema es muy parecido al que se plantea en el capítulo \ref{EstadoArte}.
+LinkedIn, tenia un sistema que registraba la información
+de la actividad de cada usuario a
 partir de diferentes XMLs con una cantidad indefinida de variables, lo que
 lo hacía complejo y propenso a fallos. Para solucionar estas problemas se
 realizaron diferentes estudios que llevaron a Linkedin a usar una
@@ -109,8 +110,10 @@ optimizar al máximo el tiempo que se necesitaba en procesar los mensajes.
 Por último, era importante que pudieran escalar el sistema horizontalmente
 si es necesario por la cantidad de mensajes o por nuevos tipos de mensajes.
 Finalmente, hemos de subrayar que Kafka está escrito en el lenguaje Scala y
-se lanzó como proyecto Open Source y forma parte de la Apache Software
-Foundation \cite{Kfk-1}. Para entender Kafka, debemos de tener en cuenta
+se lanzó como proyecto \emph{Open Source} y forma parte de la Apache Software
+Foundation \cite{Kfk-1}. 
+
+Para entender Kafka, debemos de tener en cuenta
 que es una simple cola de mensajes en la que varios productores y
 consumidores pueden estar a la vez enviando y recibiendo mensajes. Dado que
 los mensajes de Kafka son persistentes, esto hace que se pueda ver como el
@@ -120,13 +123,12 @@ convirtiéndolos, por ejemplo, en estadísticas \cite{Kfk-6}. En el caso de
 una arquitectura Lambda, por ejemplo, podemos leer de la misma cola tanto
 para la \emph{Bach Layer} como para la \emph{Speed Layer} y esto quiere
 decir que toda la información de que proviene de una cola se mantiene en un
-mismo sistema sin necesidad de replicar datos.
-
-Podemos diferenciar Kafka en las siguientes partes:
+mismo sistema sin necesidad de replicar datos. Podemos diferenciar Kafka en
+las siguientes partes:
 
 \textbf{Mensajes y lotes (batch)}: La forma en que se introduce y se saca
 la información en Kafka es a través de mensajes. Cada mensaje, para Kafka,
-es una serie de bytes sin significado alguno a excepción de la parte de
+es una serie de bytes sin significado alguno, a excepción de la parte de
 metadatos que contienen una clave y una marca de tiempo. La clave se puede
 usar para distribuir los datos en diferentes particiones o para hacer un
 seguimiento de los mensajes. Los mensajes se pueden escribir en lotes ({\em
@@ -144,14 +146,14 @@ se recomienda usar algún tipo de estructura. Esto no es una propiedad de
 Kafka como tal, pero es una recomendación muy útil. Las estructuras más
 utilizadas sobre los mensajes de Kafka son JSON y XML.
 
-\textbf{Topics y particiones}: Al igual que en una base de datos tenemos
+\textbf{\emph{Topics} y particiones}: Al igual que en una base de datos tenemos
 tablas o en un sistema de ficheros tenemos directorio, Kafka organiza los
-mensajes por topics. Estos topics, a su vez, se dividen en particiones
+mensajes por \emph{topics}. Estos \emph{topics}, a su vez, se dividen en particiones
 donde se almacenan los mensajes. Los mensajes se almacenan en orden de
 llegada y cada partición puede estar en diferentes servidores. Además.
 puede haber replicación en las particiones o no, según las necesidades. En
 la figura \ref{Kfk-img-1} \cite{Kfk-2} podemos ver cómo se escriben los
-mensajes de un topic en diferentes particiones. Además, a través de las
+mensajes de un \emph{topic} en diferentes particiones. Además, a través de las
 claves de los mensajes, podemos repartir los mismos entre las diferentes
 particiones.
 
@@ -159,27 +161,27 @@ particiones.
 \begin{figure}[htp]
 \centering
 \includegraphics[scale=0.75]{Imagenes/kafka1.png}
-\caption{Funcionamiento del Topic en Kafka con sus particiones.}
+\caption{Funcionamiento del \emph{Topic} en Kafka con sus particiones.}
 \label{Kfk-img-1}
 \end{figure}
 
 \textbf{Productores y consumidores}: Para Kafka, sus clientes, son los
 diferentes usuarios del sistema que escriben o leen la información, es
 decir, los productores y los consumidores. Los productores o publicadores
-son los encargados de escribir los mensajes en un topic. Sin embargo, les
+son los encargados de escribir los mensajes en un \emph{topic}. Sin embargo, les
 da lo mismo en qué partición se encuentre cada mensaje, por lo que será
 Kafka el encargado de distribuir los mensajes en las diferentes
 particiones. Opcionalmente los productores pueden añadir una clave al
 mensaje y así poder repartir ellos mismos los mensajes entre las diferentes
 particiones. A la misma vez, pueden haber varios productores escribiendo en
-un mismo Topic. Los consumidores o lectores son los encargados de leer y
+un mismo \emph{Topic}. Los consumidores o lectores son los encargados de leer y
 consumir el mensaje, con la característica de que el mensaje no se borrará
 una vez leído si no, como hemos dicho, según la caducidad del mismo. Cada
 uno de los consumidores se suscribe a un tema he irá leyendo los mensajes
 en el orden en el que se han producido. Además, puede haber varios
-consumidores leyendo de un mismo topic y de una misma partición. Los
+consumidores leyendo de un mismo \emph{topic} y de una misma partición. Los
 consumidores pueden leer desde el principio de la cola o empezar con un
-desplazamiento u offset específico. Una vez vaya leyendo los mensajes, el
+desplazamiento u \emph{offset} específico. Una vez vaya leyendo los mensajes, el
 consumidor sabrá por cuál se ha quedado y podrá seguir leyendo a partir del
 siguiente mensaje. Esto significa que los consumidores pueden detenerse o
 reiniciarse y sabrán volver al punto por donde se habían quedado. También
@@ -192,7 +194,7 @@ puede asignar una partición de forma que sea a ese consumidor el que lee,
 mayormente, dicha partición. Decimos mayormente porque si hay un fallo por
 parte de otro consumidor, para que una partición no se quede sin leer,
 automáticamente se le asignará mensajes de otras particiones para que los
-procese. Podemos ver como un grupo de consumidores consumen un topic en la
+procese. Podemos ver como un grupo de consumidores consumen un \emph{topic} en la
 figura \ref{Kfk-img-2} \cite{Kfk-1}.
 
 \begin{figure}[htp]
@@ -205,14 +207,14 @@ figura \ref{Kfk-img-2} \cite{Kfk-1}.
 \textbf{Brokers y Clusters}: Cada servidor con Kafka se le llama {\em
   broker} y es el encargado de recibir y enviar los mensajes desde los
 productores a los consumidores. Como ya sabemos, una vez recibe un mensaje,
-estos deben permanecer en disco, esto lo hace el broker asignándole el
+estos deben permanecer en disco, esto lo hace el \emph{broker} asignándole el
 offset correspondiente y eliminando los mensajes que han caducado. El
-broker también es el encargado de gestionar las diferentes particiones
+\emph{broker} también es el encargado de gestionar las diferentes particiones
 siendo capaz de manejar miles de particiones y millones de mensajes,
-dependiendo del hardware donde resida. Un broker está diseñado para formar
-parte de un cluster junto a más brokers, los cuales son gestionados a
+dependiendo del hardware donde resida. Un \emph{broker} está diseñado para formar
+parte de un \emph{cluster} junto a más \emph{brokers}, los cuales son gestionados a
 través de Zookeeper. Mediante este mismo, se gestiona quién será el líder
-del cluster, encargado de repartir las particiones, controlar la
+del \emph{cluster}, encargado de repartir las particiones, controlar la
 replicación de datos y revisar fallos. Si el líder falla, será Zookeeper el
 encargado de asignar un nuevo líder.
 
@@ -228,9 +230,9 @@ hacen uso grandes empresas como Yahoo!, Last.fm, Facebook o el New York
 Times. Además de esto, en 2009, Hadoop superó el récord de Google en
 ordenar un terabyte de datos en menos tiempo \cite{Hdp-1}. Por otro lado,
 Apache Hadoop forma parte de Apache Foundation, lo que quiere decir que es
-totalmente OpenSource.
+totalmente \emph{OpenSource}.
 
-Actualmente, la arquitectura de la versión 3 de Hadoop, está formada por
+Actualmente, el funcionamiento de la versión 3 de Hadoop, está formada por
 cuatro módulos principales y sus diferentes servicios \cite{Hdp-4}:
 
 \begin{itemize}
@@ -257,7 +259,7 @@ cuatro módulos principales y sus diferentes servicios \cite{Hdp-4}:
     capacidad de sustituirlo.
   \end{itemize}
 \item \textbf{Hadoop YARN}: Este módulo es el framework que gestiona los
-  trabajos y los diferentes recursos del cluster. La idea consiste en
+  trabajos y los diferentes recursos del \emph{cluster}. La idea consiste en
   separar la planificación y la supervisión de los diferentes trabajos
   sobre Hadoop. También usa una estructura de maestro/esclavo para los
   cuales se suministran los siguientes servicios:
@@ -268,9 +270,9 @@ cuatro módulos principales y sus diferentes servicios \cite{Hdp-4}:
     aplicaciones). Como planificador debe ser capaz de asignar los recursos
     necesarios a cada aplicación cuando lo necesite o reiniciar una
     aplicación en caso de fallo. Como gestor de aplicaciones es el
-    encargado de asignar trabajo a cada uno de los componentes del cluster.
+    encargado de asignar trabajo a cada uno de los componentes del \emph{cluster}.
   \item \textbf{Node Manager}:Es el responsable de iniciar y administrar
-    los trabajos para una nodo del cluster.
+    los trabajos para una nodo del \emph{cluster}.
   \item \textbf{ProxyServer}: Por defecto, se ejecuta junto al Resource
     Manager, pero se puede ejecutar por separado. Se encarga de reducir
     ataques web que puedan producirse a través de YARN.
@@ -290,7 +292,7 @@ característica que posee. HDFS, como los sistemas de ficheros
 convencionales, distribuye los diferentes ficheros en bloques de un tamaño
 fijo, normalmente de 128 MB, ya que suponen ficheros de gran tamaño, aunque
 esto es modificable. Dichos bloques están divididos entre los diferentes
-nodos del cluster de forma que sea más fácil realizar diversos tratamientos
+nodos del \emph{cluster} de forma que sea más fácil realizar diversos tratamientos
 sobre ellos de forma paralela. Además de esto, contamos con la replicación
 de los distintos bloques, según establezcamos cuantas replicaciones de
 bloque queramos. Esto tiene muchas implicaciones tales como cuando cae uno
@@ -315,12 +317,12 @@ funcionaria gráficamente:
 \end{figure}
 
 Por último, decir que Apache Hadoop está programado en Java y necesitamos
-la JVM (Java Virtual Machine) para ejecutarlo.
+la JVM (\emph{Java Virtual Machine}) para ejecutarlo.
 
 
 \section{MongoDB\label{MongoDB}}
 
-MongoDB es una base de datos NoSQL en concreto, de tipo documental.
+MongoDB es una base de datos NoSQL, en concreto, de tipo documental.
 Almacena los datos con una estructura muy parecida al JSON llamada BSON.
 MongoDB es código abierto, lo que quiere decir que cualquiera puede
 reportar fallos directamente del código o contribuir a nuevas mejoras, lo
@@ -331,15 +333,15 @@ pensada para tener gran flujo de entrada y salida de datos, con un esquema
 dinámico. Esto quiere decir que, frente al SQL tradicional, podemos
 insertar y extraer datos sin tener que definir previamente una estructura
 fija. Al almacenar BSON podemos añadir todos los tipos de datos que
-queramos y que nos permita JSON, por tanto tenemos arrays o documentos
-dentro de documentos entre otros tipos de datos. Estas bases de datos son
+queramos y que nos permita JSON, por tanto podemos introducir \emph{arrays} o documentos
+dentro de los documentos insertados, entre otros tipos de datos. Estas bases de datos son
 formadas por colecciones que a su vez, contienen los diferentes documentos.
 Cada uno de estos documentos contiene múltiples campos los cuales, definen
 las claves por las que realizar las búsquedas posteriormente. Podemos ver
-esto último en la figura \ref{Mng-img-1} \cite{Mng-5}. Esto hace que las
+la estructura que se comenta en la figura \ref{Mng-img-1} \cite{Mng-5}. Esto hace que las
 búsquedas sean realmente potentes ya que son muy flexibles y lo
-sorprendente es que son en algunos casos, incluso más rápidas que muchas
-bases de datos SQL tradicionales ya que, no hace falta hacer tantos JOINs.
+sorprendente rápidas, en algunos casos, incluso más que muchas
+bases de datos relacionales, especialmente cuando se trata de aplicar la función JOIN.
 Otra diferencia entre las bases de datos NoSQL y una SQL relacional es que
 no soporta transacciones, por lo que no es recomendable usar MongoDB en
 programas de tipo transaccionales. Por otra parte, una de las
@@ -359,10 +361,10 @@ permitirá realizar consultas y operaciones de tipo geoespaciales
 Otra de las características que hacen a MongoDB tan potente es el hecho de
 que es fácilmente escalable \cite{Mng-1}. Podemos crear réplicas o
 distribuir los datos horizontalmente de una forma fácil. Para distribuir
-los datos, MongoDB añade el concepto de sharding, que consiste en una
-colección distribuida a través de un hash de los campos obligatorios que
-tengan los documentos de dicha colección, como puede ser el id. Por otro
-lado, también tenemos las réplicas, nombradas Replica Set. El Replica Set
+los datos, MongoDB añade el concepto de \emph{Sharding}, que consiste en una
+colección distribuida a través de un \emph{hash} de los campos obligatorios que
+tengan los documentos de dicha colección, como puede ser el identificador. Por otro
+lado, también tenemos las réplicas, nombradas \emph{Replica Set}. El Replica Set
 consiste en tener un servidor primario y uno o varios secundarios.
 Normalmente se hacen todas las peticiones al servidor primario y es el que
 se encarga de que los secundarios se mantengan actualizados. Dependiendo de
@@ -371,7 +373,7 @@ pero las peticiones van al servidor primario por normal general. Si el
 servidor primario cae, se asignará automáticamente a otro servidor la
 función de primario hasta que el primario se recupere. Con las librerías de
 MongoDB esto se hace totalmente transparente al programador por lo que, una
-vez montadas las réplicas o los shards, el programador hará las lecturas y
+vez montadas las Réplicas o los Shards, el programador hará las lecturas y
 escrituras tal y como lo haría si solo existiera un único servidor de
 MongoDB.
 
@@ -382,7 +384,7 @@ generales, específicamente cuando hablamos de algoritmos de aprendizaje
 automático en las que se necesitaban realizar múltiples iteraciones sobre
 los mismos datos. El equipo de Spark diseñó un API basada en la
 programación funcional, en concreto usaron el lenguaje Scala que permitía,
-en un solo trabajo, realizar varias interacciones de MapReduce
+en un solo trabajo, realizar varias iteracciones de MapReduce
 \cite{Spk-1}. Apache Spark lanzó la versión 1.0 en 2014 y Spark 2.0 en
 2016, realizando regularmente nuevas aportaciones al proyecto \cite{Spk-2}.
 Actualmente está disponible la versión 2.3, que usaremos en este trabajo. A
@@ -393,17 +395,17 @@ distribuye el trabajo. Spark soporta un flujo de datos acíclico creando un
 \textbf{DAG} (Directed Acyclic Graph) de etapas de trabajo que, por
 definición del mismo, es un grafo de trabajo sin ciclos \cite{Spk-5}. Esto
 nos permitirá repartir las tareas de trabajo entre los distintos nodos del
-cluster y favorecer la recursión dentro del mismo. Para poder añadir
+\emph{cluster} y favorecer la recursión dentro del mismo. Para poder añadir
 trabajos a este DAG podemos hacerlo a través de la variable Spark Context.
 Cuando añadimos un trabajo al Spark Context, Spark reorganiza el DAG y
 optimiza la gestión de las tareas añadidas. Por otro lado, la siguiente
 característica más importante de Spark son los \textbf{RDD} ({\em Resilient
   Distributed Dataset}) que consiste en una colección inmutable de datos
-particionada con la que se puede operar de forma paralela. Sobre estos RDD
+particionada con la que se puede operar de forma paralela. Sobre estos RDD,
 podemos realizar diferentes operaciones como MapReduce o cualquiera que nos
 permitan los módulos de Spark \cite{Spk-4}.
 
-En cuanto a la arquitectura de un cluster de Spark, tenemos dos tipos de
+En cuanto a la arquitectura de un \emph{cluster} de Spark, tenemos dos tipos de
 nodos principales. El más importante es el \textbf{nodo master}, que es el
 que coordina a los demás nodos. Este nodo dirige a los \textbf{nodos
   esclavos} (o slaves) que son los que ejecutan los trabajos de Spark.
@@ -431,7 +433,7 @@ diferentes operaciones sobre los datos \cite{Spk-3}:
 \begin{itemize}
 \item \textbf{Spark Core Engine}: Es el módulo principal de Spark. Sobre
   este módulo se ejecutan todos los demás. Permite la persistencia en
-  memoria de forma que permita una gran velocidad al pedir datos.
+  memoria dando como resultado una mayor velocidad al devolver datos.
 \item \textbf{Spark Sql y DataFrames}: Este módulo nos permite trabajar a
   Spark con datos estructurados. Sobre estos datos podemos realizar
   consultas SQL.
@@ -500,7 +502,7 @@ cada uno de ellos \cite{Elk-4}:
 \item \textbf{Logstash}: Se trata de un sistema de procesamiento
   distribuido el cual obtiene datos de diferentes fuentes para insertarlos
   en otras, normalmente en Elasticsearch. Cuando hablamos de Logstash
-  hablamos de un servicio con una o varias pipelines (tuberías). Cada
+  hablamos de un servicio con una o varias \emph{pipelines} (tuberías). Cada
   pipeline tiene tres fases. La primera obtendrá los datos de cualquier
   tipo de fuente (entrada), la segunda filtra y procesa los datos y la
   tercera inserta los datos en Elasticsearch o cualquier otra salida.
@@ -526,7 +528,7 @@ cada uno de ellos \cite{Elk-4}:
   y poner alertas como que salte la alerta cuando se suma determinado valor
   de una variable en un mes. Las alertas se pueden transmitir por
   diferentes medios como por slack o email.
-\item \textbf{Monitoring}: Nos permite ver el estado del cluster.
+\item \textbf{Monitoring}: Nos permite ver el estado del \emph{cluster}.
 \item \textbf{Reporting}: Nos permite crear Reports a través de Kibana.
 \item \textbf{Graph}: Nos permite ver diferentes conexiones entre los
   documentos de una forma gráfica.

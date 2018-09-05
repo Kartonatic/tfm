@@ -24,6 +24,7 @@
 \usepackage{pifont}
 \usepackage{scrhack}
 \usepackage{caption}
+\usepackage{pdfpages}
 
 \setlength{\parskip}{0.75em plus .5em minus .5em}
 \setcounter{secnumdepth}{3}
@@ -77,25 +78,6 @@
 \titleformat{\section}[block]{\huge}{\thesection}{1em}{}
 \titleformat{\subsection}[block]{\Large}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}[block]{\large}{\thesubsubsection}{1em}{}
-
-
-
-\lstdefinestyle{mystyle}{
-        basicstyle=\ttfamily\scriptsize,
-        breakatwhitespace=false,
-        breaklines=false,
-        captionpos=b,
-        keepspaces=true,
-        numbers=none,
-        showspaces=false,
-        showstringspaces=false,
-        showtabs=false,
-        tabsize=1
-    }
-
-
-
-
 
 \begin{document}
         \begin{titlepage}
@@ -169,13 +151,10 @@
 
         \end{titlepage}
 
-%\pdfbookmark[1]{Portada}{portada}      % Marcador para el título
-
-%\maketitle                                                     % Título
 
 
-
-
+\includepdf{Autorizaciones/autorizacion.pdf}
+\includepdf{Autorizaciones/originalidad.pdf}
 
 \newpage
 \input{Resumen.tex}
@@ -214,6 +193,7 @@
 
 
 \newpage
+\renewcommand\bibname{Bibliografía}
 \bibliography{referencias}
 \bibliographystyle{apalike}
 %\nocite{*}

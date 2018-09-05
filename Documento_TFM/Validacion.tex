@@ -20,7 +20,10 @@ sencilla. Dado esto y, principalmente por poder separar los procesamientos
 en tiempo real y de histórico, la arquitectura Lambda es más que
 recomendable en sistemas de IoT que requieren gran cantidad de
 procesamientos y, más aún, en las aplicaciones dirigidas al transporte y
-gestión de flotas.
+gestión de flotas. Para terminar, decir que es capaz de soportar más cantidad
+de mensajes que los usados en las pruebas, de hecho, se han hecho pruebas
+sobre el hardware que disponemos con varios gigas de datos y es capaz de
+llevarlo bien.
 
 En cuanto a las herramientas utilizadas, comenzaremos analizando el uso de
 Docker sobre esta arquitectura. Docker, nos ha aportado la capacidad de
@@ -48,6 +51,7 @@ lado, también vemos que el sistema de ficheros HDFS nos da la ventaja de
 dejar de tener que usar RAIDs en nuestros servidores y poder acceder a los
 datos de una forma rápida.
 
+%RGM: AQUI SE DICE LA CANTIDAD DE MENSAJES QUE SOPORTA POR SEGUNDO, POR LA PARTE DE KAFKA, LA VERDAD ES LO QUE DIGO, ME SOBRA KAFKA PARA METER MENSAJES, DESDE MI PUNTO DE VISTA ES UNA DE LAS MEJORES HERRAMIENTAS, DE HECHO, PROBÉ A METER VARIOS GIGAS DE MENSAJES Y SE LOS CHUPABA BIEN CON MI PORTATIL
 Por la parte de Spark, encontramos que las operaciones para obtener los
 usuarios y comprobar si está cerca de un punto negro, se realizan muy
 eficientemente y se pueden tratar las tramas rápidamente. Con las pruebas
